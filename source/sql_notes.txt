@@ -1,0 +1,2 @@
+select count(*) from db_poe_stashes where poe_stash_json_data->>'league' is null and poe_stash_json_data->>'accountName' is Null
+and JSONB_ARRAY_LENGTH(poe_stash_json_data->'items') = 0
