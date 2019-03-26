@@ -1,2 +1,22 @@
-select count(*) from db_poe_stashes where poe_stash_json_data->>'league' is null and poe_stash_json_data->>'accountName' is Null
+select count(*) from db_poe_stashes where poe_stash_json_data->>'league' is null
+ and poe_stash_json_data->>'accountName' is Null
 and JSONB_ARRAY_LENGTH(poe_stash_json_data->'items') = 0
+
+
+
+CREATE TABLE article (
+    article_id bigserial primary key,
+    article_name varchar(20) NOT NULL,
+    article_desc text NOT NULL,
+    date_added timestamp default NULL
+);
+
+
+
+CREATE TABLE IF NOT EXISTS db_poe_chat (db_poe_chat_guid uuid'
+                       ' CONSTRAINT mm_media_dir_pk PRIMARY KEY,'
+                       ' mm_media_dir_path text,'
+                       ' mm_media_dir_class_type uuid,'
+                       ' mm_media_dir_last_scanned timestamp,'
+                       ' mm_media_dir_share_guid uuid,'
+                       ' mm_media_dir_status jsonb)
