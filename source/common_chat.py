@@ -16,9 +16,14 @@
   MA 02110-1301, USA.
 '''
 
+# TODO for alerts.....do the OS alert as well?
+
 # TODO add chat records to database from client.txt
 
 # TODO alert on trade messages
+## for sniping add to clipboard automatically - might need xclip in linux installed
+## toClip = "@%s Hi I would like to buy your %s listed for %s" %(x['accountName'], y['typeLine'], y['note'])
+## pyperclip.copy(toClip)
 
 # TODO alert on whisper messages
-
+# chat.startswith("@From")
