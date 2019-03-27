@@ -17,8 +17,8 @@
 '''
 
 
-def com_chat_load_file(file_name='client.txt', last_position=0):
-    client_file_handle = open(file_name, 'r')
+def com_chat_load_file(file_name='E:/Steam/steamapps/common/Path of Exile/logs/Client.txt', last_position=0):
+    client_file_handle = open(file_name, 'r', encoding='utf-8')
     client_file_handle.seek(last_position)
     while 1:
         client_line = client_file_handle.readline()
@@ -26,6 +26,7 @@ def com_chat_load_file(file_name='client.txt', last_position=0):
         if client_line.startswith('@From'):
             # TODO alert on whisper
             pass
+
 
 # TODO for alerts.....do the OS alert as well?
 
@@ -36,3 +37,4 @@ def com_chat_load_file(file_name='client.txt', last_position=0):
 ## toClip = "@%s Hi I would like to buy your %s listed for %s" %(x['accountName'], y['typeLine'], y['note'])
 ## pyperclip.copy(toClip)
 
+com_chat_load_file()
