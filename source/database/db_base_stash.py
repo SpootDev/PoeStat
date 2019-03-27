@@ -29,27 +29,33 @@ def db_stash_insert(self, share_json):
                            ' values (%s,%s,%s,%s,%s)'
                            ' on conflict (poe_stash_id_uuid)'
                            ' do update set poe_stash_json_data = %s',
-                           (str(uuid.uuid4()), None, None, json.dumps(share_json), str(share_json['id']),
+                           (str(uuid.uuid4()), None, None, json.dumps(share_json),
+                            str(share_json['id']),
                             json.dumps(share_json)))
     self.db_commit()
 
 
 def db_stash_read_all(self):
-    self.db_cursor.execute('select poe_stash_json_data->>\'id\' as poe_stash_id from db_poe_stashes')
+    self.db_cursor.execute(
+        'select poe_stash_json_data->>\'id\' as poe_stash_id from db_poe_stashes')
     return self.db_cursor.fetchall()
 
 
 def db_stash_all_league(self):
-    self.db_cursor.execute('select distinct league from (select poe_stash_json_data->\'league\' as league'
-                           ' from db_poe_stashes) as foo')
+    self.db_cursor.execute(
+        'select distinct league from (select poe_stash_json_data->\'league\' as league'
+        ' from db_poe_stashes) as foo')
     return self.db_cursor.fetchall()
 
 
 def db_stash_delete_null_league(self):
-    self.db_cursor.execute('delete from db_poe_stashes where poe_stash_json_data->>\'league\' is null')
+    self.db_cursor.execute(
+        'delete from db_poe_stashes where poe_stash_json_data->>\'league\' is null')
     self.db_commit()
 
+
 """
-select count(*) from db_poe_stashes where poe_stash_json_data->>'league' is null and poe_stash_json_data->>'accountName' is Null
-and JSONB_ARRAY_LENGTH(poe_stash_json_data->'items') = 0
+select count(*) from db_poe_stashes where poe_stash_json_data->>'league' is null
+ and poe_stash_json_data->>'accountName' is Null
+ and JSONB_ARRAY_LENGTH(poe_stash_json_data->'items') = 0
 """

@@ -16,5 +16,40 @@
   MA 02110-1301, USA.
 '''
 
+'''
 
-# TODO get all the leagues
+season
+Optional
+A particular season id. Required when type=season.
+
+'''
+
+import requests
+
+LEAGUE_TAB_API_URL = 'http://api.pathofexile.com/leagues'
+
+
+def fetch_from_url(league_type='main', realm_name='pc', offset=0):
+    """
+    Download data from specified url
+    realm_name = pc, xbox or sony
+    compact = 0 - Displays the full info for leagues retrieved (will only retrieve 50 leagues)
+    """
+    datafile = requests.get(LEAGUE_TAB_API_URL + '/?type=%s?compact=0?realm=%s?offset=%s',
+                            (league_type, realm_name, offset))
+    return datafile.json()
+
+
+def com_league_list():
+    data_league = []
+    # retrieves permanent and challenge leagues
+    for league_row in fetch_from_url(league_type='main'):
+        pass
+    # retrieves event leagues
+    for league_row in fetch_from_url(league_type='event'):
+        pass
+    # retrieves leagues in a particular season.
+    for league_row in fetch_from_url(league_type='season'):
+        # TODO if 50 leagues returned....need to grab next 50
+        pass
+    return data_league
