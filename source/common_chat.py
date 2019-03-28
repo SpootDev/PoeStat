@@ -16,6 +16,8 @@
   MA 02110-1301, USA.
 '''
 
+from datetime import datetime
+
 
 def com_chat_load_file(file_name='E:/Steam/steamapps/common/Path of Exile/logs/Client.txt', last_position=0):
     client_file_handle = open(file_name, 'r', encoding='utf-8')
@@ -23,6 +25,12 @@ def com_chat_load_file(file_name='E:/Steam/steamapps/common/Path of Exile/logs/C
     while 1:
         client_line = client_file_handle.readline()
         last_position = client_file_handle.tell()
+        try:
+            # this verifies that it's a normal message
+            datetime.strptime(client_line.split(' ', 1)[0], "%Y-%m-%d")
+        except ValueError:
+            # "skip" back to the while clause
+            continue
         if client_line.startswith('@From'):
             # TODO alert on whisper
             pass
