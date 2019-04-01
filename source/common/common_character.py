@@ -29,3 +29,7 @@ def com_char_get_stash(poe_session_id, account_name, account_league, tab_ndx):
 
 
 # TODO Generate Path of Building definitions
+
+
+def com_char_get_list(account_name, league_name):
+    pass

@@ -17,9 +17,8 @@
 '''
 
 
-# TODO exp needed
+# TODO exp needed - current exp can be found on character list
 
 # TODO exp rate
 
 # TODO exp rate in party
-
