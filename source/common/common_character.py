@@ -31,5 +31,28 @@ def com_char_get_stash(poe_session_id, account_name, account_league, tab_ndx):
 # TODO Generate Path of Building definitions
 
 
-def com_char_get_list(account_name, league_name):
-    pass
+def com_char_get_list(account_name, league_name=None):
+    # https://www.pathofexile.com/character-window/get-characters?accountName=spooticusmaximus
+    poe_char_request = requests.get(
+        'https://www.pathofexile.com/character-window/get-characters?accountName=%s' % account_name)
+    if poe_char_request.status_code == 200:
+        result_data = poe_char_request.json()
+        if 'error' in result_data:
+            return None
+        else:
+            if league_name is not None:
+                character_list = []
+                for character_data in result_data:
+                    if character_data['league'] == league_name:
+                        character_list.append(character_data)
+            else:
+                return result_data
+    return None
+
+# https://www.pathofexile.com/account/view-profile/spooticusmaximus
+# can use to get guild and stuff with bsoup
+# https://www.pathofexile.com/account/view-profile/Blocknite/characters - full blown gui web list
+# if errMsg == "Response code: 403" then
+#     "Account profile is private."
+# elseif errMsg == "Response code: 404" then
+#     "Account name is incorrect."
