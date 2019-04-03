@@ -26,8 +26,6 @@ A particular season id. Required when type=season.
 
 import requests
 
-LEAGUE_TAB_API_URL = 'http://api.pathofexile.com/leagues'
-
 
 def fetch_from_url(league_type='main', realm_name='pc', offset=0):
     """
@@ -35,8 +33,9 @@ def fetch_from_url(league_type='main', realm_name='pc', offset=0):
     realm_name = pc, xbox or sony
     compact = 0 - Displays the full info for leagues retrieved (will only retrieve 50 leagues)
     """
-    datafile = requests.get(LEAGUE_TAB_API_URL + '/?type=%s?compact=0?realm=%s?offset=%s',
-                            (league_type, realm_name, offset))
+    datafile = requests.get(
+        'http://api.pathofexile.com/leagues/?type=%s?compact=0?realm=%s?offset=%s',
+        (league_type, realm_name, offset))
     return datafile.json()
 
 

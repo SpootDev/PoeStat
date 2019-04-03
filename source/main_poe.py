@@ -18,9 +18,12 @@
 
 import time
 
-import database as database_base
 import requests
 
+import database as database_base
+
+# TODO rate limit for api
+# https://www.pathofexile.com/forum/view-thread/2079853/page/1
 STASH_TAB_API_URL = 'http://www.pathofexile.com/api/public-stash-tabs'
 
 
