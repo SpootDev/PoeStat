@@ -1,6 +1,9 @@
+pi pos with touchscreen? com with local client via twisted
 
 Search/Filter stashs for gear/items (including stats, ench, etc)
+
 View characters and inventory/gear
+
 Generate trade posts
 
 # what macros are allowed to do
@@ -23,17 +26,28 @@ Displays a log of all matches with username, name of the rule that matched, date
 
 Copy the username of a match directly to clipboard for ease of use.
 
-By default, pressing F2 will teleport you to your hideout.
 Using the %buyer%, %item%, %price% variables in your messages, communication is even faster.
+
 With the precise Item Grid overlay, you will be able to find your item as fast as possible.
+
 Price check against scammers.
+
 Compare your item's price on poe.trade with the price sent in the whisper to avoid scammers that change the price in the whisper.
+
 When your buyer joins your area, his corresponding tab colour will turn green.
+
 This allows to know which trades should be prioritized first.
+
 Additionally, a tab will turn purple if you receive another whisper from the same person.
+
 Play custom sound files upon receiving a trading whisper / regular whisper / when the buyer joins your area.
+
 Receive notifications on your phone when receiving trading whispers.
+
 You may also enable these notifications only if you are AFK in game.
+
 Instantly send a trading whisper upon copying.
+
 Take a look at your previously completed trades
+
 Closing a tab with a button containing the "Save trade stats" action will add it to the "My Stats" interface.
