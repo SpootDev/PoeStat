@@ -31,3 +31,20 @@ CREATE TABLE IF NOT EXISTS db_poe_item (item_uuid uuid'
                        ' item_json jsonb')
 
 CREATE INDEX db_poe_item_stash_uuid_ndx ON public.db_poe_item USING btree (item_stash_uuid);
+
+
+CREATE TABLE IF NOT EXISTS db_poe_item_base_types (item_base_type_uuid uuid'
+                       ' CONSTRAINT item_base_type_uuid_pk PRIMARY KEY,'
+                        ' db_poe_item_base_name text')
+
+CREATE INDEX db_poe_item_base_type_name_uuid_ndx ON public.db_poe_item_base_types USING btree (db_poe_item_base_name);
+
+
+
+CREATE TABLE IF NOT EXISTS db_poe_item_subtypes (item_subtype_uuid uuid'
+                       ' CONSTRAINT item_subtype_uuid_pk PRIMARY KEY,'
+                        ' db_poe_item_subtype_name text,
+                        ' db_poe_item_subtype_base_uuid uuid')
+
+CREATE INDEX db_poe_item_subtype_name_uuid_ndx ON public.db_poe_item_subtypes USING btree (db_poe_item_subtype_name);
+CREATE INDEX db_poe_item_base_uuid_ndx ON public.db_poe_item_subtypes USING btree (db_poe_item_subtype_base_uuid);

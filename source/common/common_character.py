@@ -36,7 +36,6 @@ def com_char_get_list(account_name, league_name=None):
     [{"name":"Fake","league":"Standard","classId":6,"ascendancyClass":0,
     `   "class":"Shadow","level":75,"experience":566277952}]
     """
-    # https://www.pathofexile.com/character-window/get-characters?accountName=spooticusmaximus
     poe_char_request = requests.get(
         'https://www.pathofexile.com/character-window/get-characters?accountName=%s' % account_name,
         headers={'accept-encoding': 'gzip'})

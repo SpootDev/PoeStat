@@ -1,3 +1,5 @@
+when receiveing a null league tab with account name......if no items can probalby delete the stash as was readonly delete
+
 pi pos with touchscreen? com with local client via twisted
 
 Search/Filter stashs for gear/items (including stats, ench, etc)
@@ -10,6 +12,7 @@ Generate trade posts
 https://www.pathofexile.com/forum/view-thread/2077975
 
 Generate wealth report
+
 Build index and browser - path of building/etc
     https://github.com/ktzee/pobuilds/blob/master/builds/views.py - possible render example
     treeURL = "https://www.pathofexile.com/passive-skill-tree"
