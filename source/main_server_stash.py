@@ -31,7 +31,9 @@ def fetch_from_url(stash_last_id=None):
     """
     Download data from specified url
     """
-    datafile = requests.get(STASH_TAB_API_URL + '/?id=' + stash_last_id)
+    # requests will auto decompress the gzip
+    datafile = requests.get(STASH_TAB_API_URL + '/?id=' + stash_last_id,
+                            headers={'accept-encoding': 'gzip'})
     return datafile.json()
 
 

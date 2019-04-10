@@ -20,9 +20,11 @@ import requests
 
 STASH_URL_BY_ID = 'http://www.pathofexile.com/api/public-stash-tabs?id='
 
+
 # TODO find 40's......for the total quality vendor recipe
 # TODO Produce vendor recipe list from stashes
 
 def com_stash_get_by_id(stash_id):
-    stash_data = requests.get(STASH_URL_BY_ID + stash_id)
+    stash_data = requests.get(STASH_URL_BY_ID + stash_id,
+                              headers={'accept-encoding': 'gzip'})
     return stash_data.json()

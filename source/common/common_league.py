@@ -35,7 +35,8 @@ def fetch_from_url(league_type='main', realm_name='pc', offset=0):
     """
     datafile = requests.get(
         'http://api.pathofexile.com/leagues/?type=%s?compact=0?realm=%s?offset=%s',
-        (league_type, realm_name, offset))
+        (league_type, realm_name, offset),
+        headers={'accept-encoding': 'gzip'})
     return datafile.json()
 
 

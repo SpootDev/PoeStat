@@ -38,7 +38,8 @@ def com_char_get_list(account_name, league_name=None):
     """
     # https://www.pathofexile.com/character-window/get-characters?accountName=spooticusmaximus
     poe_char_request = requests.get(
-        'https://www.pathofexile.com/character-window/get-characters?accountName=%s' % account_name)
+        'https://www.pathofexile.com/character-window/get-characters?accountName=%s' % account_name,
+        headers={'accept-encoding': 'gzip'})
     if poe_char_request.status_code == 200:
         result_data = poe_char_request.json()
         if 'error' in result_data:
