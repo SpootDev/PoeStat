@@ -51,7 +51,7 @@ while True:
                         and stash_data['accountName'] is not None:
                     db_connection.db_stash_insert(stash_data)
             # storing the next id after the stash inserts in case it fails
-            db_connection.db_status_upsert(last_stash_id)
+            db_connection.db_status_update(last_stash_id)
     print(stash_tab_data)
     time.sleep(30)
 

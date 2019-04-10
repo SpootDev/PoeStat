@@ -17,15 +17,16 @@
 '''
 
 
-def db_status_read(self):
-    self.db_cursor.execute('select poe_status_change_id from db_poe_status')
-    return self.db_cursor.fetchone()[0]
-
-
-def db_status_update(self, stash_next_id):
+def db_item_upsert(self, stash_id, item_json):
     """
     # upsert into database
     """
-    self.db_cursor.execute('UPDATE db_poe_status SET poe_status_change_id = %s',
-                           (stash_next_id,))
+    self.db_cursor.execute('insert into db_poe_stashes (poe_stash_uuid, poe_stash_account_uuid,'
+                           ' poe_stash_character_uuid, poe_stash_json_data, poe_stash_id_uuid)'
+                           ' values (%s,%s,%s,%s,%s)'
+                           ' on conflict (poe_stash_id_uuid)'
+                           ' do update set poe_stash_json_data = %s',
+                           (str(uuid.uuid4()), None, None, json.dumps(share_json),
+                            str(share_json['id']),
+                            json.dumps(share_json)))
     self.db_commit()

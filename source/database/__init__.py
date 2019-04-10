@@ -15,7 +15,7 @@ class ServerDatabase(object):
         db_stash_all_league, \
         db_stash_delete_null_league
     from database.db_base_status import db_status_read,\
-        db_status_upsert
+        db_status_update
 
 
     # class variables

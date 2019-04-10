@@ -10,10 +10,24 @@ CREATE TABLE IF NOT EXISTS db_poe_chat (chat_user text'
                        ' chat_timestamp timestamp,'
                        ' chat_uuid uuid')
 
+CREATE INDEX db_poe_chat_type_ndx ON public.db_poe_chat USING btree (chat_type);
+CREATE INDEX db_poe_chat_timestamp_ndx ON public.db_poe_chat USING btree (chat_timestamp);
+CREATE INDEX db_poe_chat_uuid_ndx ON public.db_poe_chat USING btree (chat_uuid);
+
+
 
 CREATE TABLE IF NOT EXISTS db_poe_league (league_name text'
                         ' CONSTRAINT league_name_pk PRIMARY KEY,'
                         ' league_json jsonb',
                         ' league_uuid uuid')
 
+CREATE INDEX db_poe_league_uuid_ndx ON public.db_poe_chat USING btree (league_uuid);
 
+
+
+CREATE TABLE IF NOT EXISTS db_poe_item (item_uuid uuid'
+                       ' CONSTRAINT item_uuid_pk PRIMARY KEY,'
+                       ' item_stash_uuid uuid,'
+                       ' item_json jsonb')
+
+CREATE INDEX db_poe_item_stash_uuid_ndx ON public.db_poe_item USING btree (item_stash_uuid);
