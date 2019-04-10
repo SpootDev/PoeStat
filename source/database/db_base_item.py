@@ -16,17 +16,17 @@
   MA 02110-1301, USA.
 '''
 
+import json
+import uuid
+
 
 def db_item_upsert(self, stash_id, item_json):
     """
     # upsert into database
     """
-    self.db_cursor.execute('insert into db_poe_stashes (poe_stash_uuid, poe_stash_account_uuid,'
-                           ' poe_stash_character_uuid, poe_stash_json_data, poe_stash_id_uuid)'
-                           ' values (%s,%s,%s,%s,%s)'
-                           ' on conflict (poe_stash_id_uuid)'
-                           ' do update set poe_stash_json_data = %s',
-                           (str(uuid.uuid4()), None, None, json.dumps(share_json),
-                            str(share_json['id']),
-                            json.dumps(share_json)))
+    self.db_cursor.execute('insert into db_poe_item (item_uuid, item_stash_uuid, item_json)'
+                           ' values (%s,%s,%s)'
+                           ' on conflict (item_uuid)'
+                           ' do update set item_json = %s',
+                           (str(uuid.uuid4()), stash_id, json.dumps(item_json)))
     self.db_commit()
