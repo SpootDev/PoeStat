@@ -48,9 +48,8 @@ while True:
         if last_stash_id != stash_tab_data['next_change_id']:
             last_stash_id = stash_tab_data['next_change_id']
             for stash_data in stash_tab_data['stashes']:
-                # throw out null leagues
-                if stash_data['league'] is not None \
-                        and stash_data['accountName'] is not None:
+                # do not throw out null leagues as this could be a tab delete (readonly tabs)
+                if stash_data['accountName'] is not None:
                     db_connection.db_stash_insert(stash_data)
             # storing the next id after the stash inserts in case it fails
             db_connection.db_status_update(last_stash_id)
