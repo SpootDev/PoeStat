@@ -55,7 +55,7 @@ while True:
             # storing the next id after the stash inserts in case it fails
             db_connection.db_status_update(last_stash_id)
     print(stash_tab_data)
-    time.sleep(30)
+    time.sleep(5)
 
 # close the database
 db_connection.db_close()
