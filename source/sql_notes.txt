@@ -3,31 +3,31 @@ select count(*) from db_poe_stashes where poe_stash_json_data->>'league' is null
 and JSONB_ARRAY_LENGTH(poe_stash_json_data->'items') = 0
 
 
-CREATE TABLE IF NOT EXISTS db_poe_chat (chat_user text'
-                       ' CONSTRAINT chat_user_pk PRIMARY KEY,'
+CREATE TABLE IF NOT EXISTS db_poe_chat (chat_uuid uuid'
+                       ' CONSTRAINT chat_uuid_pk PRIMARY KEY,'
                        ' chat_text text,'
                        ' chat_type smallint,'
                        ' chat_timestamp timestamp,'
-                       ' chat_uuid uuid')
+                       ' chat_user text')
 
 CREATE INDEX db_poe_chat_type_ndx ON public.db_poe_chat USING btree (chat_type);
 CREATE INDEX db_poe_chat_timestamp_ndx ON public.db_poe_chat USING btree (chat_timestamp);
-CREATE INDEX db_poe_chat_uuid_ndx ON public.db_poe_chat USING btree (chat_uuid);
+CREATE INDEX db_poe_chat_user_ndx ON public.db_poe_chat USING btree (chat_user);
 
 
 
-CREATE TABLE IF NOT EXISTS db_poe_league (league_name text'
-                        ' CONSTRAINT league_name_pk PRIMARY KEY,'
+CREATE TABLE IF NOT EXISTS db_poe_league (league_uuid uuid uuid'
+                        ' CONSTRAINT league_uuid_pk PRIMARY KEY,'
                         ' league_json jsonb',
-                        ' league_uuid uuid')
+                        ' league_name text')
 
-CREATE INDEX db_poe_league_uuid_ndx ON public.db_poe_chat USING btree (league_uuid);
+CREATE INDEX db_poe_league_nzme_ndx ON public.db_poe_league USING btree (league_name);
 
 
 
 CREATE TABLE IF NOT EXISTS db_poe_item (item_uuid uuid'
                        ' CONSTRAINT item_uuid_pk PRIMARY KEY,'
-                       ' item_stash_uuid uuid,'
+                       ' item_stash_uuid uuid REFERENCES db_poe_stashes(poe_stash_uuid) REFERENCES db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE,'
                        ' item_json jsonb')
 
 CREATE INDEX db_poe_item_stash_uuid_ndx ON public.db_poe_item USING btree (item_stash_uuid);
@@ -44,7 +44,7 @@ CREATE INDEX db_poe_item_base_type_name_uuid_ndx ON public.db_poe_item_base_type
 CREATE TABLE IF NOT EXISTS db_poe_item_subtypes (item_subtype_uuid uuid'
                        ' CONSTRAINT item_subtype_uuid_pk PRIMARY KEY,'
                         ' db_poe_item_subtype_name text,
-                        ' db_poe_item_subtype_base_uuid uuid')
+                        ' db_poe_item_subtype_base_uuid uuid REFERENCES db_poe_item_base_types(item_base_type_uuid) ON DELETE CASCADE')
 
 CREATE INDEX db_poe_item_subtype_name_uuid_ndx ON public.db_poe_item_subtypes USING btree (db_poe_item_subtype_name);
 CREATE INDEX db_poe_item_base_uuid_ndx ON public.db_poe_item_subtypes USING btree (db_poe_item_subtype_base_uuid);
