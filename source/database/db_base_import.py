@@ -20,14 +20,35 @@ import json
 import uuid
 
 
-def db_base_import_itemtype_upsert(self, item_json):
+def db_base_import_item_class_upsert(self, item_json):
     """
     # upsert into database for the "class"
     """
+    class_uuid = str(uuid.uuid4())
     self.db_cursor.execute(
-        'insert into db_poe_item_base_types (item_base_type_uuid, db_poe_item_base_name)'
-        ' values (%s,%s)'
-        ' on conflict (db_poe_item_base_name)'
-        ' do update set db_poe_item_base_name = %s',
-        (str(uuid.uuid4()), json.dumps(item_json['item_class'])))
+        'insert into db_poe_item_class'
+        ' (item_class_uuid, db_poe_item_class_name, db_poe_item_class_json)'
+        ' values (%s,%s,%s)'
+        ' on conflict (db_poe_item_class_name)'
+        ' do update set db_poe_item_class_name = %s, db_poe_item_class_json = %s',
+        (class_uuid, item_json['item_class'], json.dumps(item_json),
+         item_json['item_class'], json.dumps(item_json)))
+    self.db_commit()
+    return class_uuid
+
+
+def db_base_import_item_subtype_upsert(self, item_json, class_uuid):
+    """
+    Upsert into database for the subclass of the class items
+    """
+    self.db_cursor.execute(
+        'insert into db_poe_item_subtypes'
+        ' (item_subtype_uuid, db_poe_item_subtype_name, db_poe_item_subtype_json,'
+        ' db_poe_item_subtype_class_uuid)'
+        ' values (%s,%s,%s, %s)'
+        ' on conflict (db_poe_item_subtype_name)'
+        ' do update set db_poe_item_subtype_name = %s, db_poe_item_subtype_json = %s,'
+        ' db_poe_item_subtype_class_uuid = %s',
+        (str(uuid.uuid4()), item_json['item_class'], json.dumps(item_json),
+         item_json['item_class'], json.dumps(item_json), class_uuid))
     self.db_commit()
