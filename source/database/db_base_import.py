@@ -16,16 +16,18 @@
   MA 02110-1301, USA.
 '''
 
-import uuid
 import json
+import uuid
+
 
 def db_base_import_itemtype_upsert(self, item_json):
     """
     # upsert into database for the "class"
     """
-    self.db_cursor.execute('insert into db_poe_item_base_types (item_base_type_uuid, db_poe_item_base_name)'
-                           ' values (%s,%s)'
-                           ' on conflict (db_poe_item_base_name)'
-                           ' do update set db_poe_item_base_name = %s',
-                           (str(uuid.uuid4()), json.dumps(item_json['item_class'])))
+    self.db_cursor.execute(
+        'insert into db_poe_item_base_types (item_base_type_uuid, db_poe_item_base_name)'
+        ' values (%s,%s)'
+        ' on conflict (db_poe_item_base_name)'
+        ' do update set db_poe_item_base_name = %s',
+        (str(uuid.uuid4()), json.dumps(item_json['item_class'])))
     self.db_commit()
