@@ -21,4 +21,4 @@ import json
 
 def import_base_items(self):
     for base_item in json.loads('./poedata/data/base_items.json'):
-        self.db_connection.
+        self.db_connection.db_base_import_itemtype_upsert(base_item)
