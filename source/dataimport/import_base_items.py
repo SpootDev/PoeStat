@@ -20,13 +20,20 @@ import json
 
 
 def import_base_class_items(self):
-    class_uuid_table = []
-    for base_class in json.loads('./poedata/data/item_classes.json'):
-        class_uuid_table.append(self.db_connection.db_base_import_item_class_upsert(base_class))
+    class_uuid_table = {}
+    with open('./poedata/data/item_classes.json') as file_pointer:
+        item_data = json.load(file_pointer)
+        for base_class in item_data:
+            class_uuid_table[base_class] = self.db_connection.db_base_import_item_class_upsert(base_class,
+                                                                                               item_data[base_class])
     return class_uuid_table
 
 
 def import_base_items(self, class_uuid_array):
-    for base_subtype in json.loads('./poedata/data/base_items.json'):
-        self.db_connection.db_base_import_item_subtype_upsert(
-            base_subtype, class_uuid_array['base_subtype']['item_class'])
+    print(class_uuid_array)
+    with open('./poedata/data/base_items.json') as file_pointer:
+        item_data = json.load(file_pointer)
+        for base_subtype in item_data:
+            self.db_connection.db_base_import_item_subtype_upsert(
+                item_data[base_subtype],
+                class_uuid_array[item_data[base_subtype]['item_class']])
