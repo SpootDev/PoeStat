@@ -28,5 +28,5 @@ CREATE UNIQUE INDEX db_poe_item_class_name_ndx ON public.db_poe_item_class USING
 
 CREATE TABLE IF NOT EXISTS db_poe_item_subtypes (item_subtype_uuid uuid CONSTRAINT item_subtype_uuid_pk PRIMARY KEY, db_poe_item_subtype_name text, db_poe_item_subtype_json jsonb, db_poe_item_subtype_class_uuid uuid REFERENCES db_poe_item_class(item_class_uuid) ON DELETE CASCADE);
 
-CREATE UNIQUE INDEX db_poe_item_subtype_name_uuid_ndx ON public.db_poe_item_subtypes USING btree (db_poe_item_subtype_name);
-CREATE UNIQUE INDEX db_poe_item_subtype_class_uuid_ndx ON public.db_poe_item_subtypes USING btree (db_poe_item_subtype_class_uuid);
+CREATE UNIQUE INDEX db_poe_item_subtype_name_ndx ON public.db_poe_item_subtypes USING btree (db_poe_item_subtype_name);
+CREATE INDEX db_poe_item_subtype_class_uuid_ndx ON public.db_poe_item_subtypes USING btree (db_poe_item_subtype_class_uuid);
