@@ -34,5 +34,8 @@ class_uuid_array = import_inst.import_base_class_items()
 # this will process the base_items.json which will be subtype of classes above
 import_inst.import_base_items(class_uuid_array)
 
+# this will process the characters.json which is the base classes
+import_inst.import_base_character()
+
 # close the database
 db_connection.db_close()
