@@ -79,3 +79,17 @@ def db_base_import_monster_upsert(self, monster_level, monster_json):
         ' do update set db_poe_monster_json = %s',
         (str(uuid.uuid4()), monster_level, json.dumps(monster_json), json.dumps(monster_json)))
     self.db_commit()
+
+
+def db_base_import_essence_upsert(self, essence_json):
+    """
+    Upsert into database for the base essence
+    """
+    self.db_cursor.execute(
+        'insert into db_poe_essence_base '
+        ' (db_poe_essence_uuid, db_poe_essance_name , db_poe_essence_json)'
+        ' values (%s,%s,%s)'
+        ' on conflict (db_poe_essance_name)'
+        ' do update set db_poe_essence_json = %s',
+        (str(uuid.uuid4()), essence_json['name'], json.dumps(essence_json), json.dumps(essence_json)))
+    self.db_commit()

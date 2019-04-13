@@ -40,5 +40,8 @@ import_inst.import_base_character()
 # this will process the default_monster_stats.json file
 import_inst.import_base_monster()
 
+# this will process the essences.json file
+import_inst.import_base_essence()
+
 # close the database
 db_connection.db_close()
