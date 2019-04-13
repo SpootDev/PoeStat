@@ -86,10 +86,24 @@ def db_base_import_essence_upsert(self, essence_json):
     Upsert into database for the base essence
     """
     self.db_cursor.execute(
-        'insert into db_poe_essence_base '
-        ' (db_poe_essence_uuid, db_poe_essance_name , db_poe_essence_json)'
+        'insert into db_poe_essence_base'
+        ' (db_poe_essence_uuid, db_poe_essance_name, db_poe_essence_json)'
         ' values (%s,%s,%s)'
         ' on conflict (db_poe_essance_name)'
         ' do update set db_poe_essence_json = %s',
         (str(uuid.uuid4()), essence_json['name'], json.dumps(essence_json), json.dumps(essence_json)))
+    self.db_commit()
+
+
+def db_base_import_gem_upsert(self, base_gem, gem_json):
+    """
+    Upsert into database for the base gems
+    """
+    self.db_cursor.execute(
+        'insert into db_poe_gem_base'
+        ' (db_poe_gem_uuid, db_poe_gem_name, db_poe_gem_json)'
+        ' values (%s,%s,%s)'
+        ' on conflict (db_poe_gem_name)'
+        ' do update set db_poe_gem_json = %s',
+        (str(uuid.uuid4()), base_gem, json.dumps(gem_json), json.dumps(gem_json)))
     self.db_commit()

@@ -16,18 +16,11 @@
   MA 02110-1301, USA.
 '''
 
+import json
 
-class ServerImport(object):
-    """
-    Main database class for server data import
-    """
 
-    def __init__(self, db_connection):
-        self.db_connection = db_connection
-
-    from dataimport.import_base_items import import_base_class_items, \
-        import_base_items
-    from dataimport.import_base_characters import import_base_character
-    from dataimport.import_base_monsters import import_base_monster
-    from dataimport.import_base_essences import import_base_essence
-    from dataimport.import_base_gems import import_base_gem
+def import_base_gem(self):
+    with open('./poedata/data/gems.json') as file_pointer:
+        item_data = json.load(file_pointer)
+        for base_gem in item_data:
+            self.db_connection.db_base_import_gem_upsert(base_gem, item_data[base_gem])

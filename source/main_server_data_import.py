@@ -43,5 +43,8 @@ import_inst.import_base_monster()
 # this will process the essences.json file
 import_inst.import_base_essence()
 
+# this will process the gems.json file
+import_inst.import_base_gem()
+
 # close the database
 db_connection.db_close()
