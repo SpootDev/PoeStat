@@ -49,5 +49,8 @@ import_inst.import_base_gem()
 # this will process the mods.json file
 import_inst.import_base_mod()
 
+# this will process the stats.json file
+import_inst.import_base_stat()
+
 # close the database
 db_connection.db_close()

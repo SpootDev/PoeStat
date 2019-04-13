@@ -66,7 +66,6 @@ def db_base_import_character_upsert(self, character_json):
     self.db_commit()
 
 
-
 def db_base_import_monster_upsert(self, monster_level, monster_json):
     """
     Upsert into database for the base monster stats
@@ -108,6 +107,7 @@ def db_base_import_gem_upsert(self, base_gem, gem_json):
         (str(uuid.uuid4()), base_gem, json.dumps(gem_json), json.dumps(gem_json)))
     self.db_commit()
 
+
 def db_base_import_mod_upsert(self, base_mod, mod_json):
     """
     Upsert into database for the base mods
@@ -119,4 +119,18 @@ def db_base_import_mod_upsert(self, base_mod, mod_json):
         ' on conflict (db_poe_mod_name)'
         ' do update set db_poe_mod_json = %s',
         (str(uuid.uuid4()), base_mod, json.dumps(mod_json), json.dumps(mod_json)))
+    self.db_commit()
+
+
+def db_base_import_stat_upsert(self, base_stat, stat_json):
+    """
+    Upsert into database for the base stats
+    """
+    self.db_cursor.execute(
+        'insert into db_poe_stat_base'
+        ' (db_poe_stat_uuid, db_poe_stat_name, db_poe_stat_json)'
+        ' values (%s,%s,%s)'
+        ' on conflict (db_poe_stat_name)'
+        ' do update set db_poe_stat_json = %s',
+        (str(uuid.uuid4()), base_stat, json.dumps(stat_json), json.dumps(stat_json)))
     self.db_commit()

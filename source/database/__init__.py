@@ -34,7 +34,8 @@ class ServerDatabase(object):
         db_base_import_monster_upsert, \
         db_base_import_essence_upsert, \
         db_base_import_gem_upsert, \
-        db_base_import_mod_upsert
+        db_base_import_mod_upsert, \
+        db_base_import_stat_upsert
     from database.db_base_stash import db_stash_insert, \
         db_stash_read_all, \
         db_stash_all_league, \
