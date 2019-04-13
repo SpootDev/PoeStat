@@ -10,10 +10,10 @@ CREATE INDEX db_poe_chat_timestamp_ndx ON public.db_poe_chat USING btree (chat_t
 CREATE INDEX db_poe_chat_user_ndx ON public.db_poe_chat USING btree (chat_user);
 
 
-CREATE TABLE IF NOT EXISTS db_poe_league (league_uuid uuid uuid CONSTRAINT league_uuid_pk PRIMARY KEY, league_json jsonb, league_name text);
+CREATE TABLE IF NOT EXISTS db_poe_league (league_uuid uuid CONSTRAINT league_uuid_pk PRIMARY KEY, league_name text, league_json jsonb);
 
-# TODO this should probalby be unique.....but what about custom leagues then?
-CREATE INDEX db_poe_league_name_ndx ON public.db_poe_league USING btree (league_name);
+# TODO this should probalby be unique.....but what about custom leagues then?  they all have private league numbers
+CREATE UNIQUE INDEX db_poe_league_name_ndx ON public.db_poe_league USING btree (league_name);
 
 
 CREATE TABLE IF NOT EXISTS db_poe_item (item_uuid uuid CONSTRAINT item_uuid_pk PRIMARY KEY, item_stash_uuid uuid, item_json jsonb REFERENCES db_poe_stashes(poe_stash_uuid) REFERENCES db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE);
