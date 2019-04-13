@@ -107,3 +107,16 @@ def db_base_import_gem_upsert(self, base_gem, gem_json):
         ' do update set db_poe_gem_json = %s',
         (str(uuid.uuid4()), base_gem, json.dumps(gem_json), json.dumps(gem_json)))
     self.db_commit()
+
+def db_base_import_mod_upsert(self, base_mod, mod_json):
+    """
+    Upsert into database for the base mods
+    """
+    self.db_cursor.execute(
+        'insert into db_poe_mod_base'
+        ' (db_poe_mod_uuid, db_poe_mod_name, db_poe_mod_json)'
+        ' values (%s,%s,%s)'
+        ' on conflict (db_poe_mod_name)'
+        ' do update set db_poe_mod_json = %s',
+        (str(uuid.uuid4()), base_mod, json.dumps(mod_json), json.dumps(mod_json)))
+    self.db_commit()

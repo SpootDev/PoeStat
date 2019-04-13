@@ -49,3 +49,12 @@ CREATE TABLE IF NOT EXISTS db_poe_essence_base (db_poe_essence_uuid uuid CONSTRA
 CREATE UNIQUE INDEX db_poe_essance_name_ndx ON public.db_poe_essence_base USING btree (db_poe_essance_name);
 
 
+CREATE TABLE IF NOT EXISTS db_poe_gem_base (db_poe_gem_uuid uuid CONSTRAINT db_poe_gem_uuid_pk PRIMARY KEY, db_poe_gem_name text, db_poe_gem_json jsonb);
+
+CREATE UNIQUE INDEX db_poe_gem_name_ndx ON public.db_poe_gem_base USING btree (db_poe_gem_name);
+
+
+
+CREATE TABLE IF NOT EXISTS db_poe_mod_base (db_poe_mod_uuid uuid CONSTRAINT db_poe_mod_uuid_pk PRIMARY KEY, db_poe_mod_name text, db_poe_mod_json jsonb);
+
+CREATE UNIQUE INDEX db_poe_mod_name_ndx ON public.db_poe_mod_base USING btree (db_poe_mod_name);

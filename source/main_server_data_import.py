@@ -46,5 +46,8 @@ import_inst.import_base_essence()
 # this will process the gems.json file
 import_inst.import_base_gem()
 
+# this will process the mods.json file
+import_inst.import_base_mod()
+
 # close the database
 db_connection.db_close()
