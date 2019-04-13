@@ -37,5 +37,8 @@ import_inst.import_base_items(class_uuid_array)
 # this will process the characters.json which is the base classes
 import_inst.import_base_character()
 
+# this will process the default_monster_stats.json file
+import_inst.import_base_monster()
+
 # close the database
 db_connection.db_close()

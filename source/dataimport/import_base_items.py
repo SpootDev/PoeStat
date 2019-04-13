@@ -30,7 +30,6 @@ def import_base_class_items(self):
 
 
 def import_base_items(self, class_uuid_array):
-    print(class_uuid_array)
     with open('./poedata/data/base_items.json') as file_pointer:
         item_data = json.load(file_pointer)
         for base_subtype in item_data:

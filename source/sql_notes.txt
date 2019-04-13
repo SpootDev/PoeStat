@@ -34,3 +34,10 @@ CREATE INDEX db_poe_item_subtype_class_uuid_ndx ON public.db_poe_item_subtypes U
 
 
 CREATE TABLE IF NOT EXISTS db_poe_character (db_poe_character_uuid uuid CONSTRAINT db_poe_character_uuid_pk PRIMARY KEY, db_poe_character_name text, db_poe_character_json jsonb);
+
+CREATE UNIQUE INDEX db_poe_character_name_ndx ON public.db_poe_character USING btree (db_poe_character_name);
+
+
+CREATE TABLE IF NOT EXISTS db_poe_monster_base (db_poe_monster_uuid uuid CONSTRAINT db_poe_monster_uuid_pk PRIMARY KEY, db_poe_monster_level text, db_poe_monster_json jsonb);
+
+CREATE UNIQUE INDEX db_poe_monster_level_ndx ON public.db_poe_monster_base USING btree (db_poe_monster_level);

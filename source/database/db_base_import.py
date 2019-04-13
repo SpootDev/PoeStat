@@ -58,9 +58,24 @@ def db_base_import_character_upsert(self, character_json):
     """
     self.db_cursor.execute(
         'insert into db_poe_character '
-        ' (db_poe_character_uuid , db_poe_character_name , db_poe_character_json)'
+        ' (db_poe_character_uuid, db_poe_character_name, db_poe_character_json)'
         ' values (%s,%s,%s)'
         ' on conflict (db_poe_character_name)'
         ' do update set db_poe_character_json = %s',
         (str(uuid.uuid4()), character_json['name'], json.dumps(character_json), json.dumps(character_json)))
+    self.db_commit()
+
+
+
+def db_base_import_monster_upsert(self, monster_level, monster_json):
+    """
+    Upsert into database for the base monster stats
+    """
+    self.db_cursor.execute(
+        'insert into db_poe_monster_base '
+        ' (db_poe_monster_uuid, db_poe_monster_level , db_poe_monster_json)'
+        ' values (%s,%s,%s)'
+        ' on conflict (db_poe_monster_level)'
+        ' do update set db_poe_monster_json = %s',
+        (str(uuid.uuid4()), monster_level, json.dumps(monster_json), json.dumps(monster_json)))
     self.db_commit()
