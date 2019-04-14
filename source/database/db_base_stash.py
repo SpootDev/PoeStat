@@ -35,9 +35,14 @@ def db_stash_insert(self, share_json):
     self.db_commit()
 
 
-def db_stash_read_all(self):
+def db_stash_read_all_id(self):
     self.db_cursor.execute(
         'select poe_stash_json_data->>\'id\' as poe_stash_id from db_poe_stashes')
+    return self.db_cursor.fetchall()
+
+
+def db_stash_read_all(self):
+    self.db_cursor.execute('select poe_stash_uuid, poe_stash_json_data from db_poe_stashes')
     return self.db_cursor.fetchall()
 
 

@@ -64,3 +64,10 @@ CREATE TABLE IF NOT EXISTS db_poe_stat_base (db_poe_stat_uuid uuid CONSTRAINT db
 
 CREATE UNIQUE INDEX db_poe_stat_name_ndx ON public.db_poe_stat_base USING btree (db_poe_stat_name);
 
+
+
+CREATE TABLE IF NOT EXISTS db_poe_stashes_34a17519-6dd1-415a-b9a3-5bff49be5ecd (poe_stash_uuid uuid NOT NULL, poe_stash_account_uuid uuid, poe_stash_character_uuid uuid, poe_stash_json_data jsonb, poe_stash_id_uuid text)
+
+
+
+
