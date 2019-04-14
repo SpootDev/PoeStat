@@ -15,3 +15,32 @@
   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
   MA 02110-1301, USA.
 '''
+
+import uuid
+
+
+def db_base_league_upsert(self, league_name, league_json=None):
+    """
+    # upsert into database for the leagues
+    """
+    # TODO DO NOTHING doesn't seem to work and return the ID
+    if league_json is None:
+        self.db_cursor.execute(
+            'insert into db_poe_league'
+            ' (league_uuid, league_name, league_json)'
+            ' values (%s,%s)'
+            ' on conflict (league_name)'
+            ' do update set league_name = %s'
+            ' returning league_uuid',
+            (str(uuid.uuid4()), league_name, league_name))
+    else:
+        self.db_cursor.execute(
+            'insert into db_poe_league'
+            ' (league_uuid, league_name)'
+            ' values (%s,%s,%s)'
+            ' on conflict (league_name)'
+            ' do update set league_name = %s'
+            ' returning league_uuid',
+            (str(uuid.uuid4()), league_name, league_json, league_name))
+    self.db_commit()
+    return self.db_cursor.fetchone()[0]
