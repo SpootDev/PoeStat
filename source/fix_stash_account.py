@@ -24,10 +24,10 @@ db_connection.db_open()
 
 # this is to build the poe_stash_account_uuid
 for stash_row in db_connection.db_stash_read_all():
-    account_uuid = db_connection.db_base_account_upsert(stash_row['poe_stash_json_data->\'accountName\''])
-    db_connection.db_query('update db_poe_stashes set poe_stash_account_uuid = %s'
-                           ' where poe_stash_json_data->\'id\' ? \'%s\'' %
-                           account_uuid, str(stash_row['poe_stash_id']))
+    account_uuid = db_connection.db_base_account_upsert(stash_row['account_name'])
+    db_connection.db_query('update db_poe_stashes set poe_stash_account_uuid = \'%s\''
+                           ' where poe_stash_uuid = \'%s\'' %
+                           (account_uuid, str(stash_row['poe_stash_uuid'])))
     db_connection.db_commit()
 
 # commit all the changes

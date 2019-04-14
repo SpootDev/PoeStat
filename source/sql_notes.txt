@@ -3,6 +3,11 @@ select count(*) from db_poe_stashes where poe_stash_json_data->>'league' is null
 and JSONB_ARRAY_LENGTH(poe_stash_json_data->'items') = 0
 
 
+CREATE TABLE IF NOT EXISTS db_poe_account (poe_account_uuid uuid NOT NULL CONSTRAINT account_uuid_pk PRIMARY KEY, poe_account_name text);
+CREATE UNIQUE INDEX poe_account_name_ndx ON public.db_poe_account USING btree (poe_account_name);
+
+
+
 CREATE TABLE IF NOT EXISTS db_poe_chat (chat_uuid uuid CONSTRAINT chat_uuid_pk PRIMARY KEY, chat_text text, chat_type smallint, chat_timestamp timestamp, chat_user text);
 
 CREATE INDEX db_poe_chat_type_ndx ON public.db_poe_chat USING btree (chat_type);
@@ -66,8 +71,11 @@ CREATE UNIQUE INDEX db_poe_stat_name_ndx ON public.db_poe_stat_base USING btree 
 
 
 
-CREATE TABLE IF NOT EXISTS db_poe_stashes_34a17519-6dd1-415a-b9a3-5bff49be5ecd (poe_stash_uuid uuid NOT NULL, poe_stash_account_uuid uuid, poe_stash_character_uuid uuid, poe_stash_json_data jsonb, poe_stash_id_uuid text)
+CREATE TABLE IF NOT EXISTS db_poe_stashes_34a17519_6dd1_415a_b9a3_5bff49be5ecd (poe_stash_uuid uuid NOT NULL, poe_stash_account_uuid uuid, poe_stash_character_uuid uuid, poe_stash_json_data jsonb, poe_stash_id_uuid text)
 
 
 
+CREATE INDEX poe_stash_account_uuid_ndx ON public.db_poe_stashes USING btree (poe_stash_account_uuid);
 
+
+CREATE UNIQUE INDEX poe_stash_uuid_ndx ON public.db_poe_stashes USING btree (poe_stash_uuid);

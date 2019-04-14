@@ -42,7 +42,8 @@ def db_stash_read_all_id(self):
 
 
 def db_stash_read_all(self):
-    self.db_cursor.execute('select poe_stash_uuid, poe_stash_json_data from db_poe_stashes')
+    self.db_cursor.execute('select poe_stash_uuid, poe_stash_json_data->\'accountName\' as account_name'
+                           ' from db_poe_stashes where poe_stash_account_uuid is NULL limit 10000')
     return self.db_cursor.fetchall()
 
 

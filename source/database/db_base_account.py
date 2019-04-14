@@ -23,12 +23,14 @@ def db_base_account_upsert(self, account_name):
     """
     # upsert into database for the player account names
     """
+    # TODO DO NOTHING doesn't seem to work and return the ID
     self.db_cursor.execute(
         'insert into db_poe_account'
         ' (poe_account_uuid, poe_account_name)'
         ' values (%s,%s)'
-        ' on conflict (poe_account_name) DO NOTHING'
+        ' on conflict (poe_account_name)'
+        ' do update set poe_account_name = %s'
         ' returning poe_account_uuid',
-        (str(uuid.uuid4()), account_name))
+        (str(uuid.uuid4()), account_name, account_name))
     self.db_commit()
     return self.db_cursor.fetchone()[0]
