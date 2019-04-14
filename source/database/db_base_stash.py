@@ -25,13 +25,12 @@ def db_stash_insert(self, share_json):
     # insert share into database
     """
     self.db_cursor.execute('insert into db_poe_stashes (poe_stash_uuid, poe_stash_account_uuid,'
-                           ' poe_stash_character_uuid, poe_stash_json_data, poe_stash_id_uuid)'
-                           ' values (%s,%s,%s,%s,%s)'
+                           ' poe_stash_json_data, poe_stash_id_uuid)'
+                           ' values (%s,%s,%s,%s)'
                            ' on conflict (poe_stash_id_uuid)'
                            ' do update set poe_stash_json_data = %s',
-                           (str(uuid.uuid4()), None, None, json.dumps(share_json),
-                            str(share_json['id']),
-                            json.dumps(share_json)))
+                           (str(uuid.uuid4()), self.db_base_account_upsert(share_json['accountName']),
+                            json.dumps(share_json), str(share_json['id']), json.dumps(share_json)))
     self.db_commit()
 
 
@@ -43,7 +42,7 @@ def db_stash_read_all_id(self):
 
 def db_stash_read_all(self):
     self.db_cursor.execute('select poe_stash_uuid, poe_stash_json_data->\'accountName\' as account_name'
-                           ' from db_poe_stashes where poe_stash_account_uuid is NULL limit 10000')
+                           ' from db_poe_stashes where poe_stash_account_uuid is NULL limit 200000')
     return self.db_cursor.fetchall()
 
 
