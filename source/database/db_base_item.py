@@ -20,6 +20,18 @@ import json
 import uuid
 
 
+def db_item_market_class_table(self, table_class):
+    # create tables for storing the market data by item class
+    self.db_cursor.db_query('CREATE TABLE IF NOT EXISTS db_poe_market_%s'
+                            ' (market_item_uuid uuid, market_item_stash_uuid uuid'
+                            ' CONSTRAINT market_item_uuid_pk PRIMARY KEY,'
+                            ' market_item_json jsonb)' % table_class.lower().replace(' ', '_'))
+    self.db_cursor.db_query('CREATE INDEX IF NOT EXISTS market_item_stash_ndx '
+                            'ON db_poe_market_%s (market_item_stash_uuid)' %
+                            table_class.lower().replace(' ', '_'))
+    self.db_commit()
+
+
 def db_item_upsert(self, stash_id, item_json):
     """
     # upsert into database

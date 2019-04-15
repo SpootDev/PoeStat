@@ -24,8 +24,12 @@ def import_base_class_items(self):
     with open('./poedata/data/item_classes.json') as file_pointer:
         item_data = json.load(file_pointer)
         for base_class in item_data:
-            class_uuid_table[base_class] = self.db_connection.db_base_import_item_class_upsert(base_class,
-                                                                                               item_data[base_class])
+            # create table for base type
+            self.db_connection.db_item_market_class_table(base_class)
+            # insert into class table
+            class_uuid_table[base_class] = self.db_connection.db_base_import_item_class_upsert(
+                base_class,
+                item_data[base_class])
     return class_uuid_table
 
 
