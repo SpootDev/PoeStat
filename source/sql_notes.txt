@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS db_poe_league (league_uuid uuid CONSTRAINT league_uui
 CREATE UNIQUE INDEX db_poe_league_name_ndx ON public.db_poe_league USING btree (league_name);
 
 
-CREATE TABLE IF NOT EXISTS db_poe_item (item_uuid uuid CONSTRAINT item_uuid_pk PRIMARY KEY, item_stash_uuid uuid, item_json jsonb REFERENCES db_poe_stashes(poe_stash_uuid) REFERENCES db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE);
+CREATE TABLE IF NOT EXISTS db_poe_item (item_uuid uuid CONSTRAINT item_uuid_pk PRIMARY KEY, item_stash_uuid uuid REFERENCES db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE, item_json jsonb);
 
 CREATE INDEX db_poe_item_stash_uuid_ndx ON public.db_poe_item USING btree (item_stash_uuid);
 

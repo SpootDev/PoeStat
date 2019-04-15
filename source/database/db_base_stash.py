@@ -29,8 +29,14 @@ def db_stash_insert(self, share_json):
                            ' values (%s,%s,%s,%s)'
                            ' on conflict (poe_stash_id_uuid)'
                            ' do update set poe_stash_json_data = %s',
-                           (str(uuid.uuid4()), self.db_base_account_upsert(share_json['accountName']),
-                            json.dumps(share_json), str(share_json['id']), json.dumps(share_json)))
+                           (str(uuid.uuid4()),
+                            self.db_base_account_upsert(share_json['accountName']),
+                            json.dumps(share_json), str(share_json['id']),
+                            json.dumps(share_json)))
+    # TODO - remove the old items?  need to keep track of stuff that's removed, etc
+    # insert all the items per stash tab
+    for item_json in share_json['items']:
+        self.db_cursor.db_item_upsert(str(share_json['id']), item_json)
     self.db_commit()
 
 
@@ -41,8 +47,9 @@ def db_stash_read_all_id(self):
 
 
 def db_stash_read_all(self):
-    self.db_cursor.execute('select poe_stash_uuid, poe_stash_json_data->\'accountName\' as account_name'
-                           ' from db_poe_stashes where poe_stash_account_uuid is NULL limit 200000')
+    self.db_cursor.execute(
+        'select poe_stash_uuid, poe_stash_json_data->\'accountName\' as account_name'
+        ' from db_poe_stashes where poe_stash_account_uuid is NULL limit 200000')
     return self.db_cursor.fetchall()
 
 

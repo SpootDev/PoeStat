@@ -20,6 +20,12 @@ import json
 import uuid
 
 
+def db_base_import_item_class_list(self):
+    self.db_cursor.execute('select item_class_uuid, db_poe_item_class_name from db_poe_item_class')
+    for base_row in self.db_cursor.fetchall():
+        self.base_item_class_table[base_row['db_poe_item_class_name']] = base_row['item_class_uuid']
+
+
 def db_base_import_item_class_upsert(self, base_class, item_json):
     """
     # upsert into database for the "class"
@@ -62,7 +68,8 @@ def db_base_import_character_upsert(self, character_json):
         ' values (%s,%s,%s)'
         ' on conflict (db_poe_character_name)'
         ' do update set db_poe_character_json = %s',
-        (str(uuid.uuid4()), character_json['name'], json.dumps(character_json), json.dumps(character_json)))
+        (str(uuid.uuid4()), character_json['name'], json.dumps(character_json),
+         json.dumps(character_json)))
     self.db_commit()
 
 
@@ -90,7 +97,8 @@ def db_base_import_essence_upsert(self, essence_json):
         ' values (%s,%s,%s)'
         ' on conflict (db_poe_essance_name)'
         ' do update set db_poe_essence_json = %s',
-        (str(uuid.uuid4()), essence_json['name'], json.dumps(essence_json), json.dumps(essence_json)))
+        (str(uuid.uuid4()), essence_json['name'], json.dumps(essence_json),
+         json.dumps(essence_json)))
     self.db_commit()
 
 

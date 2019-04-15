@@ -41,6 +41,8 @@ def fetch_from_url(stash_last_id=None):
 db_connection = database_base.ServerDatabase()
 db_connection.db_open()
 last_stash_id = db_connection.db_status_read()
+# load all the base class items into dict (key off base class name)
+db_connection.db_base_import_item_class_list()
 while True:
     stash_tab_data = fetch_from_url(last_stash_id)
     # verify the ids are not the same (no new stash changes)

@@ -29,7 +29,8 @@ class ServerDatabase(object):
         db_query, \
         db_parallel_workers
     from database.db_base_account import db_base_account_upsert
-    from database.db_base_import import db_base_import_item_class_upsert, \
+    from database.db_base_import import db_base_import_item_class_list, \
+        db_base_import_item_class_upsert, \
         db_base_import_item_subtype_upsert, \
         db_base_import_character_upsert, \
         db_base_import_monster_upsert, \
@@ -51,3 +52,6 @@ class ServerDatabase(object):
     # class variables
     sql_conn = None
     sql_cursor = None
+
+    # store the base classes so we don't call every item
+    base_item_class_table = {}

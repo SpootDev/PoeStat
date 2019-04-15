@@ -17,15 +17,15 @@
 '''
 
 import json
-import uuid
 
 
 def db_item_market_class_table(self, table_class):
     # create tables for storing the market data by item class
     self.db_cursor.db_query('CREATE TABLE IF NOT EXISTS db_poe_market_%s'
-                            ' (market_item_uuid uuid, market_item_stash_uuid uuid'
-                            ' CONSTRAINT market_item_uuid_pk PRIMARY KEY,'
-                            ' market_item_json jsonb)' % table_class.lower().replace(' ', '_'))
+                            ' (market_item_uuid uuid CONSTRAINT market_item_uuid_pk PRIMARY KEY,'
+                            ' market_item_stash_uuid uuid REFERENCES db_poe_stashes(poe_stash_uuid)'
+                            ' ON DELETE CASCADE, market_item_json jsonb)'
+                            % table_class.lower().replace(' ', '_'))
     self.db_cursor.db_query('CREATE INDEX IF NOT EXISTS market_item_stash_ndx '
                             'ON db_poe_market_%s (market_item_stash_uuid)' %
                             table_class.lower().replace(' ', '_'))
@@ -36,9 +36,11 @@ def db_item_upsert(self, stash_id, item_json):
     """
     # upsert into database
     """
-    self.db_cursor.execute('insert into db_poe_item (item_uuid, item_stash_uuid, item_json)'
-                           ' values (%s,%s,%s)'
-                           ' on conflict (item_uuid)'
-                           ' do update set item_json = %s',
-                           (str(uuid.uuid4()), stash_id, json.dumps(item_json)))
+    self.db_cursor.execute('insert into db_poe_market_%s (item_uuid, item_stash_uuid,'
+                           ' item_class_id, item_json) values (%s,%s,%s,%s)'
+                           ' on conflict (item_uuid) do update set item_json = %s',
+                           (item_json['typeLine'].lower().replace(' ', '_'), item_json['id'],
+                            stash_id, self.db_cursor.base_item_class_table[
+                                item_json['typeLine'].lower().replace(' ', '_')],
+                            json.dumps(item_json)))
     self.db_commit()
