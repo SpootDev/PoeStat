@@ -28,8 +28,7 @@ def import_base_class_items(self):
             self.db_connection.db_item_market_class_table(base_class)
             # insert into class table
             class_uuid_table[base_class] = self.db_connection.db_base_import_item_class_upsert(
-                base_class,
-                item_data[base_class])
+                base_class, item_data[base_class])
     return class_uuid_table
 
 
