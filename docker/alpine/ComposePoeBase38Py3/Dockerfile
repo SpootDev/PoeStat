@@ -8,12 +8,12 @@ ARG ALPMIRROR
 ARG PIPMIRROR
 
 # create work dir
-RUN mkdir /mediakraken
+RUN mkdir /poestat
 
 # copy PIP requirements
-ADD requirements.txt /mediakraken
+ADD requirements.txt /poestat
 
-WORKDIR /mediakraken
+WORKDIR /poestat
 
 # pip3 is installed with python3
 RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPMIRROR}/" /etc/apk/repositories \
