@@ -1,6 +1,6 @@
 # https://github.com/brainsam/pgbouncer
 
-FROM alpine:3.8
+FROM alpine:3.9
 
 MAINTAINER brainsam@yandex.ru
 

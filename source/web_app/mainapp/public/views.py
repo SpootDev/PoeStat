@@ -14,8 +14,6 @@ from flask import Blueprint, request, render_template, flash, url_for, redirect,
 from flask_login import current_user
 from flask_login import login_user, login_required, logout_user
 
-# this fixes the login issue!!!!!!!!!!!!!!!!!!!!!!!!!
-# blueprint = Blueprint('public', __name__, url_prefix='/public', static_folder="../static")
 blueprint = Blueprint('public', __name__, static_folder="../static")
 
 
@@ -91,13 +89,3 @@ def about():
     Display about page
     """
     return render_template("public/about.html")
-
-
-@blueprint.route("/weather/")
-def weather():
-    return render_template("public/weather.html")
-
-
-@blueprint.route("/location/")
-def geo_location():
-    return render_template("public/geolocation.html")

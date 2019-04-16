@@ -69,10 +69,6 @@ class AdminSettingsForm(Form):
     user_password_lock = SelectField('Lock account after failed attempts',
                                      choices=[('Never', 'Never'), ('3', '3'), ('5', '5'),
                                               ('10', '10')])
-    # language = SelectField('Interval', choices=[('Hours', 'Hours'),
-    # ('Days', 'Days'), ('Weekly', 'Weekly')])
-    # country = SelectField('Interval', choices=[('Hours', 'Hours'),
-    # ('Days', 'Days'), ('Weekly', 'Weekly')])
     docker_pgadmin = BooleanField('Start PgAdmin (database webgui)')
     docker_portainer = BooleanField('Start Portainer (Docker monitor)')
     docker_smtp = BooleanField('Start SMTP (Mail Server)')

@@ -48,14 +48,6 @@ class SearchEditForm(Form):
                                                            ('image', 'Image'),
                                                            ('publication', 'Publication'),
                                                            ('game', 'Game')])
-    search_primary_language = SelectField("Language", choices=[('any', 'Any'),
-                                                               ('sd', 'SD'),
-                                                               ('hd', 'HD'),
-                                                               ('uhd', 'UHD')])
-    search_secondary_language = SelectField("Subtitle", choices=[('any', 'Any'),
-                                                                 ('sd', 'SD'),
-                                                                 ('hd', 'HD'),
-                                                                 ('uhd', 'UHD')])
 
     def __init__(self, *args, **kwargs):
         super(SearchEditForm, self).__init__(*args, **kwargs)

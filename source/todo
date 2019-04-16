@@ -54,3 +54,29 @@ Instantly send a trading whisper upon copying.
 Take a look at your previously completed trades
 
 Closing a tab with a button containing the "Save trade stats" action will add it to the "My Stats" interface.
+
+- GGG's character API has an issue where for /get-characters the account name is not case-sensitive, but for /get-passive-skills and /get-items it is.
+- This workaround grabs the profile page and extracts the correct account name from one of the URLs.
+
+https://www.pathofexile.com/character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode
+https://www.pathofexile.com/character-window/get-items?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode
+local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC" }
+local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Belt"] = "Belt" }
+
+Chrome
+Press the F12 key.
+Select the "Application".
+Expand the "Cookies", select the https://www.pathofexile.com.
+Copy the value of the "POESESSID".
+Firefox
+Press the F12 key.
+Select the "Storage".
+Expand the "Cookies", select the https://www.pathofexile.com.
+Copy the value of the "POESESSID".
+IE11
+Press the F12 key.
+Select the "Network".
+Enables the capture of network traffic.
+Reloads the page.
+Select [DETAILS]-[Cookies].
+Copy the value of the "POESESSID".

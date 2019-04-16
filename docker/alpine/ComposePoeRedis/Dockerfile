@@ -1,5 +1,5 @@
 # https://github.com/docker-library/redis
-FROM alpine:3.8
+FROM alpine:3.9
 
 ARG ALPMIRROR
 ARG PIPMIRROR

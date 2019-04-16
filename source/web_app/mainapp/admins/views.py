@@ -70,7 +70,7 @@ def admins():
     if outside_ip is None:
         outside_ip = common_network.mk_network_get_outside_ip()
     data_messages = 0
-    data_server_info_server_name = 'Spoots Media'
+    data_server_info_server_name = 'Spoots PoeStat'
     nic_data = []
     for key, value in common_network.mk_network_ip_addr().items():
         nic_data.append(key + ' ' + value[0][1])
@@ -98,21 +98,11 @@ def admins():
                            data_server_info_server_ip_external=outside_ip,
                            data_server_info_server_version=common_version.APP_VERSION,
                            data_server_uptime=common_system.com_system_uptime(),
-                           data_active_streams=common_internationalization.com_inter_number_format(
-                               0),
                            data_alerts_dismissable=data_alerts_dismissable,
                            data_alerts=data_alerts,
-                           data_count_media_files=common_internationalization.com_inter_number_format(
-                               g.db_connection.db_known_media_count()),
-                           data_count_matched_media=common_internationalization.com_inter_number_format(
-                               g.db_connection.db_matched_media_count()),
-                           data_count_streamed_media=common_internationalization.com_inter_number_format(
-                               0),
                            data_library=common_internationalization.com_inter_number_format(
                                g.db_connection.db_table_count('mm_media_dir')),
                            data_messages=data_messages,
-                           data_count_meta_fetch=common_internationalization.com_inter_number_format(
-                               g.db_connection.db_table_count('mm_download_que')),
                            )
 
 
@@ -147,9 +137,6 @@ def admin_server_settings():
     mediabrainz_api_key = None
     opensubtitles_api_key = None
     if request.method == 'GET':
-        if settings_json['API']['musicbrainz'] is not None:
-            mediabrainz_api_key = data.com_hash_gen_crypt_decode(
-                settings_json['API']['musicbrainz'])
         if settings_json['API']['opensubtitles'] is not None:
             opensubtitles_api_key = data.com_hash_gen_crypt_decode(
                 settings_json['API']['opensubtitles'])
@@ -171,29 +158,6 @@ def admin_server_settings():
         settings_json['MediaKrakenServer']['MOTD'] = request.form['servermotd']
         # save updated info
         g.db_connection.db_opt_update(settings_json)
-    '''
-    activity_purge_interval = SelectField('Purge Activity Data Older Than',
-                                          choices=[('Never', 'Never'), ('1 Day', '1 Day'),
-                                                   ('Week', 'Week'), ('Month',
-                                                                      'Month'),
-                                                   ('Quarter', 'Quarter'), ('6 Months',
-                                                                            '6 Months'),
-                                                   ('Year', 'Year')])
-    user_password_lock = SelectField('Lock account after failed attempts',
-                                     choices=[('Never', 'Never'), ('3', '3'), ('5', '5'),
-                                              ('10', '10')])
-    # language = SelectField('Interval', choices=[('Hours', 'Hours'),
-    # ('Days', 'Days'), ('Weekly', 'Weekly')])
-    # country = SelectField('Interval', choices=[('Hours', 'Hours'),
-    # ('Days', 'Days'), ('Weekly', 'Weekly')])
-    metadata_with_media = BooleanField('Metadata with Media')
-    metadata_sub_down = BooleanField('Download Media Subtitle')
-    # meta_language = SelectField('Interval', choices=[('Hours', 'Hours'),\
-    # ('Days', 'Days'), ('Weekly', 'Weekly')])
-    metadata_sub_skip_if_audio = BooleanField('Skip subtitle if lang in audio track')
-    docker_musicbrainz_code = TextField('Brainzcode', validators=[DataRequired(),
-                                                                  Length(min=1, max=250)])
-    '''
     return render_template("admin/admin_server_settings.html",
                            form=AdminSettingsForm(request.form),
                            settings_json=settings_json,
@@ -235,7 +199,7 @@ def before_request():
     """
     Executes before each request
     """
-    g.db_connection = database_base.MKServerDatabase()
+    g.db_connection = database_base.ServerDatabase()
     g.db_connection.db_open()
 
 

@@ -15,7 +15,6 @@ import flask
 from flask_login import current_user
 from functools import wraps
 from MediaKraken.admins.forms import BackupEditForm
-from common import common_network_cloud
 from common import common_config_ini
 from common import common_file
 from common import common_global
@@ -65,8 +64,6 @@ def admin_backup_delete_page():
     file_path, file_type = request.form['id'].split('|')
     if file_type == "Local":
         os.remove(file_path)
-    elif file_type == "AWS" or file_type == "AWS S3":
-        CLOUD_HANDLE.com_cloud_file_delete('awss3', file_path, True)
     return json.dumps({'status': 'OK'})
 
 
@@ -90,16 +87,13 @@ def admin_backup():
             flash_errors(form)
     backup_enabled = False
     backup_files = []
-    local_file_backups = common_file.com_file_dir_list('/ mediakraken/backup',
+    local_file_backups = common_file.com_file_dir_list('/poestat/backup',
                                                        'dump', False, False, True)
     if local_file_backups is not None:
         for backup_local in local_file_backups:
             backup_files.append((backup_local[0], 'Local',
                                  common_string.com_string_bytes2human(backup_local[1])))
-    # cloud backup list
-    for backup_cloud in CLOUD_HANDLE.com_cloud_backup_list():
-        backup_files.append((backup_cloud.name, backup_cloud.type,
-                             common_string.com_string_bytes2human(backup_cloud.size)))
+
     page, per_page, offset = common_pagination.get_page_items()
     pagination = common_pagination.get_pagination(page=page,
                                                   per_page=per_page,
@@ -111,7 +105,6 @@ def admin_backup():
     return render_template("admin/admin_backup.html", form=form,
                            backup_list=sorted(backup_files, reverse=True),
                            data_interval=('Hours', 'Days', 'Weekly'),
-                           data_class=common_cloud.CLOUD_BACKUP_CLASS,
                            data_enabled=backup_enabled,
                            page=page,
                            per_page=per_page,
@@ -124,7 +117,7 @@ def before_request():
     """
     Executes before each request
     """
-    g.db_connection = database_base.MKServerDatabase()
+    g.db_connection = database_base.ServerDatabase()
     g.db_connection.db_open()
 
 

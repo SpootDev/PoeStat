@@ -93,7 +93,7 @@ def before_request():
     """
     Executes before each request
     """
-    g.db_connection = database_base.MKServerDatabase()
+    g.db_connection = database_base.ServerDatabase()
     g.db_connection.db_open()
 
 

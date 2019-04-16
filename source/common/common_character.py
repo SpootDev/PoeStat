@@ -20,12 +20,14 @@ import json
 import requests
 
 
+# the stash index's start at 0
 def com_char_get_stash(poe_session_id, account_name, account_league, tab_ndx):
     with requests.Session() as char_session:
         response = char_session.post(
-            'https://pathofexile.com/character-window/get-stash-items?accountName=%s&league=Standard&tabIndex=1&tabs=1' % account_name,
+            'https://pathofexile.com/character-window/get-stash-items?accountName=%s&league=%s&tabIndex=%s&tabs=1' % (
+                account_name, account_league, tab_ndx),
             headers={'Cookie': 'POESESSID=' + poe_session_id})
-        content = json.loads(response.content)
+        return json.loads(response.content)
 
 
 # TODO Generate Path of Building definitions
@@ -49,9 +51,11 @@ def com_char_get_list(account_name, league_name=None):
                 for character_data in result_data:
                     if character_data['league'] == league_name:
                         character_list.append(character_data)
+                return character_list
             else:
                 return result_data
     return None
+
 
 # https://www.pathofexile.com/account/view-profile/spooticusmaximus
 # can use to get guild and stuff with bsoup
@@ -60,3 +64,8 @@ def com_char_get_list(account_name, league_name=None):
 #     "Account profile is private."
 # elseif errMsg == "Response code: 404" then
 #     "Account name is incorrect."
+
+
+print(com_char_get_stash(poe_session_id='',
+                         account_name='spooticusmaximus',
+                         account_league='Standard', tab_ndx=0))
