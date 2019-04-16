@@ -25,10 +25,12 @@ def db_item_market_class_table(self, table_class):
                            ' (market_item_uuid uuid CONSTRAINT market_item_uuid_%s_pk PRIMARY KEY,'
                            ' market_item_stash_uuid uuid REFERENCES db_poe_stashes(poe_stash_uuid)'
                            ' ON DELETE CASCADE, market_item_json jsonb)' %
-                           (table_class.lower().replace(' ', '_'), table_class.lower().replace(' ', '_')))
+                           (table_class.lower().replace(' ', '_'),
+                            table_class.lower().replace(' ', '_')))
     self.db_cursor.execute('CREATE INDEX IF NOT EXISTS market_item_%s_stash_ndx '
                            'ON db_poe_market_%s (market_item_stash_uuid)' %
-                           (table_class.lower().replace(' ', '_'), table_class.lower().replace(' ', '_')))
+                           (table_class.lower().replace(' ', '_'),
+                            table_class.lower().replace(' ', '_')))
     self.db_commit()
 
 
