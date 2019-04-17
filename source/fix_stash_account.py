@@ -22,13 +22,18 @@ import database as database_base
 db_connection = database_base.ServerDatabase()
 db_connection.db_open()
 
-# this is to build the poe_stash_account_uuid
-for stash_row in db_connection.db_stash_read_all():
-    account_uuid = db_connection.db_base_account_upsert(stash_row['account_name'])
-    db_connection.db_query('update db_poe_stashes set poe_stash_account_uuid = \'%s\''
-                           ' where poe_stash_uuid = \'%s\'' %
-                           (account_uuid, str(stash_row['poe_stash_uuid'])))
-    db_connection.db_commit()
+run_loop = True
+while run_loop:
+    # this is to build the poe_stash_account_uuid
+    for stash_row in db_connection.db_stash_read_all():
+        account_uuid = db_connection.db_base_account_upsert(stash_row['account_name'])
+        if account_uuid is None:
+            run_loop = False
+            break
+        db_connection.db_query('update db_poe_stashes set poe_stash_account_uuid = \'%s\''
+                               ' where poe_stash_uuid = \'%s\'' %
+                               (account_uuid, str(stash_row['poe_stash_uuid'])))
+        db_connection.db_commit()
 
 # commit all the changes
 db_connection.db_commit()
