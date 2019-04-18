@@ -16,6 +16,23 @@
   MA 02110-1301, USA.
 '''
 
-# TODO return list of characters in db by accountname or none
+import uuid
+import json
 
-# TODO insert characters into DB with foreign key to account
+
+def db_base_character_upsert(self, account_uuid, character_json, character_passive_json):
+    """
+    # upsert into database for the player characters from account
+    """
+    self.db_cursor.execute(
+        'insert into db_poe_character'
+        ' (db_poe_character_uuid, db_poe_account_uuid, db_poe_character_name,'
+        ' db_poe_character_json, db_poe_character_passive_json)'
+        ' values (%s,%s,%s,%s,%s)'
+        ' on conflict (db_poe_character_name)'
+        ' do update set db_poe_character_json = %s, db_poe_character_passive_json = %s'
+        ' returning db_poe_character_uuid',
+        (str(uuid.uuid4()), account_uuid, character_json['name'], json.dumps(character_json),
+         json.dumps(character_passive_json), json.dumps(character_json), json.dumps(character_passive_json)))
+    self.db_commit()
+    return self.db_cursor.fetchone()[0]

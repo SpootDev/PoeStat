@@ -74,10 +74,14 @@ CREATE INDEX poe_stash_account_uuid_ndx ON public.db_poe_stashes USING btree (po
 
 CREATE UNIQUE INDEX poe_stash_uuid_ndx ON public.db_poe_stashes USING btree (poe_stash_uuid);
 
-***********
 
 CREATE TABLE IF NOT EXISTS db_poe_account (poe_account_uuid uuid NOT NULL CONSTRAINT account_uuid_pk PRIMARY KEY, poe_account_name text, poe_account_value numeric);
 CREATE UNIQUE INDEX poe_account_name_ndx ON public.db_poe_account USING btree (poe_account_name);
 
-CREATE TABLE IF NOT EXISTS db_poe_character (db_poe_character_uuid uuid CONSTRAINT db_poe_character_uuid_pk PRIMARY KEY, db_poe_account_uuid uuid REFERENCES db_poe_account(poe_account_uuid) db_poe_character_name text, db_poe_character_json jsonb, db_poe_character_passive_json jsonb);
+CREATE TABLE IF NOT EXISTS db_poe_character (db_poe_character_uuid uuid CONSTRAINT db_poe_character_uuid_pk PRIMARY KEY, db_poe_account_uuid uuid REFERENCES db_poe_account(poe_account_uuid), db_poe_character_name text, db_poe_character_json jsonb, db_poe_character_passive_json jsonb);
 CREATE UNIQUE INDEX db_poe_character_name_ndx ON public.db_poe_character USING btree (db_poe_character_name);
+
+
+CREATE TABLE IF NOT EXISTS db_poe_account_items (db_poe_account_item_uuid text CONSTRAINT db_poe_account_item_uuid_pk PRIMARY KEY, db_poe_account_uuid uuid REFERENCES db_poe_account(poe_account_uuid), db_poe_account_item_class_uuid uuid REFERENCES db_poe_item_subtypes(item_subtype_uuid), db_poe_account_item_json jsonb);
+
+***********

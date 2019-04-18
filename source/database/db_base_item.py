@@ -46,3 +46,15 @@ def db_item_upsert(self, stash_id, item_json):
                                 item_json['typeLine'].lower().replace(' ', '_')],
                             json.dumps(item_json)))
     self.db_commit()
+
+
+def db_item_account_upsert(self, account_uuid, item_class, item_json):
+    """
+    # upsert into database
+    """
+    self.db_cursor.execute('insert into db_poe_account_items (db_poe_account_item_uuid, db_poe_account_uuid,'
+                           ' db_poe_account_item_class_uuid, db_poe_account_item_json) values (%s,%s,%s,%s)'
+                           ' on conflict (db_poe_account_item_uuid) do update set db_poe_account_item_json = %s',
+                           (item_json['id'], account_uuid, item_class,
+                            json.dumps(item_json), json.dumps(item_json)))
+    self.db_commit()

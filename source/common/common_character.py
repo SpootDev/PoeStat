@@ -75,9 +75,9 @@ def com_char_get_passive(poe_session_id, account_name, character_name, realm_cod
 #     "Account name is incorrect."
 
 
-print(com_char_get_passive(poe_session_id='',
-                           account_name='spooticusmaximus',
-                           character_name='DarkKittySpoo', realm_code='pc'))
+# print(com_char_get_passive(poe_session_id='',
+#                            account_name='spooticusmaximus',
+#                            character_name='DarkKittySpoo', realm_code='pc'))
 
 # print(com_char_get_stash(poe_session_id='',
 #                          account_name='spooticusmaximus',

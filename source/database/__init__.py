@@ -29,6 +29,7 @@ class ServerDatabase(object):
         db_query, \
         db_parallel_workers
     from database.db_base_account import db_base_account_upsert
+    from database.db_base_character import db_base_character_upsert
     from database.db_base_import import db_base_import_item_class_list, \
         db_base_import_item_class_upsert, \
         db_base_import_item_subtype_upsert, \
@@ -39,7 +40,8 @@ class ServerDatabase(object):
         db_base_import_mod_upsert, \
         db_base_import_stat_upsert
     from database.db_base_item import db_item_market_class_table, \
-        db_item_upsert
+        db_item_upsert, \
+        db_item_account_upsert
     from database.db_base_stash import db_stash_insert, \
         db_stash_read_all, \
         db_stash_read_all_id, \

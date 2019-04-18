@@ -68,11 +68,13 @@ Press the F12 key.
 Select the "Application".
 Expand the "Cookies", select the https://www.pathofexile.com.
 Copy the value of the "POESESSID".
+
 Firefox
 Press the F12 key.
 Select the "Storage".
 Expand the "Cookies", select the https://www.pathofexile.com.
 Copy the value of the "POESESSID".
+
 IE11
 Press the F12 key.
 Select the "Network".
