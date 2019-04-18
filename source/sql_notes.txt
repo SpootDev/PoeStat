@@ -85,3 +85,5 @@ CREATE UNIQUE INDEX db_poe_character_name_ndx ON public.db_poe_character USING b
 CREATE TABLE IF NOT EXISTS db_poe_account_items (db_poe_account_item_uuid text CONSTRAINT db_poe_account_item_uuid_pk PRIMARY KEY, db_poe_account_uuid uuid REFERENCES db_poe_account(poe_account_uuid), db_poe_account_item_class_uuid uuid REFERENCES db_poe_item_subtypes(item_subtype_uuid), db_poe_account_item_json jsonb);
 
 ***********
+
+add chaos value to items tables
