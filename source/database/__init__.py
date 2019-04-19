@@ -41,7 +41,8 @@ class ServerDatabase(object):
         db_base_import_stat_upsert
     from database.db_base_item import db_item_market_class_table, \
         db_item_upsert, \
-        db_item_account_upsert
+        db_item_account_upsert, \
+        db_item_account_list
     from database.db_base_stash import db_stash_insert, \
         db_stash_read_all, \
         db_stash_read_all_id, \

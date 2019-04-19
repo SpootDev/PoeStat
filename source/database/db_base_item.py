@@ -59,3 +59,9 @@ def db_item_account_upsert(self, account_uuid, item_class, item_json):
         (item_json['id'], account_uuid, item_class,
          json.dumps(item_json), json.dumps(item_json)))
     self.db_commit()
+
+
+def db_item_account_list(self, account_uuid):
+    self.db_cursor.execute('select db_poe_account_item_json from db_poe_account_items'
+                           ' where db_poe_account_item_uuid = %s' % account_uuid)
+    return self.db_cursor.fetchall()
