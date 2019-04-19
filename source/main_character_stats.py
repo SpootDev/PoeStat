@@ -16,17 +16,22 @@
   MA 02110-1301, USA.
 '''
 
+import time
+from common import common_character
+from calculations import calc_character
+import database as database_base
 
-class Calculations(object):
-    """
-    Main class for PoE calculations
-    """
+POE_SESSION_ID = ''
+ACCOUNT_NAME = ''
 
-    def __init__(self, db_connection):
-        self.db_connection = db_connection
+# open up the database
+db_connection = database_base.ServerDatabase()
+db_connection.db_open()
 
-    from calculations.calc_character import calculate_character_base_stats
-    # from calculations.calc_items import import_base_character
-    # from calculations.calc_minion import import_base_monster
-    # from calculations.calc_passive import import_base_essence
-    # from calculations.calc_spells import import_base_gem
+# account_uuid = str(db_connection.db_base_account_upsert(ACCOUNT_NAME))
+
+print(calc_character.calculate_character_base_stats('Marauder', 25, character_passive_json=None))
+
+
+# close the database
+db_connection.db_close()
