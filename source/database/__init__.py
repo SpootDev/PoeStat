@@ -49,6 +49,9 @@ class ServerDatabase(object):
         db_stash_delete_null_league
     from database.db_base_status import db_status_read, \
         db_status_update
+    from database.db_base_wealth import db_wealth_currency_read, \
+        db_wealth_poe_ninja_currency_read, \
+        db_wealth_poe_ninja_currency_write
 
 
     # class variables

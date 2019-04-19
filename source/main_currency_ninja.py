@@ -16,8 +16,18 @@
   MA 02110-1301, USA.
 '''
 
+import calculations as calculations_base
+import database as database_base
 
-from statistics import median
+# open up the database
+db_connection = database_base.ServerDatabase()
+db_connection.db_open()
 
-def calculate_character_item_median(character_item_id):
-    pass
+calc_inst = calculations_base.Calculations(db_connection)
+db_connection.db_wealth_poe_ninja_currency_write(calc_inst.com_wealth_ninja_fetch_api())
+
+# commit
+db_connection.db_commit()
+
+# close the database
+db_connection.db_close()
