@@ -1,3 +1,11 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 11.1
+-- Dumped by pg_dump version 11.2
+
+-- Started on 2019-04-18 19:52:20
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -10,20 +18,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
---
+-- TOC entry 2 (class 3079 OID 16397)
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -31,6 +26,8 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
 
 
 --
+-- TOC entry 2805 (class 0 OID 0)
+-- Dependencies: 2
 -- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: 
 --
 
@@ -41,67 +38,958 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
-
 --
--- Name: mm_cron; Type: TABLE; Schema: public; Owner: metamanpg
+-- TOC entry 262 (class 1259 OID 4991030)
+-- Name: db_poe_account; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.mm_cron (
-    mm_cron_guid uuid NOT NULL,
-    mm_cron_name text,
-    mm_cron_description text,
-    mm_cron_enabled boolean,
-    mm_cron_schedule text,
-    mm_cron_last_run timestamp without time zone,
-    mm_cron_file_path text,
-    mm_cron_json jsonb
+CREATE TABLE public.db_poe_account (
+    poe_account_uuid uuid NOT NULL,
+    poe_account_name text,
+    poe_account_value numeric,
+    poe_account_characters jsonb
 );
 
 
-ALTER TABLE public.mm_cron OWNER TO metamanpg;
-
-
-
-
-
+ALTER TABLE public.db_poe_account OWNER TO postgres;
 
 --
--- Name: mm_notification; Type: TABLE; Schema: public; Owner: metamanpg
+-- TOC entry 264 (class 1259 OID 4996209)
+-- Name: db_poe_account_items; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.mm_notification (
-    mm_notification_guid uuid NOT NULL,
-    mm_notification_text text,
-    mm_notification_time timestamp without time zone,
-    mm_notification_dismissable boolean
+CREATE TABLE public.db_poe_account_items (
+    db_poe_account_item_uuid text NOT NULL,
+    db_poe_account_uuid uuid,
+    db_poe_account_item_class_uuid uuid,
+    db_poe_account_item_json jsonb
 );
 
 
-ALTER TABLE public.mm_notification OWNER TO metamanpg;
+ALTER TABLE public.db_poe_account_items OWNER TO postgres;
 
 --
--- Name: mm_options_and_status; Type: TABLE; Schema: public; Owner: metamanpg
+-- TOC entry 263 (class 1259 OID 4991039)
+-- Name: db_poe_character; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.mm_options_and_status (
-    mm_options_and_status_guid uuid NOT NULL,
-    mm_options_json jsonb,
-    mm_status_json jsonb
+CREATE TABLE public.db_poe_character (
+    db_poe_character_uuid uuid NOT NULL,
+    db_poe_account_uuid uuid,
+    db_poe_character_name text,
+    db_poe_character_json jsonb,
+    db_poe_character_passive_json jsonb,
+    db_poe_character_items_json jsonb
 );
 
 
-ALTER TABLE public.mm_options_and_status OWNER TO metamanpg;
-
-
-
-
-
+ALTER TABLE public.db_poe_character OWNER TO postgres;
 
 --
--- Name: mm_user; Type: TABLE; Schema: public; Owner: metamanpg
+-- TOC entry 208 (class 1259 OID 4978144)
+-- Name: db_poe_chat; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.mm_user (
+CREATE TABLE public.db_poe_chat (
+    chat_uuid uuid NOT NULL,
+    chat_text text,
+    chat_type smallint,
+    chat_timestamp timestamp without time zone,
+    chat_user text
+);
+
+
+ALTER TABLE public.db_poe_chat OWNER TO postgres;
+
+--
+-- TOC entry 203 (class 1259 OID 4976342)
+-- Name: db_poe_essence_base; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_essence_base (
+    db_poe_essence_uuid uuid NOT NULL,
+    db_poe_essance_name text,
+    db_poe_essence_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_essence_base OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 4976353)
+-- Name: db_poe_gem_base; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_gem_base (
+    db_poe_gem_uuid uuid NOT NULL,
+    db_poe_gem_name text,
+    db_poe_gem_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_gem_base OWNER TO postgres;
+
+--
+-- TOC entry 200 (class 1259 OID 4976266)
+-- Name: db_poe_item_class; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_item_class (
+    item_class_uuid uuid NOT NULL,
+    db_poe_item_class_name text,
+    db_poe_item_class_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_item_class OWNER TO postgres;
+
+--
+-- TOC entry 201 (class 1259 OID 4976298)
+-- Name: db_poe_item_subtypes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_item_subtypes (
+    item_subtype_uuid uuid NOT NULL,
+    db_poe_item_subtype_name text,
+    db_poe_item_subtype_json jsonb,
+    db_poe_item_subtype_class_uuid uuid
+);
+
+
+ALTER TABLE public.db_poe_item_subtypes OWNER TO postgres;
+
+--
+-- TOC entry 207 (class 1259 OID 4978134)
+-- Name: db_poe_league; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_league (
+    league_uuid uuid NOT NULL,
+    league_name text,
+    league_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_league OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 4987553)
+-- Name: db_poe_market_abyssjewel; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_abyssjewel (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_abyssjewel OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 4987567)
+-- Name: db_poe_market_active_skill_gem; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_active_skill_gem (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_active_skill_gem OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 4987581)
+-- Name: db_poe_market_amulet; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_amulet (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_amulet OWNER TO postgres;
+
+--
+-- TOC entry 212 (class 1259 OID 4987595)
+-- Name: db_poe_market_belt; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_belt (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_belt OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 4987609)
+-- Name: db_poe_market_body_armour; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_body_armour (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_body_armour OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 4987623)
+-- Name: db_poe_market_boots; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_boots (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_boots OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 4987637)
+-- Name: db_poe_market_bow; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_bow (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_bow OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 4987651)
+-- Name: db_poe_market_claw; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_claw (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_claw OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 4987665)
+-- Name: db_poe_market_currency; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_currency (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_currency OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 4987679)
+-- Name: db_poe_market_dagger; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_dagger (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_dagger OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 4987693)
+-- Name: db_poe_market_delvesocketablecurrency; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_delvesocketablecurrency (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_delvesocketablecurrency OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 4987707)
+-- Name: db_poe_market_divinationcard; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_divinationcard (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_divinationcard OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 4987721)
+-- Name: db_poe_market_fishingrod; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_fishingrod (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_fishingrod OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 4987735)
+-- Name: db_poe_market_gloves; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_gloves (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_gloves OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 4987749)
+-- Name: db_poe_market_helmet; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_helmet (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_helmet OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 4987763)
+-- Name: db_poe_market_hideoutdoodad; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_hideoutdoodad (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_hideoutdoodad OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 4987777)
+-- Name: db_poe_market_hybridflask; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_hybridflask (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_hybridflask OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 4987791)
+-- Name: db_poe_market_incursionitem; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_incursionitem (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_incursionitem OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 4987805)
+-- Name: db_poe_market_jewel; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_jewel (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_jewel OWNER TO postgres;
+
+--
+-- TOC entry 228 (class 1259 OID 4987819)
+-- Name: db_poe_market_labyrinthitem; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_labyrinthitem (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_labyrinthitem OWNER TO postgres;
+
+--
+-- TOC entry 229 (class 1259 OID 4987833)
+-- Name: db_poe_market_labyrinthmapitem; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_labyrinthmapitem (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_labyrinthmapitem OWNER TO postgres;
+
+--
+-- TOC entry 230 (class 1259 OID 4987847)
+-- Name: db_poe_market_labyrinthtrinket; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_labyrinthtrinket (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_labyrinthtrinket OWNER TO postgres;
+
+--
+-- TOC entry 231 (class 1259 OID 4987861)
+-- Name: db_poe_market_largerelic; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_largerelic (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_largerelic OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 4987875)
+-- Name: db_poe_market_leaguestone; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_leaguestone (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_leaguestone OWNER TO postgres;
+
+--
+-- TOC entry 233 (class 1259 OID 4987889)
+-- Name: db_poe_market_lifeflask; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_lifeflask (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_lifeflask OWNER TO postgres;
+
+--
+-- TOC entry 234 (class 1259 OID 4987903)
+-- Name: db_poe_market_manaflask; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_manaflask (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_manaflask OWNER TO postgres;
+
+--
+-- TOC entry 235 (class 1259 OID 4987917)
+-- Name: db_poe_market_map; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_map (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_map OWNER TO postgres;
+
+--
+-- TOC entry 236 (class 1259 OID 4987931)
+-- Name: db_poe_market_mapfragment; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_mapfragment (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_mapfragment OWNER TO postgres;
+
+--
+-- TOC entry 237 (class 1259 OID 4987945)
+-- Name: db_poe_market_mediumrelic; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_mediumrelic (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_mediumrelic OWNER TO postgres;
+
+--
+-- TOC entry 238 (class 1259 OID 4987959)
+-- Name: db_poe_market_microtransaction; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_microtransaction (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_microtransaction OWNER TO postgres;
+
+--
+-- TOC entry 239 (class 1259 OID 4987973)
+-- Name: db_poe_market_miscmapitem; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_miscmapitem (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_miscmapitem OWNER TO postgres;
+
+--
+-- TOC entry 240 (class 1259 OID 4987987)
+-- Name: db_poe_market_one_hand_axe; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_one_hand_axe (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_one_hand_axe OWNER TO postgres;
+
+--
+-- TOC entry 241 (class 1259 OID 4988001)
+-- Name: db_poe_market_one_hand_mace; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_one_hand_mace (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_one_hand_mace OWNER TO postgres;
+
+--
+-- TOC entry 242 (class 1259 OID 4988015)
+-- Name: db_poe_market_one_hand_sword; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_one_hand_sword (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_one_hand_sword OWNER TO postgres;
+
+--
+-- TOC entry 243 (class 1259 OID 4988029)
+-- Name: db_poe_market_pantheonsoul; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_pantheonsoul (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_pantheonsoul OWNER TO postgres;
+
+--
+-- TOC entry 244 (class 1259 OID 4988043)
+-- Name: db_poe_market_questitem; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_questitem (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_questitem OWNER TO postgres;
+
+--
+-- TOC entry 245 (class 1259 OID 4988057)
+-- Name: db_poe_market_quiver; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_quiver (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_quiver OWNER TO postgres;
+
+--
+-- TOC entry 246 (class 1259 OID 4988071)
+-- Name: db_poe_market_ring; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_ring (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_ring OWNER TO postgres;
+
+--
+-- TOC entry 247 (class 1259 OID 4988085)
+-- Name: db_poe_market_sceptre; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_sceptre (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_sceptre OWNER TO postgres;
+
+--
+-- TOC entry 248 (class 1259 OID 4988099)
+-- Name: db_poe_market_shield; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_shield (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_shield OWNER TO postgres;
+
+--
+-- TOC entry 249 (class 1259 OID 4988113)
+-- Name: db_poe_market_smallrelic; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_smallrelic (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_smallrelic OWNER TO postgres;
+
+--
+-- TOC entry 250 (class 1259 OID 4988127)
+-- Name: db_poe_market_stackablecurrency; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_stackablecurrency (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_stackablecurrency OWNER TO postgres;
+
+--
+-- TOC entry 251 (class 1259 OID 4988141)
+-- Name: db_poe_market_staff; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_staff (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_staff OWNER TO postgres;
+
+--
+-- TOC entry 252 (class 1259 OID 4988155)
+-- Name: db_poe_market_support_skill_gem; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_support_skill_gem (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_support_skill_gem OWNER TO postgres;
+
+--
+-- TOC entry 253 (class 1259 OID 4988169)
+-- Name: db_poe_market_thrusting_one_hand_sword; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_thrusting_one_hand_sword (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_thrusting_one_hand_sword OWNER TO postgres;
+
+--
+-- TOC entry 254 (class 1259 OID 4988183)
+-- Name: db_poe_market_two_hand_axe; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_two_hand_axe (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_two_hand_axe OWNER TO postgres;
+
+--
+-- TOC entry 255 (class 1259 OID 4988197)
+-- Name: db_poe_market_two_hand_mace; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_two_hand_mace (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_two_hand_mace OWNER TO postgres;
+
+--
+-- TOC entry 256 (class 1259 OID 4988211)
+-- Name: db_poe_market_two_hand_sword; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_two_hand_sword (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_two_hand_sword OWNER TO postgres;
+
+--
+-- TOC entry 257 (class 1259 OID 4988225)
+-- Name: db_poe_market_unarmed; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_unarmed (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_unarmed OWNER TO postgres;
+
+--
+-- TOC entry 258 (class 1259 OID 4988239)
+-- Name: db_poe_market_uniquefragment; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_uniquefragment (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_uniquefragment OWNER TO postgres;
+
+--
+-- TOC entry 259 (class 1259 OID 4988253)
+-- Name: db_poe_market_utilityflask; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_utilityflask (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_utilityflask OWNER TO postgres;
+
+--
+-- TOC entry 260 (class 1259 OID 4988267)
+-- Name: db_poe_market_utilityflaskcritical; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_utilityflaskcritical (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_utilityflaskcritical OWNER TO postgres;
+
+--
+-- TOC entry 261 (class 1259 OID 4988281)
+-- Name: db_poe_market_wand; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_market_wand (
+    market_item_uuid uuid NOT NULL,
+    market_item_stash_uuid uuid,
+    market_item_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_market_wand OWNER TO postgres;
+
+--
+-- TOC entry 205 (class 1259 OID 4976574)
+-- Name: db_poe_mod_base; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_mod_base (
+    db_poe_mod_uuid uuid NOT NULL,
+    db_poe_mod_name text,
+    db_poe_mod_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_mod_base OWNER TO postgres;
+
+--
+-- TOC entry 202 (class 1259 OID 4976330)
+-- Name: db_poe_monster_base; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_monster_base (
+    db_poe_monster_uuid uuid NOT NULL,
+    db_poe_monster_level text,
+    db_poe_monster_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_monster_base OWNER TO postgres;
+
+--
+-- TOC entry 198 (class 1259 OID 16486)
+-- Name: db_poe_stashes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_stashes (
+    poe_stash_uuid uuid NOT NULL,
+    poe_stash_account_uuid uuid,
+    poe_stash_json_data jsonb,
+    poe_stash_id_uuid text,
+    poe_league_uuid uuid
+);
+
+
+ALTER TABLE public.db_poe_stashes OWNER TO postgres;
+
+--
+-- TOC entry 206 (class 1259 OID 4977427)
+-- Name: db_poe_stat_base; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_stat_base (
+    db_poe_stat_uuid uuid NOT NULL,
+    db_poe_stat_name text,
+    db_poe_stat_json jsonb
+);
+
+
+ALTER TABLE public.db_poe_stat_base OWNER TO postgres;
+
+--
+-- TOC entry 199 (class 1259 OID 16614)
+-- Name: db_poe_status; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_poe_status (
+    poe_status_change_id text NOT NULL
+);
+
+
+ALTER TABLE public.db_poe_status OWNER TO postgres;
+
+--
+-- TOC entry 197 (class 1259 OID 16391)
+-- Name: db_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.db_user (
     id integer NOT NULL,
     username text,
     email text,
@@ -114,1660 +1002,1675 @@ CREATE TABLE public.mm_user (
 );
 
 
-ALTER TABLE public.mm_user OWNER TO metamanpg;
+ALTER TABLE public.db_user OWNER TO postgres;
 
 --
--- Name: mm_user_activity; Type: TABLE; Schema: public; Owner: metamanpg
+-- TOC entry 2615 (class 2606 OID 4991037)
+-- Name: db_poe_account account_uuid_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.mm_user_activity (
-    mm_activity_guid uuid NOT NULL,
-    mm_activity_name text,
-    mm_activity_overview text,
-    mm_activity_short_overview text,
-    mm_activity_type text,
-    mm_activity_itemid uuid,
-    mm_activity_userid uuid,
-    mm_activity_datecreated timestamp without time zone,
-    mm_activity_log_severity text
-);
+ALTER TABLE ONLY public.db_poe_account
+    ADD CONSTRAINT account_uuid_pk PRIMARY KEY (poe_account_uuid);
 
 
-ALTER TABLE public.mm_user_activity OWNER TO metamanpg;
-
-
-
---
--- Name: mm_user_id_seq; Type: SEQUENCE; Schema: public; Owner: metamanpg
---
-
-CREATE SEQUENCE public.mm_user_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.mm_user_id_seq OWNER TO metamanpg;
-
---
--- Name: mm_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: metamanpg
---
-
-ALTER SEQUENCE public.mm_user_id_seq OWNED BY public.mm_user.id;
-
-
-
---
--- Name: mm_version; Type: TABLE; Schema: public; Owner: metamanpg
---
-
-CREATE TABLE public.mm_version (
-    mm_version_no integer
-);
-
-
-ALTER TABLE public.mm_version OWNER TO metamanpg;
-
---
--- Name: mm_user id; Type: DEFAULT; Schema: public; Owner: metamanpg
---
-
-ALTER TABLE ONLY public.mm_user ALTER COLUMN id SET DEFAULT nextval('public.mm_user_id_seq'::regclass);
-
-
---
--- Data for Name: mm_channel; Type: TABLE DATA; Schema: public; Owner: metamanpg
---
-
-COPY public.mm_channel (mm_channel_guid, mm_channel_name, mm_channel_media_id, mm_channel_country_guid, mm_channel_logo_guid) FROM stdin;
-\.
-
-
---
--- Data for Name: mm_cron; Type: TABLE DATA; Schema: public; Owner: metamanpg
---
-
-COPY public.mm_cron (mm_cron_guid, mm_cron_name, mm_cron_description, mm_cron_enabled, mm_cron_schedule, mm_cron_last_run, mm_cron_file_path, mm_cron_json) FROM stdin;
-cbb42a96-f95f-4616-a0bb-e635e7b6d9ca	Anime	Match anime via Scudlee data	f	Days 1	1970-01-01 00:00:01	/mediakraken/subprogram_match_anime_id_scudlee.py	{"task": "anime", "route_key": "Z", "exchange_key": "mkque_metadata_ex"}
-00bcb1b1-7f16-4e90-8c55-77ce4c1ac86a	Collections	Create and update collection(s)	f	Days 1	1970-01-01 00:00:01	/mediakraken/subprogram_metadata_update_create_collections.py	{"task": "collection", "route_key": "themoviedb", "exchange_key": "mkque_metadata_ex"}
-7be16469-e0e5-44fd-8727-90ec21cae1c4	Schedules Direct	Fetch TV schedules from Schedules Direct	f	Days 1	1970-01-01 00:00:01	/mediakraken/subprogram_schedules_direct_updates.py	{"task": "update", "route_key": "schedulesdirect", "exchange_key": "mkque_metadata_ex"}
-7831b403-408b-49db-8658-f565af581245	The Movie Database	Grab updated metadata for movie(s) and TV show(s)	f	Days 1	1970-01-01 00:00:01	/mediakraken/subprogram_metadata_tmdb_updates.py	{"task": "update", "route_key": "themoviedb", "exchange_key": "mkque_metadata_ex"}
-de9b4b9b-8cd2-482a-bfa1-14c298f27aef	Trailer	Download new trailers	f	Days 1	1970-01-01 00:00:01	/mediakraken/subprogram_metadata_trailer_download.py	{"task": "trailer", "route_key": "Z", "exchange_key": "mkque_metadata_ex"}
-950ec436-d010-44fb-a653-ef019bf05cc4	Backup	Backup Postgresql DB	f	Days 1	1970-01-01 00:00:01	/mediakraken/subprogram_postgresql_backup.py	{"task": "dbbackup", "route_key": "mkque", "exchange_key": "mkque_ex"}
-ac093b30-f4ff-4e97-bb08-8ebb2b1e38d5	DB Vacuum	Postgresql Vacuum Analyze all tables	f	Days 1	1970-01-01 00:00:01	/mediakraken/subprogram_postgresql_vacuum.py	{"task": "dbvacuum", "route_key": "mkque", "exchange_key": "mkque_ex"}
-4974d078-cab7-4e37-8922-2a2c2202fb33	Media Scan	Scan for new media	f	Days 1	1970-01-01 00:00:01	/mediakraken/subprogram_file_scan.py	{"task": "scan", "route_key": "mkque", "exchange_key": "mkque_ex"}
-144feb59-e15c-491c-8eb9-3a81cc62febe	Sync	Sync/Transcode media	f	Days 1	1970-01-01 00:00:01	/mediakraken/subprogram_sync.py	{"task": "sync", "route_key": "mkque", "exchange_key": "mkque_ex"}
-\.
-
-
---
--- Data for Name: mm_device; Type: TABLE DATA; Schema: public; Owner: metamanpg
---
-
-COPY public.mm_device (mm_device_id, mm_device_type, mm_device_json) FROM stdin;
-\.
-
-
---
--- Data for Name: mm_download_que; Type: TABLE DATA; Schema: public; Owner: metamanpg
---
-
-COPY public.mm_download_que (mdq_id, mdq_provider, mdq_que_type, mdq_download_json) FROM stdin;
-\.
-
-
---
--- Data for Name: mm_game_category; Type: TABLE DATA; Schema: public; Owner: metamanpg
---
-
-COPY public.mm_game_category (gc_id, gc_category) FROM stdin;
-\.
-
-
---
--- Data for Name: mm_hardware; Type: TABLE DATA; Schema: public; Owner: metamanpg
 --
-
-COPY public.mm_hardware (mm_hardware_id, mm_hardware_manufacturer, mm_hardware_model, mm_hardware_json) FROM stdin;
-\.
-
-
---
--- Data for Name: mm_link; Type: TABLE DATA; Schema: public; Owner: metamanpg
---
-
-COPY public.mm_link (mm_link_guid, mm_link_name, mm_link_json) FROM stdin;
-\.
-
-
---
--- Data for Name: mm_loan; Type: TABLE DATA; Schema: public; Owner: metamanpg
---
-
-COPY public.mm_loan (mm_loan_guid, mm_loan_media_id, mm_loan_user_id, mm_load_user_loan_id, mm_loan_time, mm_loan_return_time) FROM stdin;
-\.
-
-
---
--- Data for Name: mm_media; Type: TABLE DATA; Schema: public; Owner: metamanpg
---
-
-COPY public.mm_media (mm_media_guid, mm_media_class_guid, mm_media_metadata_guid, mm_media_path, mm_media_ffprobe_json, mm_media_json) FROM stdin;
-\.
-
-
---
--- Data for Name: mm_media_class; Type: TABLE DATA; Schema: public; Owner: metamanpg
---
-
-COPY public.mm_media_class (mm_media_class_guid, mm_media_class_type, mm_media_class_parent_type, mm_media_class_display) FROM stdin;
-f7354910-02fc-455d-bdb5-361bf42e794c	Adult	Video	t
-e8ad8398-70be-483b-b0b9-abe8b8d7de2d	Anime	Video	t
-852bc096-20ea-4af7-a5a1-4be735c3b1ab	Book	Publication	t
-fd8387da-9d93-4554-be9d-d26e52832ff3	Boxset	\N	f
-f75c3b31-0d48-47eb-b66b-670aef07777b	Comic	Publication	t
-9dd3946f-a499-4f50-af77-b637f159ce66	Comic Strip	Publication	t
-9ba7e24a-ed4e-42c6-b667-e3179d2e71cb	Game CHD	\N	f
-f08b3310-b4a6-4e17-9ab9-74dfd0c71ca0	Game ISO	\N	f
-0ad11426-e4a2-421b-a438-0ff820e4c864	Game ROM	\N	f
-359cd32d-362b-4130-abb9-c1c1debf86cc	Home Movie	Video	t
-f0658749-4aa0-4fa1-8359-fac51106635d	Magazine	Publication	t
-8b40abac-a071-48bc-b1f9-5b678dcc934c	Movie	Video	t
-c53138ee-ab7c-40b9-b86e-d3eed7a26cc1	Movie Extras	Video	f
-d7631d4c-4e3d-4e09-866e-cd26d6c42fab	Movie Collection	\N	f
-eefee9fe-10ac-4ecd-899a-0cb162c67b6f	Movie Theme	Audio	f
-1481b6c9-8f68-4da1-8deb-19d5257035f1	Movie Subtitle	\N	f
-84742b9a-3870-418d-9bbd-4a1d7a3056c8	Movie Trailer	Video	f
-da762d3e-12b8-48a2-a214-647e76453316	Music	Audio	t
-493431f2-5f65-49cb-bb23-dbc20c906481	Music Album	\N	f
-d79edbb5-0c7c-46c1-96c4-128bea0af90b	Music Collection	\N	f
-7284c348-1f47-4d11-813a-bba08ef6b21b	Music Lyric	\N	f
-e0175eb1-b00d-438a-ad5c-8e23a2cc71c9	Music Video	Video	t
-1f187b8d-72fb-4bce-b809-01d6482a149e	Person	\N	f
-b6661e75-4474-44b3-b379-dde721daa31d	Picture	Image	t
-ba02ae59-6d4f-46f8-97a5-dd6e31d7676c	Soundtrack	Audio	f
-b118f082-8771-4ac3-b645-96d9b8d6bad4	Sports	Video	t
-f57d4cdb-7aff-45f0-9235-3f9c8b57842c	Subtitle	\N	f
-f3dc966d-2056-4ba7-8342-54191bb92117	TV Episode	Video	f
-4862b282-3130-430a-84de-cc47ec6caae4	TV Extras	Video	f
-c11a9cb5-6dda-455a-8f63-e94be3998042	TV Season	\N	f
-c62e715c-e35e-4907-a3c5-b7e9ca6f2333	TV Show	Video	t
-d4dea663-25f2-4c25-8f3b-5f68eb49d2f1	TV Subtitle	\N	f
-274f00a5-f058-41dd-a17a-dec9bcc18891	TV Theme	Audio	f
-a359aad3-7a95-4b9f-9050-aa09be35c326	TV Trailer	Video	f
-7c889c86-5eef-48cf-b840-2b56bee4b86b	Video Game	Game	t
-30ba9f85-51dc-49ad-a471-964575adf72c	Video Game Intro	Video	t
-02a162d2-194d-4ca8-8c8c-8167282d1c67	Video Game Speedrun	Video	t
-2e6bc294-eff4-40b9-8e94-e328ae4ab553	Video Game Superplay	Video	t
-\.
-
-
---
--- Data for Name: mm_media_dir; Type: TABLE DATA; Schema: public; Owner: metamanpg
---
-
-COPY public.mm_media_dir (mm_media_dir_guid, mm_media_dir_path, mm_media_dir_class_type, mm_media_dir_last_scanned, mm_media_dir_share_guid, mm_media_dir_status) FROM stdin;
-\.
-
-
---
--- Data for Name: mm_media_remote; Type: TABLE DATA; Schema: public; Owner: metamanpg
---
-
-COPY public.mm_media_remote (mmr_media_guid, mmr_media_link_id, mmr_media_uuid, mmr_media_class_guid, mmr_media_metadata_guid, mmr_media_ffprobe_json, mmr_media_json) FROM stdin;
-\.
-
-
---
--- Data for Name: mm_media_share; Type: TABLE DATA; Schema: public; Owner: metamanpg
---
-
-COPY public.mm_media_share (mm_media_share_guid, mm_media_share_type, mm_media_share_user, mm_media_share_password, mm_media_share_server, mm_media_share_path) FROM stdin;
-\.
-
-
---
--- Data for Name: mm_metadata_album; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2451 (class 2606 OID 4978151)
+-- Name: db_poe_chat chat_uuid_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_album (mm_metadata_album_guid, mm_metadata_album_name, mm_metadata_album_id, mm_metadata_album_json, mm_metadata_album_musician_guid, mm_metadata_album_user_json, mm_metadata_album_localimage) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_chat
+    ADD CONSTRAINT chat_uuid_pk PRIMARY KEY (chat_uuid);
 
 
 --
--- Data for Name: mm_metadata_anime; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2621 (class 2606 OID 4996216)
+-- Name: db_poe_account_items db_poe_account_item_uuid_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_anime (mm_metadata_anime_guid, mm_metadata_anime_media_id, mm_media_anime_name, mm_metadata_anime_json, mm_metadata_anime_mapping, mm_metadata_anime_mapping_before, mm_metadata_anime_localimage_json, mm_metadata_anime_user_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_account_items
+    ADD CONSTRAINT db_poe_account_item_uuid_pk PRIMARY KEY (db_poe_account_item_uuid);
 
 
 --
--- Data for Name: mm_metadata_book; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2619 (class 2606 OID 4991046)
+-- Name: db_poe_character db_poe_character_uuid_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_book (mm_metadata_book_guid, mm_metadata_book_isbn, mm_metadata_book_isbn13, mm_metadata_book_name, mm_metadata_book_json, mm_metadata_book_user_json, mm_metadata_book_localimage_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_character
+    ADD CONSTRAINT db_poe_character_uuid_pk PRIMARY KEY (db_poe_character_uuid);
 
 
 --
--- Data for Name: mm_metadata_collection; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2437 (class 2606 OID 4976349)
+-- Name: db_poe_essence_base db_poe_essence_uuid_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_collection (mm_metadata_collection_guid, mm_metadata_collection_name, mm_metadata_collection_media_ids, mm_metadata_collection_json, mm_metadata_collection_imagelocal_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_essence_base
+    ADD CONSTRAINT db_poe_essence_uuid_pk PRIMARY KEY (db_poe_essence_uuid);
 
 
 --
--- Data for Name: mm_metadata_game_software_info; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2440 (class 2606 OID 4976360)
+-- Name: db_poe_gem_base db_poe_gem_uuid_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_game_software_info (gi_id, gi_system_id, gi_game_info_short_name, gi_game_info_name, gi_game_info_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_gem_base
+    ADD CONSTRAINT db_poe_gem_uuid_pk PRIMARY KEY (db_poe_gem_uuid);
 
 
 --
--- Data for Name: mm_metadata_game_systems_info; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2443 (class 2606 OID 4976581)
+-- Name: db_poe_mod_base db_poe_mod_uuid_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_game_systems_info (gs_id, gs_game_system_name, gs_game_system_alias, gs_game_system_json, mm_metadata_localimage_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_mod_base
+    ADD CONSTRAINT db_poe_mod_uuid_pk PRIMARY KEY (db_poe_mod_uuid);
 
 
 --
--- Data for Name: mm_metadata_logo; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2434 (class 2606 OID 4976337)
+-- Name: db_poe_monster_base db_poe_monster_uuid_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_logo (mm_metadata_logo_guid, mm_metadata_logo_media_guid, mm_metadata_logo_image_path) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_monster_base
+    ADD CONSTRAINT db_poe_monster_uuid_pk PRIMARY KEY (db_poe_monster_uuid);
 
 
 --
--- Data for Name: mm_metadata_movie; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2446 (class 2606 OID 4977434)
+-- Name: db_poe_stat_base db_poe_stat_uuid_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_movie (mm_metadata_guid, mm_metadata_media_id, mm_media_name, mm_metadata_json, mm_metadata_localimage_json, mm_metadata_user_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_stat_base
+    ADD CONSTRAINT db_poe_stat_uuid_pk PRIMARY KEY (db_poe_stat_uuid);
 
 
 --
--- Data for Name: mm_metadata_music; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2427 (class 2606 OID 4976273)
+-- Name: db_poe_item_class item_class_uuid_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_music (mm_metadata_music_guid, mm_metadata_media_music_id, mm_metadata_music_name, mm_metadata_music_json, mm_metadata_music_album_guid, mm_metadata_music_user_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_item_class
+    ADD CONSTRAINT item_class_uuid_pk PRIMARY KEY (item_class_uuid);
 
 
 --
--- Data for Name: mm_metadata_music_video; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2431 (class 2606 OID 4976305)
+-- Name: db_poe_item_subtypes item_subtype_uuid_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_music_video (mm_metadata_music_video_guid, mm_metadata_music_video_media_id, mm_media_music_video_band, mm_media_music_video_song, mm_metadata_music_video_json, mm_metadata_music_video_localimage_json, mm_metadata_music_video_user_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_item_subtypes
+    ADD CONSTRAINT item_subtype_uuid_pk PRIMARY KEY (item_subtype_uuid);
 
 
 --
--- Data for Name: mm_metadata_musician; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2449 (class 2606 OID 4978141)
+-- Name: db_poe_league league_uuid_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_musician (mm_metadata_musician_guid, mm_metadata_musician_name, mm_metadata_musician_id, mm_metadata_musician_json, mm_metadata_musician_localimage_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_league
+    ADD CONSTRAINT league_uuid_pk PRIMARY KEY (league_uuid);
 
 
 --
--- Data for Name: mm_metadata_person; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2457 (class 2606 OID 4987560)
+-- Name: db_poe_market_abyssjewel market_item_uuid_abyssjewel_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_person (mmp_id, mmp_person_media_id, mmp_person_meta_json, mmp_person_image, mmp_person_name) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_market_abyssjewel
+    ADD CONSTRAINT market_item_uuid_abyssjewel_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_metadata_sports; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2460 (class 2606 OID 4987574)
+-- Name: db_poe_market_active_skill_gem market_item_uuid_active_skill_gem_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_sports (mm_metadata_sports_guid, mm_metadata_media_sports_id, mm_metadata_sports_name, mm_metadata_sports_json, mm_metadata_sports_user_json, mm_metadata_sports_image_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_market_active_skill_gem
+    ADD CONSTRAINT market_item_uuid_active_skill_gem_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_metadata_tvshow; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2463 (class 2606 OID 4987588)
+-- Name: db_poe_market_amulet market_item_uuid_amulet_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_metadata_tvshow (mm_metadata_tvshow_guid, mm_metadata_media_tvshow_id, mm_metadata_tvshow_name, mm_metadata_tvshow_json, mm_metadata_tvshow_localimage_json, mm_metadata_tvshow_user_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_market_amulet
+    ADD CONSTRAINT market_item_uuid_amulet_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_notification; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2466 (class 2606 OID 4987602)
+-- Name: db_poe_market_belt market_item_uuid_belt_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_notification (mm_notification_guid, mm_notification_text, mm_notification_time, mm_notification_dismissable) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_market_belt
+    ADD CONSTRAINT market_item_uuid_belt_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_options_and_status; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2469 (class 2606 OID 4987616)
+-- Name: db_poe_market_body_armour market_item_uuid_body_armour_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_options_and_status (mm_options_and_status_guid, mm_options_json, mm_status_json) FROM stdin;
-62b7e775-8e3e-4eda-8eb4-60d991a03833	{"SD": {"User": null, "Password": null}, "API": {"anidb": null, "imvdb": null, "dirble": "184709fc95ff6c4dacf841eb14", "google": "AIzaSyCwMkNYp8E4H19BDzlM7-IDkNCQtw0R9lY", "isbndb": "25C8IT4I", "tvmaze": "mknotneeded", "thetvdb": "147CB43DCA8B61B7", "shoutcast": null, "thelogodb": null, "soundcloud": null, "themoviedb": "f72118d1e84b8a1438935972a9c37cac", "globalcache": null, "musicbrainz": null, "thesportsdb": "4352761817344", "opensubtitles": null, "openweathermap": "575b4ae4615e4e2a4c34fb9defa17ceb", "rottentomatoes": "f4tnu5dn9r7f28gjth3ftqaj"}, "User": {"Password Lock": null, "Activity Purge": null}, "AWSS3": {"Bucket": "mediakraken", "AccessKey": null, "BackupBucket": "mkbackup", "SecretAccessKey": null}, "Trakt": {"ClientID": null, "OAuth": null}, "Twitch": {"ApiKey": null, "ClientID": null, "SecretKey": null}, "Backup": {"Interval": 0, "BackupType": "local"}, "Docker": {"Nodes": 0, "SwarmID": null, "Instances": 0}, "LastFM": {"api_key": null, "password": null, "username": null, "api_secret": null}, "Metadata": {"MetadataImageLocal": false, "DL Subtitle": false, "Trailer": {"Clip": false, "Behind": false, "Carpool": false, "Trailer": false, "Featurette": false}, "MusicBrainz": {"Host": null, "Port": 5000, "User": null, "Password": null, "BrainzDBHost": null, "BrainzDBName": null, "BrainzDBPass": null, "BrainzDBPort": 5432, "BrainzDBUser": null}}, "MaxResumePct": 5, "Transmission": {"Host": null, "Port": 9091, "Password": "metaman", "Username": "spootdev"}, "Docker Instances": {"smtp": false, "mumble": false, "pgadmin": false, "portainer": false, "teamspeak": false, "wireshark": false, "musicbrainz": false, "transmission": false}, "MediaKrakenServer": {"MOTD": null, "BackupLocal": "/mediakraken/backups/", "Server Name": "MediaKraken"}}	{"thetvdb_Updated_Epoc": 0}
-\.
+ALTER TABLE ONLY public.db_poe_market_body_armour
+    ADD CONSTRAINT market_item_uuid_body_armour_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_radio; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2472 (class 2606 OID 4987630)
+-- Name: db_poe_market_boots market_item_uuid_boots_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_radio (mm_radio_guid, mm_radio_name, mm_radio_adress, mm_radio_active) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_market_boots
+    ADD CONSTRAINT market_item_uuid_boots_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_review; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2475 (class 2606 OID 4987644)
+-- Name: db_poe_market_bow market_item_uuid_bow_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_review (mm_review_guid, mm_review_metadata_id, mm_review_metadata_guid, mm_review_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_market_bow
+    ADD CONSTRAINT market_item_uuid_bow_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_sync; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2478 (class 2606 OID 4987658)
+-- Name: db_poe_market_claw market_item_uuid_claw_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_sync (mm_sync_guid, mm_sync_path, mm_sync_path_to, mm_sync_options_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_market_claw
+    ADD CONSTRAINT market_item_uuid_claw_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_tv_schedule; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2481 (class 2606 OID 4987672)
+-- Name: db_poe_market_currency market_item_uuid_currency_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_tv_schedule (mm_tv_schedule_id, mm_tv_schedule_station_id, mm_tv_schedule_date, mm_tv_schedule_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_market_currency
+    ADD CONSTRAINT market_item_uuid_currency_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_tv_schedule_program; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2484 (class 2606 OID 4987686)
+-- Name: db_poe_market_dagger market_item_uuid_dagger_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_tv_schedule_program (mm_tv_schedule_program_guid, mm_tv_schedule_program_id, mm_tv_schedule_program_json) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_market_dagger
+    ADD CONSTRAINT market_item_uuid_dagger_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_tv_stations; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2487 (class 2606 OID 4987700)
+-- Name: db_poe_market_delvesocketablecurrency market_item_uuid_delvesocketablecurrency_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_tv_stations (mm_tv_stations_id, mm_tv_station_name, mm_tv_station_id, mm_tv_station_channel, mm_tv_station_json, mm_tv_station_image) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_market_delvesocketablecurrency
+    ADD CONSTRAINT market_item_uuid_delvesocketablecurrency_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_user; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2490 (class 2606 OID 4987714)
+-- Name: db_poe_market_divinationcard market_item_uuid_divinationcard_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_user (id, username, email, password, created_at, active, is_admin, user_json, lang) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_market_divinationcard
+    ADD CONSTRAINT market_item_uuid_divinationcard_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_user_activity; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2493 (class 2606 OID 4987728)
+-- Name: db_poe_market_fishingrod market_item_uuid_fishingrod_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_user_activity (mm_activity_guid, mm_activity_name, mm_activity_overview, mm_activity_short_overview, mm_activity_type, mm_activity_itemid, mm_activity_userid, mm_activity_datecreated, mm_activity_log_severity) FROM stdin;
-\.
+ALTER TABLE ONLY public.db_poe_market_fishingrod
+    ADD CONSTRAINT market_item_uuid_fishingrod_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_user_group; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2496 (class 2606 OID 4987742)
+-- Name: db_poe_market_gloves market_item_uuid_gloves_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_user_group (mm_user_group_guid, mm_user_group_name, mm_user_group_description, mm_user_group_rights_json) FROM stdin;
-43245db5-e3f2-4d2f-afaf-95d3847555b0	Administrator	Server administrator	{"Admin": true, "PreviewOnly": false}
-34099a51-d3eb-4c5b-9257-68fe8b7c3b62	User	General user	{"Admin": false, "PreviewOnly": false}
-4067a224-3c9a-42d8-8096-8ab6c950a8ff	Guest	Guest (Preview only)	{"Admin": false, "PreviewOnly": true}
-\.
+ALTER TABLE ONLY public.db_poe_market_gloves
+    ADD CONSTRAINT market_item_uuid_gloves_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_user_profile; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2499 (class 2606 OID 4987756)
+-- Name: db_poe_market_helmet market_item_uuid_helmet_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_user_profile (mm_user_profile_guid, mm_user_profile_name, mm_user_profile_json) FROM stdin;
-34f122f3-2fa7-4b7a-a485-1f201ef02f8b	Adult	{"3D": true, "TV": true, "Home": true, "Lang": "en", "Sync": true, "Adult": true, "Books": true, "Games": true, "MaxBR": 100, "Movie": true, "Music": true, "IRadio": true, "Images": true, "LiveTV": true, "Sports": true, "Internet": true, "MaxRating": 5}
-5ad879a3-4c57-411a-9983-eaecf1473c9c	Teen	{"3D": true, "TV": true, "Home": true, "Lang": "en", "Sync": false, "Adult": false, "Books": true, "Games": true, "MaxBR": 50, "Movie": true, "Music": true, "IRadio": true, "Images": true, "LiveTV": true, "Sports": true, "Internet": true, "MaxRating": 3}
-ae303673-9a39-45ee-a761-e18c3a9d027e	Child	{"3D": false, "TV": true, "Home": true, "Lang": "en", "Sync": false, "Adult": false, "Books": true, "Games": true, "MaxBR": 20, "Movie": true, "Music": true, "IRadio": false, "Images": true, "LiveTV": false, "Sports": true, "Internet": false, "MaxRating": 0}
-\.
+ALTER TABLE ONLY public.db_poe_market_helmet
+    ADD CONSTRAINT market_item_uuid_helmet_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Data for Name: mm_version; Type: TABLE DATA; Schema: public; Owner: metamanpg
+-- TOC entry 2502 (class 2606 OID 4987770)
+-- Name: db_poe_market_hideoutdoodad market_item_uuid_hideoutdoodad_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY public.mm_version (mm_version_no) FROM stdin;
-21
-\.
+ALTER TABLE ONLY public.db_poe_market_hideoutdoodad
+    ADD CONSTRAINT market_item_uuid_hideoutdoodad_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: metamanpg
+-- TOC entry 2505 (class 2606 OID 4987784)
+-- Name: db_poe_market_hybridflask market_item_uuid_hybridflask_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.mm_user_id_seq', 1, false);
+ALTER TABLE ONLY public.db_poe_market_hybridflask
+    ADD CONSTRAINT market_item_uuid_hybridflask_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_game_category gc_id_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2508 (class 2606 OID 4987798)
+-- Name: db_poe_market_incursionitem market_item_uuid_incursionitem_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_game_category
-    ADD CONSTRAINT gc_id_pk PRIMARY KEY (gc_id);
+ALTER TABLE ONLY public.db_poe_market_incursionitem
+    ADD CONSTRAINT market_item_uuid_incursionitem_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_metadata_game_software_info gi_id_mpk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2511 (class 2606 OID 4987812)
+-- Name: db_poe_market_jewel market_item_uuid_jewel_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_game_software_info
-    ADD CONSTRAINT gi_id_mpk PRIMARY KEY (gi_id);
+ALTER TABLE ONLY public.db_poe_market_jewel
+    ADD CONSTRAINT market_item_uuid_jewel_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_metadata_game_systems_info gs_id_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2514 (class 2606 OID 4987826)
+-- Name: db_poe_market_labyrinthitem market_item_uuid_labyrinthitem_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_game_systems_info
-    ADD CONSTRAINT gs_id_pk PRIMARY KEY (gs_id);
+ALTER TABLE ONLY public.db_poe_market_labyrinthitem
+    ADD CONSTRAINT market_item_uuid_labyrinthitem_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_download_que mdq_id_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2517 (class 2606 OID 4987840)
+-- Name: db_poe_market_labyrinthmapitem market_item_uuid_labyrinthmapitem_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_download_que
-    ADD CONSTRAINT mdq_id_pk PRIMARY KEY (mdq_id);
+ALTER TABLE ONLY public.db_poe_market_labyrinthmapitem
+    ADD CONSTRAINT market_item_uuid_labyrinthmapitem_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_user_activity mm_activity_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2520 (class 2606 OID 4987854)
+-- Name: db_poe_market_labyrinthtrinket market_item_uuid_labyrinthtrinket_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_user_activity
-    ADD CONSTRAINT mm_activity_pk PRIMARY KEY (mm_activity_guid);
+ALTER TABLE ONLY public.db_poe_market_labyrinthtrinket
+    ADD CONSTRAINT market_item_uuid_labyrinthtrinket_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_channel mm_channel_guid_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2523 (class 2606 OID 4987868)
+-- Name: db_poe_market_largerelic market_item_uuid_largerelic_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_channel
-    ADD CONSTRAINT mm_channel_guid_pk PRIMARY KEY (mm_channel_guid);
+ALTER TABLE ONLY public.db_poe_market_largerelic
+    ADD CONSTRAINT market_item_uuid_largerelic_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_cron mm_cron_guid_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2526 (class 2606 OID 4987882)
+-- Name: db_poe_market_leaguestone market_item_uuid_leaguestone_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_cron
-    ADD CONSTRAINT mm_cron_guid_pk PRIMARY KEY (mm_cron_guid);
+ALTER TABLE ONLY public.db_poe_market_leaguestone
+    ADD CONSTRAINT market_item_uuid_leaguestone_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_device mm_device_id_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2529 (class 2606 OID 4987896)
+-- Name: db_poe_market_lifeflask market_item_uuid_lifeflask_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_device
-    ADD CONSTRAINT mm_device_id_pk PRIMARY KEY (mm_device_id);
+ALTER TABLE ONLY public.db_poe_market_lifeflask
+    ADD CONSTRAINT market_item_uuid_lifeflask_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_hardware mm_hardware_id; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2532 (class 2606 OID 4987910)
+-- Name: db_poe_market_manaflask market_item_uuid_manaflask_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_hardware
-    ADD CONSTRAINT mm_hardware_id PRIMARY KEY (mm_hardware_id);
+ALTER TABLE ONLY public.db_poe_market_manaflask
+    ADD CONSTRAINT market_item_uuid_manaflask_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_link mm_link_guid_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2535 (class 2606 OID 4987924)
+-- Name: db_poe_market_map market_item_uuid_map_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_link
-    ADD CONSTRAINT mm_link_guid_pk PRIMARY KEY (mm_link_guid);
+ALTER TABLE ONLY public.db_poe_market_map
+    ADD CONSTRAINT market_item_uuid_map_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_loan mm_loan_guid_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2538 (class 2606 OID 4987938)
+-- Name: db_poe_market_mapfragment market_item_uuid_mapfragment_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_loan
-    ADD CONSTRAINT mm_loan_guid_pk PRIMARY KEY (mm_loan_guid);
+ALTER TABLE ONLY public.db_poe_market_mapfragment
+    ADD CONSTRAINT market_item_uuid_mapfragment_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_media_class mm_media_class_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2541 (class 2606 OID 4987952)
+-- Name: db_poe_market_mediumrelic market_item_uuid_mediumrelic_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_media_class
-    ADD CONSTRAINT mm_media_class_pk PRIMARY KEY (mm_media_class_guid);
+ALTER TABLE ONLY public.db_poe_market_mediumrelic
+    ADD CONSTRAINT market_item_uuid_mediumrelic_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_media_dir mm_media_dir_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2544 (class 2606 OID 4987966)
+-- Name: db_poe_market_microtransaction market_item_uuid_microtransaction_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_media_dir
-    ADD CONSTRAINT mm_media_dir_pk PRIMARY KEY (mm_media_dir_guid);
+ALTER TABLE ONLY public.db_poe_market_microtransaction
+    ADD CONSTRAINT market_item_uuid_microtransaction_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_media mm_media_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2547 (class 2606 OID 4987980)
+-- Name: db_poe_market_miscmapitem market_item_uuid_miscmapitem_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_media
-    ADD CONSTRAINT mm_media_pk PRIMARY KEY (mm_media_guid);
+ALTER TABLE ONLY public.db_poe_market_miscmapitem
+    ADD CONSTRAINT market_item_uuid_miscmapitem_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_media_share mm_media_share_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2550 (class 2606 OID 4987994)
+-- Name: db_poe_market_one_hand_axe market_item_uuid_one_hand_axe_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_media_share
-    ADD CONSTRAINT mm_media_share_pk PRIMARY KEY (mm_media_share_guid);
+ALTER TABLE ONLY public.db_poe_market_one_hand_axe
+    ADD CONSTRAINT market_item_uuid_one_hand_axe_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_metadata_album mm_metadata_album_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2553 (class 2606 OID 4988008)
+-- Name: db_poe_market_one_hand_mace market_item_uuid_one_hand_mace_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_album
-    ADD CONSTRAINT mm_metadata_album_pk PRIMARY KEY (mm_metadata_album_guid);
+ALTER TABLE ONLY public.db_poe_market_one_hand_mace
+    ADD CONSTRAINT market_item_uuid_one_hand_mace_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_metadata_anime mm_metadata_anime_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2556 (class 2606 OID 4988022)
+-- Name: db_poe_market_one_hand_sword market_item_uuid_one_hand_sword_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_anime
-    ADD CONSTRAINT mm_metadata_anime_pk PRIMARY KEY (mm_metadata_anime_guid);
+ALTER TABLE ONLY public.db_poe_market_one_hand_sword
+    ADD CONSTRAINT market_item_uuid_one_hand_sword_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_metadata_book mm_metadata_book_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2559 (class 2606 OID 4988036)
+-- Name: db_poe_market_pantheonsoul market_item_uuid_pantheonsoul_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_book
-    ADD CONSTRAINT mm_metadata_book_pk PRIMARY KEY (mm_metadata_book_guid);
+ALTER TABLE ONLY public.db_poe_market_pantheonsoul
+    ADD CONSTRAINT market_item_uuid_pantheonsoul_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_metadata_collection mm_metadata_collection_guid_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2562 (class 2606 OID 4988050)
+-- Name: db_poe_market_questitem market_item_uuid_questitem_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_collection
-    ADD CONSTRAINT mm_metadata_collection_guid_pk PRIMARY KEY (mm_metadata_collection_guid);
+ALTER TABLE ONLY public.db_poe_market_questitem
+    ADD CONSTRAINT market_item_uuid_questitem_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_metadata_logo mm_metadata_logo_guid_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2565 (class 2606 OID 4988064)
+-- Name: db_poe_market_quiver market_item_uuid_quiver_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_logo
-    ADD CONSTRAINT mm_metadata_logo_guid_pk PRIMARY KEY (mm_metadata_logo_guid);
+ALTER TABLE ONLY public.db_poe_market_quiver
+    ADD CONSTRAINT market_item_uuid_quiver_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_metadata_music mm_metadata_music_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2568 (class 2606 OID 4988078)
+-- Name: db_poe_market_ring market_item_uuid_ring_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_music
-    ADD CONSTRAINT mm_metadata_music_pk PRIMARY KEY (mm_metadata_music_guid);
+ALTER TABLE ONLY public.db_poe_market_ring
+    ADD CONSTRAINT market_item_uuid_ring_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_metadata_music_video mm_metadata_music_video_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2571 (class 2606 OID 4988092)
+-- Name: db_poe_market_sceptre market_item_uuid_sceptre_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_music_video
-    ADD CONSTRAINT mm_metadata_music_video_pk PRIMARY KEY (mm_metadata_music_video_guid);
+ALTER TABLE ONLY public.db_poe_market_sceptre
+    ADD CONSTRAINT market_item_uuid_sceptre_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_metadata_musician mm_metadata_musician_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2574 (class 2606 OID 4988106)
+-- Name: db_poe_market_shield market_item_uuid_shield_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_musician
-    ADD CONSTRAINT mm_metadata_musician_pk PRIMARY KEY (mm_metadata_musician_guid);
+ALTER TABLE ONLY public.db_poe_market_shield
+    ADD CONSTRAINT market_item_uuid_shield_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_metadata_movie mm_metadata_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2577 (class 2606 OID 4988120)
+-- Name: db_poe_market_smallrelic market_item_uuid_smallrelic_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_movie
-    ADD CONSTRAINT mm_metadata_pk PRIMARY KEY (mm_metadata_guid);
+ALTER TABLE ONLY public.db_poe_market_smallrelic
+    ADD CONSTRAINT market_item_uuid_smallrelic_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_metadata_sports mm_metadata_sports_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2580 (class 2606 OID 4988134)
+-- Name: db_poe_market_stackablecurrency market_item_uuid_stackablecurrency_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_sports
-    ADD CONSTRAINT mm_metadata_sports_pk PRIMARY KEY (mm_metadata_sports_guid);
+ALTER TABLE ONLY public.db_poe_market_stackablecurrency
+    ADD CONSTRAINT market_item_uuid_stackablecurrency_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_metadata_tvshow mm_metadata_tvshow_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2583 (class 2606 OID 4988148)
+-- Name: db_poe_market_staff market_item_uuid_staff_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_tvshow
-    ADD CONSTRAINT mm_metadata_tvshow_pk PRIMARY KEY (mm_metadata_tvshow_guid);
+ALTER TABLE ONLY public.db_poe_market_staff
+    ADD CONSTRAINT market_item_uuid_staff_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_notification mm_notification_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2586 (class 2606 OID 4988162)
+-- Name: db_poe_market_support_skill_gem market_item_uuid_support_skill_gem_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_notification
-    ADD CONSTRAINT mm_notification_pk PRIMARY KEY (mm_notification_guid);
+ALTER TABLE ONLY public.db_poe_market_support_skill_gem
+    ADD CONSTRAINT market_item_uuid_support_skill_gem_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_options_and_status mm_options_and_status_guid_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2589 (class 2606 OID 4988176)
+-- Name: db_poe_market_thrusting_one_hand_sword market_item_uuid_thrusting_one_hand_sword_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_options_and_status
-    ADD CONSTRAINT mm_options_and_status_guid_pk PRIMARY KEY (mm_options_and_status_guid);
+ALTER TABLE ONLY public.db_poe_market_thrusting_one_hand_sword
+    ADD CONSTRAINT market_item_uuid_thrusting_one_hand_sword_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_radio mm_radio_guid_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2592 (class 2606 OID 4988190)
+-- Name: db_poe_market_two_hand_axe market_item_uuid_two_hand_axe_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_radio
-    ADD CONSTRAINT mm_radio_guid_pk PRIMARY KEY (mm_radio_guid);
+ALTER TABLE ONLY public.db_poe_market_two_hand_axe
+    ADD CONSTRAINT market_item_uuid_two_hand_axe_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_review mm_review_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2595 (class 2606 OID 4988204)
+-- Name: db_poe_market_two_hand_mace market_item_uuid_two_hand_mace_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_review
-    ADD CONSTRAINT mm_review_pk PRIMARY KEY (mm_review_guid);
+ALTER TABLE ONLY public.db_poe_market_two_hand_mace
+    ADD CONSTRAINT market_item_uuid_two_hand_mace_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_sync mm_sync_guid_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2598 (class 2606 OID 4988218)
+-- Name: db_poe_market_two_hand_sword market_item_uuid_two_hand_sword_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_sync
-    ADD CONSTRAINT mm_sync_guid_pk PRIMARY KEY (mm_sync_guid);
+ALTER TABLE ONLY public.db_poe_market_two_hand_sword
+    ADD CONSTRAINT market_item_uuid_two_hand_sword_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_task mm_task_guid_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2601 (class 2606 OID 4988232)
+-- Name: db_poe_market_unarmed market_item_uuid_unarmed_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_task
-    ADD CONSTRAINT mm_task_guid_pk PRIMARY KEY (mm_task_guid);
+ALTER TABLE ONLY public.db_poe_market_unarmed
+    ADD CONSTRAINT market_item_uuid_unarmed_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_tv_schedule mm_tv_schedule_id_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2604 (class 2606 OID 4988246)
+-- Name: db_poe_market_uniquefragment market_item_uuid_uniquefragment_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_tv_schedule
-    ADD CONSTRAINT mm_tv_schedule_id_pk PRIMARY KEY (mm_tv_schedule_id);
+ALTER TABLE ONLY public.db_poe_market_uniquefragment
+    ADD CONSTRAINT market_item_uuid_uniquefragment_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_tv_schedule_program mm_tv_schedule_program_guid_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2607 (class 2606 OID 4988260)
+-- Name: db_poe_market_utilityflask market_item_uuid_utilityflask_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_tv_schedule_program
-    ADD CONSTRAINT mm_tv_schedule_program_guid_pk PRIMARY KEY (mm_tv_schedule_program_guid);
+ALTER TABLE ONLY public.db_poe_market_utilityflask
+    ADD CONSTRAINT market_item_uuid_utilityflask_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_tv_stations mm_tv_stations_id_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2610 (class 2606 OID 4988274)
+-- Name: db_poe_market_utilityflaskcritical market_item_uuid_utilityflaskcritical_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_tv_stations
-    ADD CONSTRAINT mm_tv_stations_id_pk PRIMARY KEY (mm_tv_stations_id);
+ALTER TABLE ONLY public.db_poe_market_utilityflaskcritical
+    ADD CONSTRAINT market_item_uuid_utilityflaskcritical_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_user_group mm_user_group_guid_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2612 (class 2606 OID 4988288)
+-- Name: db_poe_market_wand market_item_uuid_wand_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_user_group
-    ADD CONSTRAINT mm_user_group_guid_pk PRIMARY KEY (mm_user_group_guid);
+ALTER TABLE ONLY public.db_poe_market_wand
+    ADD CONSTRAINT market_item_uuid_wand_pk PRIMARY KEY (market_item_uuid);
 
 
 --
--- Name: mm_user mm_user_pkey; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2617 (class 1259 OID 4991052)
+-- Name: db_poe_character_name_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_user
-    ADD CONSTRAINT mm_user_pkey PRIMARY KEY (id);
+CREATE UNIQUE INDEX db_poe_character_name_ndx ON public.db_poe_character USING btree (db_poe_character_name);
 
 
 --
--- Name: mm_user_profile mm_user_profile_guid_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2452 (class 1259 OID 4978153)
+-- Name: db_poe_chat_timestamp_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_user_profile
-    ADD CONSTRAINT mm_user_profile_guid_pk PRIMARY KEY (mm_user_profile_guid);
+CREATE INDEX db_poe_chat_timestamp_ndx ON public.db_poe_chat USING btree (chat_timestamp);
 
 
 --
--- Name: mm_metadata_person mmp_id_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2453 (class 1259 OID 4978152)
+-- Name: db_poe_chat_type_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_metadata_person
-    ADD CONSTRAINT mmp_id_pk PRIMARY KEY (mmp_id);
+CREATE INDEX db_poe_chat_type_ndx ON public.db_poe_chat USING btree (chat_type);
 
 
 --
--- Name: mm_media_remote mmr_media_remote_pk; Type: CONSTRAINT; Schema: public; Owner: metamanpg
+-- TOC entry 2454 (class 1259 OID 4978154)
+-- Name: db_poe_chat_user_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.mm_media_remote
-    ADD CONSTRAINT mmr_media_remote_pk PRIMARY KEY (mmr_media_guid);
+CREATE INDEX db_poe_chat_user_ndx ON public.db_poe_chat USING btree (chat_user);
 
 
 --
--- Name: gc_category_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2435 (class 1259 OID 4976350)
+-- Name: db_poe_essance_name_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX gc_category_idx_name ON public.mm_game_category USING btree (gc_category);
+CREATE UNIQUE INDEX db_poe_essance_name_ndx ON public.db_poe_essence_base USING btree (db_poe_essance_name);
 
 
 --
--- Name: gi_game_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2438 (class 1259 OID 4976361)
+-- Name: db_poe_gem_name_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX gi_game_idx_name ON public.mm_metadata_game_software_info USING btree (gi_game_info_name);
+CREATE UNIQUE INDEX db_poe_gem_name_ndx ON public.db_poe_gem_base USING btree (db_poe_gem_name);
 
 
 --
--- Name: gi_game_idx_name_trigram_idx; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2425 (class 1259 OID 4976274)
+-- Name: db_poe_item_class_name_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX gi_game_idx_name_trigram_idx ON public.mm_metadata_game_software_info USING gist (gi_game_info_name public.gist_trgm_ops);
+CREATE UNIQUE INDEX db_poe_item_class_name_ndx ON public.db_poe_item_class USING btree (db_poe_item_class_name);
 
 
 --
--- Name: gi_game_idx_short_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2428 (class 1259 OID 4976312)
+-- Name: db_poe_item_subtype_class_uuid_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX gi_game_idx_short_name ON public.mm_metadata_game_software_info USING btree (gi_game_info_short_name);
+CREATE INDEX db_poe_item_subtype_class_uuid_ndx ON public.db_poe_item_subtypes USING btree (db_poe_item_subtype_class_uuid);
 
 
 --
--- Name: gi_system_id_ndx; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2429 (class 1259 OID 4976311)
+-- Name: db_poe_item_subtype_name_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX gi_system_id_ndx ON public.mm_metadata_game_software_info USING btree (gi_system_id);
+CREATE UNIQUE INDEX db_poe_item_subtype_name_ndx ON public.db_poe_item_subtypes USING btree (db_poe_item_subtype_name);
 
 
 --
--- Name: mdq_que_type_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2447 (class 1259 OID 4978142)
+-- Name: db_poe_league_name_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mdq_que_type_idx_name ON public.mm_download_que USING btree (mdq_que_type);
+CREATE UNIQUE INDEX db_poe_league_name_ndx ON public.db_poe_league USING btree (league_name);
 
 
 --
--- Name: mm_channel_idx_country; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2441 (class 1259 OID 4976582)
+-- Name: db_poe_mod_name_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_channel_idx_country ON public.mm_channel USING btree (mm_channel_country_guid);
+CREATE UNIQUE INDEX db_poe_mod_name_ndx ON public.db_poe_mod_base USING btree (db_poe_mod_name);
 
 
 --
--- Name: mm_channel_idx_logo; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2432 (class 1259 OID 4976338)
+-- Name: db_poe_monster_level_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_channel_idx_logo ON public.mm_channel USING btree (mm_channel_logo_guid);
+CREATE UNIQUE INDEX db_poe_monster_level_ndx ON public.db_poe_monster_base USING btree (db_poe_monster_level);
 
 
 --
--- Name: mm_channel_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2444 (class 1259 OID 4977435)
+-- Name: db_poe_stat_name_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_channel_idx_name ON public.mm_channel USING btree (mm_channel_name);
+CREATE UNIQUE INDEX db_poe_stat_name_ndx ON public.db_poe_stat_base USING btree (db_poe_stat_name);
 
 
 --
--- Name: mm_channel_idxgin_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2455 (class 1259 OID 4987566)
+-- Name: market_item_abyssjewel_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_channel_idxgin_json ON public.mm_channel USING gin (mm_channel_media_id);
+CREATE INDEX market_item_abyssjewel_stash_ndx ON public.db_poe_market_abyssjewel USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_device_idx_type; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2458 (class 1259 OID 4987580)
+-- Name: market_item_active_skill_gem_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_device_idx_type ON public.mm_device USING btree (mm_device_type);
+CREATE INDEX market_item_active_skill_gem_stash_ndx ON public.db_poe_market_active_skill_gem USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_device_idxgin_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2461 (class 1259 OID 4987594)
+-- Name: market_item_amulet_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_device_idxgin_json ON public.mm_device USING gin (mm_device_json);
+CREATE INDEX market_item_amulet_stash_ndx ON public.db_poe_market_amulet USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_download_idx_provider; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2464 (class 1259 OID 4987608)
+-- Name: market_item_belt_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_download_idx_provider ON public.mm_download_que USING btree (mdq_provider);
+CREATE INDEX market_item_belt_stash_ndx ON public.db_poe_market_belt USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_download_que_idxgin_meta_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2467 (class 1259 OID 4987622)
+-- Name: market_item_body_armour_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_download_que_idxgin_meta_json ON public.mm_download_que USING gin (mdq_download_json);
+CREATE INDEX market_item_body_armour_stash_ndx ON public.db_poe_market_body_armour USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_game_info_idxgin_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2470 (class 1259 OID 4987636)
+-- Name: market_item_boots_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_game_info_idxgin_json ON public.mm_metadata_game_software_info USING gin (gi_game_info_json);
+CREATE INDEX market_item_boots_stash_ndx ON public.db_poe_market_boots USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_game_info_idxgin_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2473 (class 1259 OID 4987650)
+-- Name: market_item_bow_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_game_info_idxgin_name ON public.mm_metadata_game_software_info USING gin (((gi_game_info_json -> '@name'::text)));
+CREATE INDEX market_item_bow_stash_ndx ON public.db_poe_market_bow USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_game_systems_idxgin_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2476 (class 1259 OID 4987664)
+-- Name: market_item_claw_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_game_systems_idxgin_json ON public.mm_metadata_game_systems_info USING gin (gs_game_system_json);
+CREATE INDEX market_item_claw_stash_ndx ON public.db_poe_market_claw USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_hardware_idx_manufacturer; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2479 (class 1259 OID 4987678)
+-- Name: market_item_currency_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_hardware_idx_manufacturer ON public.mm_hardware USING btree (mm_hardware_manufacturer);
+CREATE INDEX market_item_currency_stash_ndx ON public.db_poe_market_currency USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_hardware_idx_model; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2482 (class 1259 OID 4987692)
+-- Name: market_item_dagger_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_hardware_idx_model ON public.mm_hardware USING btree (mm_hardware_model);
+CREATE INDEX market_item_dagger_stash_ndx ON public.db_poe_market_dagger USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_link_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2485 (class 1259 OID 4987706)
+-- Name: market_item_delvesocketablecurrency_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_link_idx_name ON public.mm_link USING btree (mm_link_name);
+CREATE INDEX market_item_delvesocketablecurrency_stash_ndx ON public.db_poe_market_delvesocketablecurrency USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_link_json_idxgin; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2488 (class 1259 OID 4987720)
+-- Name: market_item_divinationcard_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_link_json_idxgin ON public.mm_link USING gin (mm_link_json);
+CREATE INDEX market_item_divinationcard_stash_ndx ON public.db_poe_market_divinationcard USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_media_anime_name_trigram_idx; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2491 (class 1259 OID 4987734)
+-- Name: market_item_fishingrod_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_media_anime_name_trigram_idx ON public.mm_metadata_anime USING gist (mm_media_anime_name public.gist_trgm_ops);
+CREATE INDEX market_item_fishingrod_stash_ndx ON public.db_poe_market_fishingrod USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_media_class_idx_type; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2494 (class 1259 OID 4987748)
+-- Name: market_item_gloves_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_media_class_idx_type ON public.mm_media_class USING btree (mm_media_class_type);
+CREATE INDEX market_item_gloves_stash_ndx ON public.db_poe_market_gloves USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_media_dir_idx_share; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2497 (class 1259 OID 4987762)
+-- Name: market_item_helmet_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_media_dir_idx_share ON public.mm_media_dir USING btree (mm_media_dir_share_guid);
+CREATE INDEX market_item_helmet_stash_ndx ON public.db_poe_market_helmet USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_media_idx_metadata_uuid; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2500 (class 1259 OID 4987776)
+-- Name: market_item_hideoutdoodad_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_media_idx_metadata_uuid ON public.mm_media USING btree (mm_media_metadata_guid);
+CREATE INDEX market_item_hideoutdoodad_stash_ndx ON public.db_poe_market_hideoutdoodad USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_media_idx_path; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2503 (class 1259 OID 4987790)
+-- Name: market_item_hybridflask_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_media_idx_path ON public.mm_media USING btree (mm_media_path);
+CREATE INDEX market_item_hybridflask_stash_ndx ON public.db_poe_market_hybridflask USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_media_idxgin_ffprobe; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2506 (class 1259 OID 4987804)
+-- Name: market_item_incursionitem_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_media_idxgin_ffprobe ON public.mm_media USING gin (mm_media_ffprobe_json);
+CREATE INDEX market_item_incursionitem_stash_ndx ON public.db_poe_market_incursionitem USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_media_music_video_band_trigram_idx; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2509 (class 1259 OID 4987818)
+-- Name: market_item_jewel_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_media_music_video_band_trigram_idx ON public.mm_metadata_music_video USING gist (mm_media_music_video_band public.gist_trgm_ops);
+CREATE INDEX market_item_jewel_stash_ndx ON public.db_poe_market_jewel USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_media_music_video_song_trigram_idx; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2512 (class 1259 OID 4987832)
+-- Name: market_item_labyrinthitem_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_media_music_video_song_trigram_idx ON public.mm_metadata_music_video USING gist (mm_media_music_video_song public.gist_trgm_ops);
+CREATE INDEX market_item_labyrinthitem_stash_ndx ON public.db_poe_market_labyrinthitem USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_media_name_trigram_idx; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2515 (class 1259 OID 4987846)
+-- Name: market_item_labyrinthmapitem_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_media_name_trigram_idx ON public.mm_metadata_movie USING gist (mm_media_name public.gist_trgm_ops);
+CREATE INDEX market_item_labyrinthmapitem_stash_ndx ON public.db_poe_market_labyrinthmapitem USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_album_idx_musician; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2518 (class 1259 OID 4987860)
+-- Name: market_item_labyrinthtrinket_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_album_idx_musician ON public.mm_metadata_album USING btree (mm_metadata_album_musician_guid);
+CREATE INDEX market_item_labyrinthtrinket_stash_ndx ON public.db_poe_market_labyrinthtrinket USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_album_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2521 (class 1259 OID 4987874)
+-- Name: market_item_largerelic_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_album_idx_name ON public.mm_metadata_album USING btree (mm_metadata_album_name);
+CREATE INDEX market_item_largerelic_stash_ndx ON public.db_poe_market_largerelic USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_album_idx_name_lower; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2524 (class 1259 OID 4987888)
+-- Name: market_item_leaguestone_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_album_idx_name_lower ON public.mm_metadata_album USING btree (lower(mm_metadata_album_name));
+CREATE INDEX market_item_leaguestone_stash_ndx ON public.db_poe_market_leaguestone USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_album_idxgin_id_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2527 (class 1259 OID 4987902)
+-- Name: market_item_lifeflask_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_album_idxgin_id_json ON public.mm_metadata_album USING gin (mm_metadata_album_id);
+CREATE INDEX market_item_lifeflask_stash_ndx ON public.db_poe_market_lifeflask USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_album_idxgin_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2530 (class 1259 OID 4987916)
+-- Name: market_item_manaflask_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_album_idxgin_json ON public.mm_metadata_album USING gin (mm_metadata_album_json);
+CREATE INDEX market_item_manaflask_stash_ndx ON public.db_poe_market_manaflask USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_album_name_trigram_idx; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2533 (class 1259 OID 4987930)
+-- Name: market_item_map_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_album_name_trigram_idx ON public.mm_metadata_album USING gist (mm_metadata_album_name public.gist_trgm_ops);
+CREATE INDEX market_item_map_stash_ndx ON public.db_poe_market_map USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_aniem_idxgin_media_id; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2536 (class 1259 OID 4987944)
+-- Name: market_item_mapfragment_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_aniem_idxgin_media_id ON public.mm_metadata_anime USING gin (mm_metadata_anime_media_id);
+CREATE INDEX market_item_mapfragment_stash_ndx ON public.db_poe_market_mapfragment USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_anime_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2539 (class 1259 OID 4987958)
+-- Name: market_item_mediumrelic_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_anime_idx_name ON public.mm_metadata_anime USING btree (mm_media_anime_name);
+CREATE INDEX market_item_mediumrelic_stash_ndx ON public.db_poe_market_mediumrelic USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_anime_idx_name_lower; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2542 (class 1259 OID 4987972)
+-- Name: market_item_microtransaction_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_anime_idx_name_lower ON public.mm_metadata_anime USING btree (lower(mm_media_anime_name));
+CREATE INDEX market_item_microtransaction_stash_ndx ON public.db_poe_market_microtransaction USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_anime_idxgin_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2545 (class 1259 OID 4987986)
+-- Name: market_item_miscmapitem_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_anime_idxgin_json ON public.mm_metadata_anime USING gin (mm_metadata_anime_json);
+CREATE INDEX market_item_miscmapitem_stash_ndx ON public.db_poe_market_miscmapitem USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_anime_idxgin_media_id_anidb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2548 (class 1259 OID 4988000)
+-- Name: market_item_one_hand_axe_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_anime_idxgin_media_id_anidb ON public.mm_metadata_anime USING gin (((mm_metadata_anime_media_id -> 'anidb'::text)));
+CREATE INDEX market_item_one_hand_axe_stash_ndx ON public.db_poe_market_one_hand_axe USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_anime_idxgin_media_id_imdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2551 (class 1259 OID 4988014)
+-- Name: market_item_one_hand_mace_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_anime_idxgin_media_id_imdb ON public.mm_metadata_anime USING gin (((mm_metadata_anime_media_id -> 'imdb'::text)));
+CREATE INDEX market_item_one_hand_mace_stash_ndx ON public.db_poe_market_one_hand_mace USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_anime_idxgin_media_id_thetvdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2554 (class 1259 OID 4988028)
+-- Name: market_item_one_hand_sword_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_anime_idxgin_media_id_thetvdb ON public.mm_metadata_anime USING gin (((mm_metadata_anime_media_id -> 'thetvdb'::text)));
+CREATE INDEX market_item_one_hand_sword_stash_ndx ON public.db_poe_market_one_hand_sword USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_anime_idxgin_media_id_tmdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2557 (class 1259 OID 4988042)
+-- Name: market_item_pantheonsoul_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_anime_idxgin_media_id_tmdb ON public.mm_metadata_anime USING gin (((mm_metadata_anime_media_id -> 'tmdb'::text)));
+CREATE INDEX market_item_pantheonsoul_stash_ndx ON public.db_poe_market_pantheonsoul USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_anime_idxgin_user_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2560 (class 1259 OID 4988056)
+-- Name: market_item_questitem_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_anime_idxgin_user_json ON public.mm_metadata_anime USING gin (mm_metadata_anime_user_json);
+CREATE INDEX market_item_questitem_stash_ndx ON public.db_poe_market_questitem USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_book_name_trigram_idx; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2563 (class 1259 OID 4988070)
+-- Name: market_item_quiver_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_book_name_trigram_idx ON public.mm_metadata_book USING gist (mm_metadata_book_name public.gist_trgm_ops);
+CREATE INDEX market_item_quiver_stash_ndx ON public.db_poe_market_quiver USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_collection_idxgin_media_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2566 (class 1259 OID 4988084)
+-- Name: market_item_ring_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_collection_idxgin_media_json ON public.mm_metadata_collection USING gin (mm_metadata_collection_media_ids);
+CREATE INDEX market_item_ring_stash_ndx ON public.db_poe_market_ring USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_collection_idxgin_meta_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2569 (class 1259 OID 4988098)
+-- Name: market_item_sceptre_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_collection_idxgin_meta_json ON public.mm_metadata_collection USING gin (mm_metadata_collection_json);
+CREATE INDEX market_item_sceptre_stash_ndx ON public.db_poe_market_sceptre USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_collection_idxgin_name_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2572 (class 1259 OID 4988112)
+-- Name: market_item_shield_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_collection_idxgin_name_json ON public.mm_metadata_collection USING gin (mm_metadata_collection_name);
+CREATE INDEX market_item_shield_stash_ndx ON public.db_poe_market_shield USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idx_band_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2575 (class 1259 OID 4988126)
+-- Name: market_item_smallrelic_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idx_band_name ON public.mm_metadata_music_video USING btree (mm_media_music_video_band);
+CREATE INDEX market_item_smallrelic_stash_ndx ON public.db_poe_market_smallrelic USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idx_band_name_lower; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2578 (class 1259 OID 4988140)
+-- Name: market_item_stackablecurrency_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idx_band_name_lower ON public.mm_metadata_music_video USING btree (lower(mm_media_music_video_band));
+CREATE INDEX market_item_stackablecurrency_stash_ndx ON public.db_poe_market_stackablecurrency USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idx_book_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2581 (class 1259 OID 4988154)
+-- Name: market_item_staff_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idx_book_name ON public.mm_metadata_book USING btree (mm_metadata_book_name);
+CREATE INDEX market_item_staff_stash_ndx ON public.db_poe_market_staff USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idx_book_name_lower; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2584 (class 1259 OID 4988168)
+-- Name: market_item_support_skill_gem_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idx_book_name_lower ON public.mm_metadata_book USING btree (lower(mm_metadata_book_name));
+CREATE INDEX market_item_support_skill_gem_stash_ndx ON public.db_poe_market_support_skill_gem USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2587 (class 1259 OID 4988182)
+-- Name: market_item_thrusting_one_hand_sword_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idx_name ON public.mm_metadata_movie USING btree (mm_media_name);
+CREATE INDEX market_item_thrusting_one_hand_sword_stash_ndx ON public.db_poe_market_thrusting_one_hand_sword USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idx_name_lower; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2590 (class 1259 OID 4988196)
+-- Name: market_item_two_hand_axe_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idx_name_lower ON public.mm_metadata_movie USING btree (lower(mm_media_name));
+CREATE INDEX market_item_two_hand_axe_stash_ndx ON public.db_poe_market_two_hand_axe USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idx_song_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2593 (class 1259 OID 4988210)
+-- Name: market_item_two_hand_mace_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idx_song_name ON public.mm_metadata_music_video USING btree (mm_media_music_video_song);
+CREATE INDEX market_item_two_hand_mace_stash_ndx ON public.db_poe_market_two_hand_mace USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idx_song_name_lower; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2596 (class 1259 OID 4988224)
+-- Name: market_item_two_hand_sword_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idx_song_name_lower ON public.mm_metadata_music_video USING btree (lower(mm_media_music_video_song));
+CREATE INDEX market_item_two_hand_sword_stash_ndx ON public.db_poe_market_two_hand_sword USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idxgin_isbn; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2599 (class 1259 OID 4988238)
+-- Name: market_item_unarmed_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idxgin_isbn ON public.mm_metadata_book USING btree (mm_metadata_book_isbn);
+CREATE INDEX market_item_unarmed_stash_ndx ON public.db_poe_market_unarmed USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idxgin_isbn13; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2602 (class 1259 OID 4988252)
+-- Name: market_item_uniquefragment_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idxgin_isbn13 ON public.mm_metadata_book USING btree (mm_metadata_book_isbn13);
+CREATE INDEX market_item_uniquefragment_stash_ndx ON public.db_poe_market_uniquefragment USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idxgin_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2605 (class 1259 OID 4988266)
+-- Name: market_item_utilityflask_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idxgin_json ON public.mm_metadata_movie USING gin (mm_metadata_json);
+CREATE INDEX market_item_utilityflask_stash_ndx ON public.db_poe_market_utilityflask USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idxgin_media_id; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2608 (class 1259 OID 4988280)
+-- Name: market_item_utilityflaskcritical_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idxgin_media_id ON public.mm_metadata_movie USING gin (mm_metadata_media_id);
+CREATE INDEX market_item_utilityflaskcritical_stash_ndx ON public.db_poe_market_utilityflaskcritical USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idxgin_media_id_imdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2613 (class 1259 OID 4988294)
+-- Name: market_item_wand_stash_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idxgin_media_id_imdb ON public.mm_metadata_movie USING gin (((mm_metadata_media_id -> 'imdb'::text)));
+CREATE INDEX market_item_wand_stash_ndx ON public.db_poe_market_wand USING btree (market_item_stash_uuid);
 
 
 --
--- Name: mm_metadata_idxgin_media_id_thetvdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2616 (class 1259 OID 4991038)
+-- Name: poe_account_name_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idxgin_media_id_thetvdb ON public.mm_metadata_movie USING gin (((mm_metadata_media_id -> 'thetvdb'::text)));
+CREATE UNIQUE INDEX poe_account_name_ndx ON public.db_poe_account USING btree (poe_account_name);
 
 
 --
--- Name: mm_metadata_idxgin_media_id_tmdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2421 (class 1259 OID 4978161)
+-- Name: poe_stash_account_uuid_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idxgin_media_id_tmdb ON public.mm_metadata_movie USING gin (((mm_metadata_media_id -> 'tmdb'::text)));
+CREATE INDEX poe_stash_account_uuid_ndx ON public.db_poe_stashes USING btree (poe_stash_account_uuid);
 
 
 --
--- Name: mm_metadata_idxgin_music_video_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2422 (class 1259 OID 4982828)
+-- Name: poe_stash_league_uuid_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idxgin_music_video_json ON public.mm_metadata_music_video USING gin (mm_metadata_music_video_json);
+CREATE INDEX poe_stash_league_uuid_ndx ON public.db_poe_stashes USING btree (poe_league_uuid);
 
 
 --
--- Name: mm_metadata_idxgin_music_video_media_id; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2423 (class 1259 OID 4978171)
+-- Name: poe_stash_uuid_ndx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idxgin_music_video_media_id ON public.mm_metadata_music_video USING gin (mm_metadata_music_video_media_id);
+CREATE UNIQUE INDEX poe_stash_uuid_ndx ON public.db_poe_stashes USING btree (poe_stash_uuid);
 
 
 --
--- Name: mm_metadata_idxgin_music_video_media_id_imvdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2424 (class 1259 OID 29519)
+-- Name: unique_stash; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idxgin_music_video_media_id_imvdb ON public.mm_metadata_music_video USING gin (((mm_metadata_music_video_media_id -> 'imvdb'::text)));
+CREATE UNIQUE INDEX unique_stash ON public.db_poe_stashes USING btree (poe_stash_id_uuid);
 
 
 --
--- Name: mm_metadata_idxgin_user_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2678 (class 2606 OID 4996222)
+-- Name: db_poe_account_items db_poe_account_items_db_poe_account_item_class_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_idxgin_user_json ON public.mm_metadata_movie USING gin (mm_metadata_user_json);
+ALTER TABLE ONLY public.db_poe_account_items
+    ADD CONSTRAINT db_poe_account_items_db_poe_account_item_class_uuid_fkey FOREIGN KEY (db_poe_account_item_class_uuid) REFERENCES public.db_poe_item_subtypes(item_subtype_uuid);
 
 
 --
--- Name: mm_metadata_logo_idxgin_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2677 (class 2606 OID 4996217)
+-- Name: db_poe_account_items db_poe_account_items_db_poe_account_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_logo_idxgin_json ON public.mm_metadata_logo USING gin (mm_metadata_logo_media_guid);
+ALTER TABLE ONLY public.db_poe_account_items
+    ADD CONSTRAINT db_poe_account_items_db_poe_account_uuid_fkey FOREIGN KEY (db_poe_account_uuid) REFERENCES public.db_poe_account(poe_account_uuid);
 
 
 --
--- Name: mm_metadata_music_idx_album; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2676 (class 2606 OID 4991047)
+-- Name: db_poe_character db_poe_character_db_poe_account_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_music_idx_album ON public.mm_metadata_music USING btree (mm_metadata_music_album_guid);
+ALTER TABLE ONLY public.db_poe_character
+    ADD CONSTRAINT db_poe_character_db_poe_account_uuid_fkey FOREIGN KEY (db_poe_account_uuid) REFERENCES public.db_poe_account(poe_account_uuid);
 
 
 --
--- Name: mm_metadata_music_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2622 (class 2606 OID 4976306)
+-- Name: db_poe_item_subtypes db_poe_item_subtypes_db_poe_item_subtype_class_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_music_idx_name ON public.mm_metadata_music USING btree (mm_metadata_music_name);
+ALTER TABLE ONLY public.db_poe_item_subtypes
+    ADD CONSTRAINT db_poe_item_subtypes_db_poe_item_subtype_class_uuid_fkey FOREIGN KEY (db_poe_item_subtype_class_uuid) REFERENCES public.db_poe_item_class(item_class_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_music_idx_name_lower; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2623 (class 2606 OID 4987561)
+-- Name: db_poe_market_abyssjewel db_poe_market_abyssjewel_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_music_idx_name_lower ON public.mm_metadata_music USING btree (lower(mm_metadata_music_name));
+ALTER TABLE ONLY public.db_poe_market_abyssjewel
+    ADD CONSTRAINT db_poe_market_abyssjewel_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_music_idxgin_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2624 (class 2606 OID 4987575)
+-- Name: db_poe_market_active_skill_gem db_poe_market_active_skill_gem_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_music_idxgin_json ON public.mm_metadata_music USING gin (mm_metadata_music_json);
+ALTER TABLE ONLY public.db_poe_market_active_skill_gem
+    ADD CONSTRAINT db_poe_market_active_skill_gem_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_music_idxgin_media_id; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2625 (class 2606 OID 4987589)
+-- Name: db_poe_market_amulet db_poe_market_amulet_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_music_idxgin_media_id ON public.mm_metadata_music USING gin (mm_metadata_media_music_id);
+ALTER TABLE ONLY public.db_poe_market_amulet
+    ADD CONSTRAINT db_poe_market_amulet_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_music_idxgin_user_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2626 (class 2606 OID 4987603)
+-- Name: db_poe_market_belt db_poe_market_belt_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_music_idxgin_user_json ON public.mm_metadata_music USING gin (mm_metadata_music_user_json);
+ALTER TABLE ONLY public.db_poe_market_belt
+    ADD CONSTRAINT db_poe_market_belt_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_music_name_trigram_idx; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2627 (class 2606 OID 4987617)
+-- Name: db_poe_market_body_armour db_poe_market_body_armour_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_music_name_trigram_idx ON public.mm_metadata_music USING gist (mm_metadata_music_name public.gist_trgm_ops);
+ALTER TABLE ONLY public.db_poe_market_body_armour
+    ADD CONSTRAINT db_poe_market_body_armour_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_music_video_idxgin_user_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2628 (class 2606 OID 4987631)
+-- Name: db_poe_market_boots db_poe_market_boots_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_music_video_idxgin_user_json ON public.mm_metadata_music_video USING gin (mm_metadata_music_video_user_json);
+ALTER TABLE ONLY public.db_poe_market_boots
+    ADD CONSTRAINT db_poe_market_boots_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_musician_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2629 (class 2606 OID 4987645)
+-- Name: db_poe_market_bow db_poe_market_bow_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_musician_idx_name ON public.mm_metadata_musician USING btree (mm_metadata_musician_name);
+ALTER TABLE ONLY public.db_poe_market_bow
+    ADD CONSTRAINT db_poe_market_bow_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_musician_idx_name_lower; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2630 (class 2606 OID 4987659)
+-- Name: db_poe_market_claw db_poe_market_claw_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_musician_idx_name_lower ON public.mm_metadata_musician USING btree (lower(mm_metadata_musician_name));
+ALTER TABLE ONLY public.db_poe_market_claw
+    ADD CONSTRAINT db_poe_market_claw_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_musician_idxgin_id_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2631 (class 2606 OID 4987673)
+-- Name: db_poe_market_currency db_poe_market_currency_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_musician_idxgin_id_json ON public.mm_metadata_musician USING gin (mm_metadata_musician_id);
+ALTER TABLE ONLY public.db_poe_market_currency
+    ADD CONSTRAINT db_poe_market_currency_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_musician_idxgin_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2632 (class 2606 OID 4987687)
+-- Name: db_poe_market_dagger db_poe_market_dagger_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_musician_idxgin_json ON public.mm_metadata_musician USING gin (mm_metadata_musician_json);
+ALTER TABLE ONLY public.db_poe_market_dagger
+    ADD CONSTRAINT db_poe_market_dagger_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_musician_name_trigram_idx; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2633 (class 2606 OID 4987701)
+-- Name: db_poe_market_delvesocketablecurrency db_poe_market_delvesocketablecurren_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_musician_name_trigram_idx ON public.mm_metadata_musician USING gist (mm_metadata_musician_name public.gist_trgm_ops);
+ALTER TABLE ONLY public.db_poe_market_delvesocketablecurrency
+    ADD CONSTRAINT db_poe_market_delvesocketablecurren_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_person_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2634 (class 2606 OID 4987715)
+-- Name: db_poe_market_divinationcard db_poe_market_divinationcard_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_person_idx_name ON public.mm_metadata_person USING btree (mmp_person_name);
+ALTER TABLE ONLY public.db_poe_market_divinationcard
+    ADD CONSTRAINT db_poe_market_divinationcard_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_person_idxgin_id_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2635 (class 2606 OID 4987729)
+-- Name: db_poe_market_fishingrod db_poe_market_fishingrod_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_person_idxgin_id_json ON public.mm_metadata_person USING gin (mmp_person_media_id);
+ALTER TABLE ONLY public.db_poe_market_fishingrod
+    ADD CONSTRAINT db_poe_market_fishingrod_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_person_idxgin_meta_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2636 (class 2606 OID 4987743)
+-- Name: db_poe_market_gloves db_poe_market_gloves_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_person_idxgin_meta_json ON public.mm_metadata_person USING gin (mmp_person_meta_json);
+ALTER TABLE ONLY public.db_poe_market_gloves
+    ADD CONSTRAINT db_poe_market_gloves_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_review_idx_metadata_uuid; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2637 (class 2606 OID 4987757)
+-- Name: db_poe_market_helmet db_poe_market_helmet_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_review_idx_metadata_uuid ON public.mm_review USING btree (mm_review_metadata_guid);
+ALTER TABLE ONLY public.db_poe_market_helmet
+    ADD CONSTRAINT db_poe_market_helmet_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_review_idxgin_media_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2638 (class 2606 OID 4987771)
+-- Name: db_poe_market_hideoutdoodad db_poe_market_hideoutdoodad_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_review_idxgin_media_json ON public.mm_review USING gin (mm_review_metadata_id);
+ALTER TABLE ONLY public.db_poe_market_hideoutdoodad
+    ADD CONSTRAINT db_poe_market_hideoutdoodad_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_sports_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2639 (class 2606 OID 4987785)
+-- Name: db_poe_market_hybridflask db_poe_market_hybridflask_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_sports_idx_name ON public.mm_metadata_sports USING btree (mm_metadata_sports_name);
+ALTER TABLE ONLY public.db_poe_market_hybridflask
+    ADD CONSTRAINT db_poe_market_hybridflask_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_sports_idx_name_lower; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2640 (class 2606 OID 4987799)
+-- Name: db_poe_market_incursionitem db_poe_market_incursionitem_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_sports_idx_name_lower ON public.mm_metadata_sports USING btree (lower(mm_metadata_sports_name));
+ALTER TABLE ONLY public.db_poe_market_incursionitem
+    ADD CONSTRAINT db_poe_market_incursionitem_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_sports_idxgin_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2641 (class 2606 OID 4987813)
+-- Name: db_poe_market_jewel db_poe_market_jewel_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_sports_idxgin_json ON public.mm_metadata_sports USING gin (mm_metadata_sports_json);
+ALTER TABLE ONLY public.db_poe_market_jewel
+    ADD CONSTRAINT db_poe_market_jewel_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_sports_idxgin_media_id; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2642 (class 2606 OID 4987827)
+-- Name: db_poe_market_labyrinthitem db_poe_market_labyrinthitem_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_sports_idxgin_media_id ON public.mm_metadata_sports USING gin (mm_metadata_media_sports_id);
+ALTER TABLE ONLY public.db_poe_market_labyrinthitem
+    ADD CONSTRAINT db_poe_market_labyrinthitem_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_sports_idxgin_media_id_imdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2643 (class 2606 OID 4987841)
+-- Name: db_poe_market_labyrinthmapitem db_poe_market_labyrinthmapitem_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_sports_idxgin_media_id_imdb ON public.mm_metadata_sports USING gin (((mm_metadata_media_sports_id -> 'imdb'::text)));
+ALTER TABLE ONLY public.db_poe_market_labyrinthmapitem
+    ADD CONSTRAINT db_poe_market_labyrinthmapitem_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_sports_idxgin_media_id_thesportsdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2644 (class 2606 OID 4987855)
+-- Name: db_poe_market_labyrinthtrinket db_poe_market_labyrinthtrinket_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_sports_idxgin_media_id_thesportsdb ON public.mm_metadata_sports USING gin (((mm_metadata_media_sports_id -> 'thesportsdb'::text)));
+ALTER TABLE ONLY public.db_poe_market_labyrinthtrinket
+    ADD CONSTRAINT db_poe_market_labyrinthtrinket_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_sports_idxgin_media_id_thetvdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2645 (class 2606 OID 4987869)
+-- Name: db_poe_market_largerelic db_poe_market_largerelic_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_sports_idxgin_media_id_thetvdb ON public.mm_metadata_sports USING gin (((mm_metadata_media_sports_id -> 'thetvdb'::text)));
+ALTER TABLE ONLY public.db_poe_market_largerelic
+    ADD CONSTRAINT db_poe_market_largerelic_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_sports_idxgin_media_id_thetvdbseries; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2646 (class 2606 OID 4987883)
+-- Name: db_poe_market_leaguestone db_poe_market_leaguestone_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_sports_idxgin_media_id_thetvdbseries ON public.mm_metadata_sports USING gin (((mm_metadata_media_sports_id -> 'thetvdbSeries'::text)));
+ALTER TABLE ONLY public.db_poe_market_leaguestone
+    ADD CONSTRAINT db_poe_market_leaguestone_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_sports_idxgin_media_id_tmdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2647 (class 2606 OID 4987897)
+-- Name: db_poe_market_lifeflask db_poe_market_lifeflask_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_sports_idxgin_media_id_tmdb ON public.mm_metadata_sports USING gin (((mm_metadata_media_sports_id -> 'tmdb'::text)));
+ALTER TABLE ONLY public.db_poe_market_lifeflask
+    ADD CONSTRAINT db_poe_market_lifeflask_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_sports_idxgin_media_id_tvmaze; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2648 (class 2606 OID 4987911)
+-- Name: db_poe_market_manaflask db_poe_market_manaflask_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_sports_idxgin_media_id_tvmaze ON public.mm_metadata_sports USING gin (((mm_metadata_media_sports_id -> 'tvmaze'::text)));
+ALTER TABLE ONLY public.db_poe_market_manaflask
+    ADD CONSTRAINT db_poe_market_manaflask_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_sports_name_trigram_idx; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2649 (class 2606 OID 4987925)
+-- Name: db_poe_market_map db_poe_market_map_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_sports_name_trigram_idx ON public.mm_metadata_sports USING gist (mm_metadata_sports_name public.gist_trgm_ops);
+ALTER TABLE ONLY public.db_poe_market_map
+    ADD CONSTRAINT db_poe_market_map_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_tvshow_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2650 (class 2606 OID 4987939)
+-- Name: db_poe_market_mapfragment db_poe_market_mapfragment_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_tvshow_idx_name ON public.mm_metadata_tvshow USING btree (mm_metadata_tvshow_name);
+ALTER TABLE ONLY public.db_poe_market_mapfragment
+    ADD CONSTRAINT db_poe_market_mapfragment_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_tvshow_idx_name_lower; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2651 (class 2606 OID 4987953)
+-- Name: db_poe_market_mediumrelic db_poe_market_mediumrelic_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_tvshow_idx_name_lower ON public.mm_metadata_tvshow USING btree (lower(mm_metadata_tvshow_name));
+ALTER TABLE ONLY public.db_poe_market_mediumrelic
+    ADD CONSTRAINT db_poe_market_mediumrelic_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_tvshow_idxgin_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2652 (class 2606 OID 4987967)
+-- Name: db_poe_market_microtransaction db_poe_market_microtransaction_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_tvshow_idxgin_json ON public.mm_metadata_tvshow USING gin (mm_metadata_tvshow_json);
+ALTER TABLE ONLY public.db_poe_market_microtransaction
+    ADD CONSTRAINT db_poe_market_microtransaction_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_tvshow_idxgin_localimage_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2653 (class 2606 OID 4987981)
+-- Name: db_poe_market_miscmapitem db_poe_market_miscmapitem_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_tvshow_idxgin_localimage_json ON public.mm_metadata_tvshow USING gin (mm_metadata_tvshow_json);
+ALTER TABLE ONLY public.db_poe_market_miscmapitem
+    ADD CONSTRAINT db_poe_market_miscmapitem_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_tvshow_idxgin_media_id; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2654 (class 2606 OID 4987995)
+-- Name: db_poe_market_one_hand_axe db_poe_market_one_hand_axe_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_tvshow_idxgin_media_id ON public.mm_metadata_tvshow USING gin (mm_metadata_media_tvshow_id);
+ALTER TABLE ONLY public.db_poe_market_one_hand_axe
+    ADD CONSTRAINT db_poe_market_one_hand_axe_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_tvshow_idxgin_media_id_imdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2655 (class 2606 OID 4988009)
+-- Name: db_poe_market_one_hand_mace db_poe_market_one_hand_mace_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_tvshow_idxgin_media_id_imdb ON public.mm_metadata_tvshow USING gin (((mm_metadata_media_tvshow_id -> 'imdb'::text)));
+ALTER TABLE ONLY public.db_poe_market_one_hand_mace
+    ADD CONSTRAINT db_poe_market_one_hand_mace_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_tvshow_idxgin_media_id_thetvdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2656 (class 2606 OID 4988023)
+-- Name: db_poe_market_one_hand_sword db_poe_market_one_hand_sword_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_tvshow_idxgin_media_id_thetvdb ON public.mm_metadata_tvshow USING gin (((mm_metadata_media_tvshow_id -> 'thetvdb'::text)));
+ALTER TABLE ONLY public.db_poe_market_one_hand_sword
+    ADD CONSTRAINT db_poe_market_one_hand_sword_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_tvshow_idxgin_media_id_thetvdbseries; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2657 (class 2606 OID 4988037)
+-- Name: db_poe_market_pantheonsoul db_poe_market_pantheonsoul_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_tvshow_idxgin_media_id_thetvdbseries ON public.mm_metadata_tvshow USING gin (((mm_metadata_media_tvshow_id -> 'thetvdbSeries'::text)));
+ALTER TABLE ONLY public.db_poe_market_pantheonsoul
+    ADD CONSTRAINT db_poe_market_pantheonsoul_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_tvshow_idxgin_media_id_tmdb; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2658 (class 2606 OID 4988051)
+-- Name: db_poe_market_questitem db_poe_market_questitem_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_tvshow_idxgin_media_id_tmdb ON public.mm_metadata_tvshow USING gin (((mm_metadata_media_tvshow_id -> 'tmdb'::text)));
+ALTER TABLE ONLY public.db_poe_market_questitem
+    ADD CONSTRAINT db_poe_market_questitem_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_tvshow_idxgin_media_id_tvmaze; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2659 (class 2606 OID 4988065)
+-- Name: db_poe_market_quiver db_poe_market_quiver_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_tvshow_idxgin_media_id_tvmaze ON public.mm_metadata_tvshow USING gin (((mm_metadata_media_tvshow_id -> 'tvmaze'::text)));
+ALTER TABLE ONLY public.db_poe_market_quiver
+    ADD CONSTRAINT db_poe_market_quiver_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_tvshow_idxgin_user_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2660 (class 2606 OID 4988079)
+-- Name: db_poe_market_ring db_poe_market_ring_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_tvshow_idxgin_user_json ON public.mm_metadata_tvshow USING gin (mm_metadata_tvshow_user_json);
+ALTER TABLE ONLY public.db_poe_market_ring
+    ADD CONSTRAINT db_poe_market_ring_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_metadata_tvshow_name_trigram_idx; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2661 (class 2606 OID 4988093)
+-- Name: db_poe_market_sceptre db_poe_market_sceptre_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_metadata_tvshow_name_trigram_idx ON public.mm_metadata_tvshow USING gist (mm_metadata_tvshow_name public.gist_trgm_ops);
+ALTER TABLE ONLY public.db_poe_market_sceptre
+    ADD CONSTRAINT db_poe_market_sceptre_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_notification_idx_dismissable; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2662 (class 2606 OID 4988107)
+-- Name: db_poe_market_shield db_poe_market_shield_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_notification_idx_dismissable ON public.mm_notification USING btree (mm_notification_dismissable);
+ALTER TABLE ONLY public.db_poe_market_shield
+    ADD CONSTRAINT db_poe_market_shield_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_notification_idx_time; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2663 (class 2606 OID 4988121)
+-- Name: db_poe_market_smallrelic db_poe_market_smallrelic_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_notification_idx_time ON public.mm_notification USING btree (mm_notification_time);
+ALTER TABLE ONLY public.db_poe_market_smallrelic
+    ADD CONSTRAINT db_poe_market_smallrelic_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_sync_idxgin_json; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2664 (class 2606 OID 4988135)
+-- Name: db_poe_market_stackablecurrency db_poe_market_stackablecurrency_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_sync_idxgin_json ON public.mm_sync USING gin (mm_sync_options_json);
+ALTER TABLE ONLY public.db_poe_market_stackablecurrency
+    ADD CONSTRAINT db_poe_market_stackablecurrency_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_tv_schedule_idx_date; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2665 (class 2606 OID 4988149)
+-- Name: db_poe_market_staff db_poe_market_staff_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_tv_schedule_idx_date ON public.mm_tv_schedule USING btree (mm_tv_schedule_date);
+ALTER TABLE ONLY public.db_poe_market_staff
+    ADD CONSTRAINT db_poe_market_staff_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_tv_schedule_idx_program; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2666 (class 2606 OID 4988163)
+-- Name: db_poe_market_support_skill_gem db_poe_market_support_skill_gem_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_tv_schedule_idx_program ON public.mm_tv_schedule_program USING btree (mm_tv_schedule_program_id);
+ALTER TABLE ONLY public.db_poe_market_support_skill_gem
+    ADD CONSTRAINT db_poe_market_support_skill_gem_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_tv_schedule_idx_station; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2667 (class 2606 OID 4988177)
+-- Name: db_poe_market_thrusting_one_hand_sword db_poe_market_thrusting_one_hand_sw_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_tv_schedule_idx_station ON public.mm_tv_schedule USING btree (mm_tv_schedule_station_id);
+ALTER TABLE ONLY public.db_poe_market_thrusting_one_hand_sword
+    ADD CONSTRAINT db_poe_market_thrusting_one_hand_sw_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_tv_stations_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2668 (class 2606 OID 4988191)
+-- Name: db_poe_market_two_hand_axe db_poe_market_two_hand_axe_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_tv_stations_idx_name ON public.mm_tv_stations USING btree (mm_tv_station_name);
+ALTER TABLE ONLY public.db_poe_market_two_hand_axe
+    ADD CONSTRAINT db_poe_market_two_hand_axe_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_tv_stations_idx_station; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2669 (class 2606 OID 4988205)
+-- Name: db_poe_market_two_hand_mace db_poe_market_two_hand_mace_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_tv_stations_idx_station ON public.mm_tv_stations USING btree (mm_tv_station_id);
+ALTER TABLE ONLY public.db_poe_market_two_hand_mace
+    ADD CONSTRAINT db_poe_market_two_hand_mace_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_user_activity_idx_date; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2670 (class 2606 OID 4988219)
+-- Name: db_poe_market_two_hand_sword db_poe_market_two_hand_sword_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_user_activity_idx_date ON public.mm_user_activity USING btree (mm_activity_datecreated);
+ALTER TABLE ONLY public.db_poe_market_two_hand_sword
+    ADD CONSTRAINT db_poe_market_two_hand_sword_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_user_activity_idx_user_guid; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2671 (class 2606 OID 4988233)
+-- Name: db_poe_market_unarmed db_poe_market_unarmed_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_user_activity_idx_user_guid ON public.mm_user_activity USING btree (mm_activity_userid);
+ALTER TABLE ONLY public.db_poe_market_unarmed
+    ADD CONSTRAINT db_poe_market_unarmed_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_user_group_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2672 (class 2606 OID 4988247)
+-- Name: db_poe_market_uniquefragment db_poe_market_uniquefragment_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_user_group_idx_name ON public.mm_user_group USING btree (mm_user_group_name);
+ALTER TABLE ONLY public.db_poe_market_uniquefragment
+    ADD CONSTRAINT db_poe_market_uniquefragment_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_user_idx_username; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2673 (class 2606 OID 4988261)
+-- Name: db_poe_market_utilityflask db_poe_market_utilityflask_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_user_idx_username ON public.mm_user USING btree (username);
+ALTER TABLE ONLY public.db_poe_market_utilityflask
+    ADD CONSTRAINT db_poe_market_utilityflask_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mm_user_profile_idx_name; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2674 (class 2606 OID 4988275)
+-- Name: db_poe_market_utilityflaskcritical db_poe_market_utilityflaskcritical_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mm_user_profile_idx_name ON public.mm_user_profile USING btree (mm_user_profile_name);
+ALTER TABLE ONLY public.db_poe_market_utilityflaskcritical
+    ADD CONSTRAINT db_poe_market_utilityflaskcritical_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
 
 --
--- Name: mmp_person_name_trigram_idx; Type: INDEX; Schema: public; Owner: metamanpg
+-- TOC entry 2675 (class 2606 OID 4988289)
+-- Name: db_poe_market_wand db_poe_market_wand_market_item_stash_uuid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-CREATE INDEX mmp_person_name_trigram_idx ON public.mm_metadata_person USING gist (mmp_person_name public.gist_trgm_ops);
-
-
---
--- Name: mmr_media_idx_link_uuid; Type: INDEX; Schema: public; Owner: metamanpg
---
-
-CREATE INDEX mmr_media_idx_link_uuid ON public.mm_media_remote USING btree (mmr_media_link_id);
-
-
---
--- Name: mmr_media_idx_metadata_uuid; Type: INDEX; Schema: public; Owner: metamanpg
---
-
-CREATE INDEX mmr_media_idx_metadata_uuid ON public.mm_media_remote USING btree (mmr_media_metadata_guid);
-
-
---
--- Name: mmr_media_idxgin_ffprobe; Type: INDEX; Schema: public; Owner: metamanpg
---
+ALTER TABLE ONLY public.db_poe_market_wand
+    ADD CONSTRAINT db_poe_market_wand_market_item_stash_uuid_fkey FOREIGN KEY (market_item_stash_uuid) REFERENCES public.db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE;
 
-CREATE INDEX mmr_media_idxgin_ffprobe ON public.mm_media_remote USING gin (mmr_media_ffprobe_json);
 
+-- Completed on 2019-04-18 19:52:21
 
 --
 -- PostgreSQL database dump complete
