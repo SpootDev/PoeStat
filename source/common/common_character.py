@@ -66,6 +66,14 @@ def com_char_get_passive(poe_session_id, account_name, character_name, realm_cod
         return json.loads(response.content)
 
 
+def com_char_get_items(poe_session_id, account_name, character_name, realm_code='pc'):
+    with requests.Session() as char_session:
+        response = char_session.post(
+            'https://www.pathofexile.com/character-window/get-items?accountName=%s&character=%s&realm=%s' % (
+                account_name, character_name, realm_code),
+            headers={'Cookie': 'POESESSID=' + poe_session_id})
+        return json.loads(response.content)
+
 # https://www.pathofexile.com/account/view-profile/spooticusmaximus
 # can use to get guild and stuff with bsoup
 # https://www.pathofexile.com/account/view-profile/Blocknite/characters - full blown gui web list
