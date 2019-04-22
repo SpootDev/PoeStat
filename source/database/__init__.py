@@ -43,6 +43,8 @@ class ServerDatabase(object):
         db_item_upsert, \
         db_item_account_upsert, \
         db_item_account_list
+    from database.db_base_passive_tree import db_passive_tree_read, \
+        db_passive_tree_update
     from database.db_base_stash import db_stash_insert, \
         db_stash_read_all, \
         db_stash_read_all_id, \

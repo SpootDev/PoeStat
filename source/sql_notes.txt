@@ -91,3 +91,7 @@ CREATE TABLE IF NOT EXISTS db_poe_account_items (db_poe_account_item_uuid text C
 
 CREATE TABLE IF NOT EXISTS db_poe_poe_ninja_currency (db_poe_currency_uuid uuid CONSTRAINT db_poe_currency_uuid_pk PRIMARY KEY, db_poe_currency_json jsonb, db_poe_currency_timestamp timestamp default current_timestamp);
 CREATE UNIQUE INDEX db_poe_currency_timestamp_ndx ON public.db_poe_poe_ninja_currency USING btree (db_poe_currency_timestamp);
+
+
+
+CREATE TABLE IF NOT EXISTS db_poe_passive_tree (db_poe_passive_tree_uuid uuid CONSTRAINT db_poe_passive_tree_uuid_pk PRIMARY KEY, db_poe_passive_tree_json jsonb, db_poe_passive_tree_timestamp timestamp default current_timestamp);
