@@ -10,6 +10,9 @@ docker-compose down
 cd ../ComposePoeBase38Py3
 docker build -t poestat/psbase38py3 --build-arg ALPMIRROR=10.0.0.122 --build-arg PIPMIRROR=pypi.python.org .
 
+cd ../ComposePoeBase39Py3
+docker build -t poestat/psbase39py3 --build-arg ALPMIRROR=10.0.0.122 --build-arg PIPMIRROR=pypi.python.org .
+
 # move here so all the "deps" are built first
 docker-compose build
 
