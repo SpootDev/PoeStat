@@ -1,0 +1,4 @@
+*.sh~
+*.build_update.sh.un~
+*.build_update.sh.swp
+*.source_sync.sh.un~

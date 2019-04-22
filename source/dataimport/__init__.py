@@ -33,3 +33,4 @@ class ServerImport(object):
     from dataimport.import_base_gems import import_base_gem
     from dataimport.import_base_mods import import_base_mod
     from dataimport.import_base_stats import import_base_stat
+    from dataimport.import_base_passive import import_base_passive_tree

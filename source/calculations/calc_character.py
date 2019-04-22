@@ -228,7 +228,7 @@ character_class_base = {'Marauder': {'STR': 32, 'DEX': 14, 'INT': 14,
                         }
 
 
-def calculate_character_base_stats(character_class, character_level, character_passive_json):
+def calculate_character_base_stats(character_class, character_level, character_passive_json, character_items_json):
     """
     Str, Dex, etc.
     """
@@ -237,7 +237,9 @@ def calculate_character_base_stats(character_class, character_level, character_p
     for stat_level in character_level_bonus:
         base_stat_json[stat_level] += character_level_bonus[stat_level] * character_level
     # loop through the passive tree for base stats
-
+    for passive_node in character_passive_json:
+        pass
     # loop through items for base stats
-
+    for char_item in character_items_json:
+        pass
     return base_stat_json
