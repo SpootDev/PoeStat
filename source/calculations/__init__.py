@@ -30,4 +30,4 @@ class Calculations(object):
     # from calculations.calc_minion import import_base_monster
     # from calculations.calc_passive import import_base_essence
     # from calculations.calc_spells import import_base_gem
-    from calculations.calc_weather_poe_ninja import com_wealth_ninja_fetch_api
+    from calculations.calc_wealth_poe_ninja import com_wealth_ninja_fetch_api

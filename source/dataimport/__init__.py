@@ -22,7 +22,7 @@ class ServerImport(object):
     Main database class for server data import
     """
 
-    def __init__(self, db_connection):
+    def __init__(self, db_connection=None):
         self.db_connection = db_connection
 
     from dataimport.import_base_items import import_base_class_items, \

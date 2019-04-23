@@ -17,16 +17,11 @@
 '''
 
 import json
-import uuid
 
 
 def import_base_passive_tree(self):
     with open('./poedata/tree.txt') as file_pointer:
         tree_data = json.load(file_pointer)
-        for base_class in tree_data:
-            # create table for base type
-            self.db_connection.db_item_market_class_table(base_class)
-            # insert into class table
-            class_uuid_table[base_class] = self.db_connection.db_base_import_item_class_upsert(
-                base_class, tree_data[base_class])
-    return class_uuid_table
+        # insert into passive tree
+        print(tree_data)
+        # self.db_connection.db_passive_tree_update(tree_data[base_class])
