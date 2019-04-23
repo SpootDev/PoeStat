@@ -156,4 +156,3 @@ EXPOSE 443
 STOPSIGNAL SIGTERM
 
 CMD ["nginx", "-g", "daemon off;"]
-
