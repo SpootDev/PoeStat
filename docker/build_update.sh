@@ -2,12 +2,12 @@ git pull
 ./source_sync.sh
 
 # must move base dir so the docker-compose commands work
-cd ../alpine
+cd ./alpine
 
 docker-compose down
 
 # base python 3 images
-cd ../ComposePoeBase38Py3
+cd ./ComposePoeBase38Py3
 docker build -t poestat/psbase38py3 --build-arg ALPMIRROR=10.0.0.122 --build-arg PIPMIRROR=pypi.python.org .
 
 cd ../ComposePoeBase39Py3
