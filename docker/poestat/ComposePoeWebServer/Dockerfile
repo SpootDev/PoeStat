@@ -29,8 +29,6 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPMIRROR}/" /etc/apk/repositories \
   py3-cffi \
   py3-redis \
   python3-dev \
-  cifs-utils \
-  nfs-utils \
   ca-certificates \
   libressl \
   py3-numpy \
@@ -39,7 +37,6 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPMIRROR}/" /etc/apk/repositories \
   && export PYCURL_SSL_LIBRARY=openssl \
   && pip3 install --trusted-host ${PIPMIRROR} -i https://${PIPMIRROR}/simple pycurl \
   && pip3 install --trusted-host ${PIPMIRROR} -i https://${PIPMIRROR}/simple -r requirements.txt \
-  && pip3 install -e git+https://github.com/LevPasha/Instagram-API-python.git#egg=InstagramAPI \
   && pip3 install git+https://github.com/MediaKraken/flask-pika \
   && apk del \
   gcc \
@@ -54,9 +51,7 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/${ALPMIRROR}/" /etc/apk/repositories \
   uwsgi-router_uwsgi \
   py-setuptools \
   && cp /usr/lib/uwsgi/python3_plugin.so /poestat/. \
-  && rm -rf /var/cache/apk/* \
-  && rc-update add netmount \
-  && rc-update add rpcbind
+  && rm -rf /var/cache/apk/*
 
 ADD wait-for-it-ash.sh /poestat
 # Copy the source files for the app
