@@ -17,7 +17,7 @@ CREATE INDEX db_poe_chat_user_ndx ON public.db_poe_chat USING btree (chat_user);
 
 CREATE TABLE IF NOT EXISTS db_poe_league (league_uuid uuid CONSTRAINT league_uuid_pk PRIMARY KEY, league_name text, league_json jsonb);
 
-# TODO this should probalby be unique.....but what about custom leagues then?  they all have private league numbers
+# TODO this should probably be unique.....but what about custom leagues then?  they all have private league numbers
 CREATE UNIQUE INDEX db_poe_league_name_ndx ON public.db_poe_league USING btree (league_name);
 
 
