@@ -1,0 +1,97 @@
+select count(*) from db_poe_stashes where poe_stash_json_data->>'league' is null
+ and poe_stash_json_data->>'accountName' is Null
+and JSONB_ARRAY_LENGTH(poe_stash_json_data->'items') = 0
+
+
+CREATE TABLE IF NOT EXISTS db_poe_account (poe_account_uuid uuid NOT NULL CONSTRAINT account_uuid_pk PRIMARY KEY, poe_account_name text);
+CREATE UNIQUE INDEX poe_account_name_ndx ON public.db_poe_account USING btree (poe_account_name);
+
+
+
+CREATE TABLE IF NOT EXISTS db_poe_chat (chat_uuid uuid CONSTRAINT chat_uuid_pk PRIMARY KEY, chat_text text, chat_type smallint, chat_timestamp timestamp, chat_user text);
+
+CREATE INDEX db_poe_chat_type_ndx ON public.db_poe_chat USING btree (chat_type);
+CREATE INDEX db_poe_chat_timestamp_ndx ON public.db_poe_chat USING btree (chat_timestamp);
+CREATE INDEX db_poe_chat_user_ndx ON public.db_poe_chat USING btree (chat_user);
+
+
+CREATE TABLE IF NOT EXISTS db_poe_league (league_uuid uuid CONSTRAINT league_uuid_pk PRIMARY KEY, league_name text, league_json jsonb);
+
+# TODO this should probably be unique.....but what about custom leagues then?  they all have private league numbers
+CREATE UNIQUE INDEX db_poe_league_name_ndx ON public.db_poe_league USING btree (league_name);
+
+
+CREATE TABLE IF NOT EXISTS db_poe_item (item_uuid uuid CONSTRAINT item_uuid_pk PRIMARY KEY, item_stash_uuid uuid REFERENCES db_poe_stashes(poe_stash_uuid) ON DELETE CASCADE, item_json jsonb);
+
+CREATE INDEX db_poe_item_stash_uuid_ndx ON public.db_poe_item USING btree (item_stash_uuid);
+
+
+CREATE TABLE IF NOT EXISTS db_poe_item_class (item_class_uuid uuid CONSTRAINT item_class_uuid_pk PRIMARY KEY, db_poe_item_class_name text, db_poe_item_class_json jsonb);
+
+CREATE UNIQUE INDEX db_poe_item_class_name_ndx ON public.db_poe_item_class USING btree (db_poe_item_class_name);
+
+
+CREATE TABLE IF NOT EXISTS db_poe_item_subtypes (item_subtype_uuid uuid CONSTRAINT item_subtype_uuid_pk PRIMARY KEY, db_poe_item_subtype_name text, db_poe_item_subtype_json jsonb, db_poe_item_subtype_class_uuid uuid REFERENCES db_poe_item_class(item_class_uuid) ON DELETE CASCADE);
+
+CREATE UNIQUE INDEX db_poe_item_subtype_name_ndx ON public.db_poe_item_subtypes USING btree (db_poe_item_subtype_name);
+CREATE INDEX db_poe_item_subtype_class_uuid_ndx ON public.db_poe_item_subtypes USING btree (db_poe_item_subtype_class_uuid);
+
+
+CREATE TABLE IF NOT EXISTS db_poe_monster_base (db_poe_monster_uuid uuid CONSTRAINT db_poe_monster_uuid_pk PRIMARY KEY, db_poe_monster_level text, db_poe_monster_json jsonb);
+
+CREATE UNIQUE INDEX db_poe_monster_level_ndx ON public.db_poe_monster_base USING btree (db_poe_monster_level);
+
+
+
+CREATE TABLE IF NOT EXISTS db_poe_essence_base (db_poe_essence_uuid uuid CONSTRAINT db_poe_essence_uuid_pk PRIMARY KEY, db_poe_essance_name text, db_poe_essence_json jsonb);
+
+CREATE UNIQUE INDEX db_poe_essance_name_ndx ON public.db_poe_essence_base USING btree (db_poe_essance_name);
+
+
+CREATE TABLE IF NOT EXISTS db_poe_gem_base (db_poe_gem_uuid uuid CONSTRAINT db_poe_gem_uuid_pk PRIMARY KEY, db_poe_gem_name text, db_poe_gem_json jsonb);
+
+CREATE UNIQUE INDEX db_poe_gem_name_ndx ON public.db_poe_gem_base USING btree (db_poe_gem_name);
+
+
+
+CREATE TABLE IF NOT EXISTS db_poe_mod_base (db_poe_mod_uuid uuid CONSTRAINT db_poe_mod_uuid_pk PRIMARY KEY, db_poe_mod_name text, db_poe_mod_json jsonb);
+
+CREATE UNIQUE INDEX db_poe_mod_name_ndx ON public.db_poe_mod_base USING btree (db_poe_mod_name);
+
+
+CREATE TABLE IF NOT EXISTS db_poe_stat_base (db_poe_stat_uuid uuid CONSTRAINT db_poe_stat_uuid_pk PRIMARY KEY, db_poe_stat_name text, db_poe_stat_json jsonb);
+
+CREATE UNIQUE INDEX db_poe_stat_name_ndx ON public.db_poe_stat_base USING btree (db_poe_stat_name);
+
+
+
+CREATE TABLE IF NOT EXISTS db_poe_stashes_34a17519_6dd1_415a_b9a3_5bff49be5ecd (poe_stash_uuid uuid NOT NULL, poe_stash_account_uuid uuid, poe_stash_character_uuid uuid, poe_stash_json_data jsonb, poe_stash_id_uuid text)
+
+
+
+CREATE INDEX poe_stash_account_uuid_ndx ON public.db_poe_stashes USING btree (poe_stash_account_uuid);
+
+
+CREATE UNIQUE INDEX poe_stash_uuid_ndx ON public.db_poe_stashes USING btree (poe_stash_uuid);
+
+
+CREATE TABLE IF NOT EXISTS db_poe_account (poe_account_uuid uuid NOT NULL CONSTRAINT account_uuid_pk PRIMARY KEY, poe_account_name text, poe_account_value numeric);
+CREATE UNIQUE INDEX poe_account_name_ndx ON public.db_poe_account USING btree (poe_account_name);
+
+CREATE TABLE IF NOT EXISTS db_poe_character (db_poe_character_uuid uuid CONSTRAINT db_poe_character_uuid_pk PRIMARY KEY, db_poe_account_uuid uuid REFERENCES db_poe_account(poe_account_uuid), db_poe_character_name text, db_poe_character_json jsonb, db_poe_character_passive_json jsonb);
+CREATE UNIQUE INDEX db_poe_character_name_ndx ON public.db_poe_character USING btree (db_poe_character_name);
+
+
+***********
+
+add chaos value to items tables
+
+CREATE TABLE IF NOT EXISTS db_poe_account_items (db_poe_account_item_uuid text CONSTRAINT db_poe_account_item_uuid_pk PRIMARY KEY, db_poe_account_uuid uuid REFERENCES db_poe_account(poe_account_uuid), db_poe_account_item_class_uuid uuid REFERENCES db_poe_item_subtypes(item_subtype_uuid), db_poe_account_item_json jsonb, db_poe_account_item_value numeric);
+
+
+CREATE TABLE IF NOT EXISTS db_poe_poe_ninja_currency (db_poe_currency_uuid uuid CONSTRAINT db_poe_currency_uuid_pk PRIMARY KEY, db_poe_currency_json jsonb, db_poe_currency_timestamp timestamp default current_timestamp);
+CREATE UNIQUE INDEX db_poe_currency_timestamp_ndx ON public.db_poe_poe_ninja_currency USING btree (db_poe_currency_timestamp);
+
+
+
+CREATE TABLE IF NOT EXISTS db_poe_passive_tree (db_poe_passive_tree_uuid uuid CONSTRAINT db_poe_passive_tree_uuid_pk PRIMARY KEY, db_poe_passive_tree_json jsonb, db_poe_passive_tree_timestamp timestamp default current_timestamp);

@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8" />
+        <title>PoeStat User</title>
+        <meta name="generator" content="Bootply" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <!--[if lt IE 9]>
+        <script src="{{ url_for('static', filename='js/html5.js') }}"></script>
+        <![endif]-->
+        <link href="{{ url_for('static', filename='css/style.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/base_webapp_layout.css') }}" media="all" rel="stylesheet" type="text/css">
+    </head>
+    <body id="data_background">
+        <a href="{{ url_for('user_movie_genre.user_movie_page', genre='All') }}" id="user_movie_page">
+        <img class="b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{ url_for('static', filename='images/movie_ticket.png') }}" alt="Movie Ticket" height="200" width="200">
+        </a>
+        <a href="{{ url_for('user_search.search_media') }}" id="user_search_page">
+        <img class="b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{ url_for('static', filename='images/magnifying-glass.png') }}" alt="Search" height="200" width="200">
+        </a>
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/blazy.min.js') }}"></script>
+        <script>
+            ;(function() {
+                // Initialize
+                var bLazy = new Blazy();
+            })();
+        </script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    </body>
+</html>
+{% endblock %}

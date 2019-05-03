@@ -1,0 +1,78 @@
+when receiveing a null league tab with account name......if no items can probalby delete the stash as was readonly delete
+
+pi pos with touchscreen? com with local client via twisted
+
+Generate trade posts
+
+# what macros are allowed to do
+https://www.pathofexile.com/forum/view-thread/2077975
+
+Build index and browser - path of building/etc
+    https://github.com/ktzee/pobuilds/blob/master/builds/views.py - possible render example
+    treeURL = "https://www.pathofexile.com/passive-skill-tree"
+    regex = re.compile(r"var\spassiveSkillTreeData\s+=\s+(\{.*\})")
+    treePage = urlopen(treeURL).read().decode('UTF-8')
+    passiveTreeJson = regex.search(treePage).group(1)
+    passiveTreeData = json.loads(passiveTreeJson)
+
+https://github.com/MackMacDonald/PathOfExileStats/blob/master/src/PathOfExileStats.py - interesting ladder code
+
+Create filter rules with wildcards to match trade, party, private and global chat
+
+Displays a log of all matches with username, name of the rule that matched, date of message and the message itself
+
+Copy the username of a match directly to clipboard for ease of use.
+
+Using the %buyer%, %item%, %price% variables in your messages, communication is even faster.
+
+With the precise Item Grid overlay, you will be able to find your item as fast as possible.
+
+Price check against scammers.
+
+Compare your item's price on poe.trade with the price sent in the whisper to avoid scammers that change the price in the whisper.
+
+When your buyer joins your area, his corresponding tab colour will turn green.
+
+This allows to know which trades should be prioritized first.
+
+Additionally, a tab will turn purple if you receive another whisper from the same person.
+
+Play custom sound files upon receiving a trading whisper / regular whisper / when the buyer joins your area.
+
+Receive notifications on your phone when receiving trading whispers.
+
+You may also enable these notifications only if you are AFK in game.
+
+Instantly send a trading whisper upon copying.
+
+Take a look at your previously completed trades
+
+Closing a tab with a button containing the "Save trade stats" action will add it to the "My Stats" interface.
+
+- GGG's character API has an issue where for /get-characters the account name is not case-sensitive, but for /get-passive-skills and /get-items it is.
+- This workaround grabs the profile page and extracts the correct account name from one of the URLs.
+
+https://www.pathofexile.com/character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode
+https://www.pathofexile.com/character-window/get-items?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode
+local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC" }
+local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Belt"] = "Belt" }
+
+Chrome
+Press the F12 key.
+Select the "Application".
+Expand the "Cookies", select the https://www.pathofexile.com.
+Copy the value of the "POESESSID".
+
+Firefox
+Press the F12 key.
+Select the "Storage".
+Expand the "Cookies", select the https://www.pathofexile.com.
+Copy the value of the "POESESSID".
+
+IE11
+Press the F12 key.
+Select the "Network".
+Enables the capture of network traffic.
+Reloads the page.
+Select [DETAILS]-[Cookies].
+Copy the value of the "POESESSID".

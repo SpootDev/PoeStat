@@ -1,0 +1,20 @@
+You should be making a new request not more often than every 1s.
+
+If a public stash tab is deleted, it will come through as null. This most likely will only happen when a remove only stash tab is made public then the items are removed, but might also happen at league's end, I'm not sure.
+
+https://pathofexile.gamepedia.com/Public_stash_tab_API
+
+https://www.reddit.com/r/pathofexiledev/comments/48i4s1/information_on_the_new_stash_tab_api/
+
+# stash data
+If there are no changes, this page will show as empty. You need to simply retry this same page no quicker than every one second.
+
+# item data
+The ID will be remain the same as for as long as it stays on that account.
+The ID won't be reset, it will be unique based on the account currently holding it.
+
+# passive skill tree info
+https://pathofexile.gamepedia.com/Passive_Skill_Tree_JSON
+
+should pull down api via gzip instead of uncompressed
+
