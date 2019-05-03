@@ -1,5 +1,5 @@
 # Download base image
-FROM poestat/poestatbase39py3
+FROM poestat/psbase39py3
 
 LABEL AUTHOR="Quinn D Granfor, spootdev@gmail.com"
 LABEL Description="This image holds the main server app"
