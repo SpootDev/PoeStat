@@ -14,7 +14,7 @@ blueprint = Blueprint("admins_backup", __name__,
 import flask
 from flask_login import current_user
 from functools import wraps
-from MediaKraken.admins.forms import BackupEditForm
+from mainapp.admins.forms import BackupEditForm
 from common import common_config_ini
 from common import common_file
 from common import common_global

@@ -27,55 +27,9 @@
                 {{form.user_password_lock(placeholder="Lock account after failed attempts", class_="form-control")}}
             </div>
         </form>
-        <h1>Metadata</h1>
-        <form id="settingsmetadataForm" class="form form-settingsmetadata" method="POST" action="" role="form">
-            {{ form.hidden_tag() }}
-            <p>Preferred download language</p>
-            <select name="Meta_Lang", id="meta_lang">
-                {% for lang_data in data_lang %}
-                <option value={{lang_data[1]}}>{{lang_data[0]}}</option>
-                {% endfor %}
-            </select>
-            <p>Country</p>
-            <select name="Meta_Country", id="meta_country">
-                {% for country_data in data_country %}
-                <option value={{country_data[1]}}>{{country_data[0]}}</option>
-                {% endfor %}
-            </select>
-            <div class="form-group">
-                {{form.metadata_with_media.label}}
-                {{form.metadata_with_media(placeholder="Save metadata with media", class_="form-control")}}
-            </div>
-        </form>
-        <p>nfo file support</p>
-        <h1>Subtitles</h1>
-        <form id="settingsmetadatasubtitlesForm" class="form form-settingsmetadatasubtitles" method="POST" action="" role="form">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                {{form.metadata_sub_media_down.label}}
-                {{form.metadata_sub_media_down(placeholder="Media", class_="form-control")}}
-                {{form.metadata_sub_code.label}}
-                {{form.metadata_sub_code(placeholder="OpenSubtitles", class_="form-control")}}
-            </div>
-            <select name="Meta_Subtitle_Lang", id="meta_subtitle_lang">
-                {% for lang_data in data_lang %}
-                <option value={{lang_data[1]}}>{{lang_data[0]}}</option>
-                {% endfor %}
-            </select>
-            <div class="form-group">
-                {{form.metadata_sub_skip_if_audio.label}}
-                {{form.metadata_sub_skip_if_audio(placeholder="Skip if audio track in media", class_="form-control")}}
-            </div>
-        </form>
         <h1>Docker containers</h1>
         <form id="settingsdockerForm" class="form form-settingsdocker" method="POST" action="" role="form">
             {{ form.hidden_tag() }}
-            <div class="form-group">
-                {{form.docker_musicbrainz.label}}
-                {{form.docker_musicbrainz(placeholder="MusicBrainz", class_="form-control")}}
-                {{form.docker_musicbrainz_code.label}}
-                {{form.docker_musicbrainz_code(placeholder="Brainzcode", class_="form-control")}}
-            </div>
             <div class="form-group">
                 {{form.docker_mumble.label}}
                 {{form.docker_mumble(placeholder="Mumble", class_="form-control")}}
@@ -91,10 +45,6 @@
             <div class="form-group">
                 {{form.docker_teamspeak.label}}
                 {{form.docker_teamspeak(placeholder="Teamspeak 3", class_="form-control")}}
-            </div>
-            <div class="form-group">
-                {{form.docker_transmission.label}}
-                {{form.docker_transmission(placeholder="Transmission", class_="form-control")}}
             </div>
             <div class="form-group">
                 {{form.docker_wireshark.label}}

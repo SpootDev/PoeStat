@@ -13,7 +13,7 @@ blueprint = Blueprint("admins_cron", __name__,
 import flask
 from flask_login import current_user
 from functools import wraps
-from MediaKraken.extensions import (
+from mainapp.extensions import (
     fpika,
 )
 from MediaKraken.admins.forms import CronEditForm

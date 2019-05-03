@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from MediaKraken.user.models import User
+from mainapp.user.models import User
 from flask_wtf import Form
 from wtforms import TextField, PasswordField
 from wtforms.validators import DataRequired

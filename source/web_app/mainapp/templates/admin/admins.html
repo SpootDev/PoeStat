@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>MediaKraken Admin</title>
+    <title>PoeStat Admin</title>
     <meta name="generator" content="Bootply"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}"
@@ -144,8 +144,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>User</th>
-                                    <th>Media</th>
-                                    <th>Device</th>
                                     <th>Time</th>
                                     <th>Stop</th>
                                 </tr>
@@ -156,8 +154,6 @@
                                     <td>{{ loop.index + (page - 1) * per_page }}</td>
                                     <td>{{ row_data[0] }}</td>
                                     <td>{{ row_data[1] }}</td>
-                                    <td>{{ row_data[2] }}</td>
-                                    <td>{{ row_data[3] }}</td>
                                     <div class="pull-right action-buttons">
                                         <td>
                                             <p data-placement="top" data-toggle="tooltip"
@@ -210,37 +206,6 @@
                                                    onclick="ConfirmLibraryDelete(this)"><img class="b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{ url_for('static', filename='images/16/rubbish-bin.png') }}" height="20" width="20"></a>
                                         </td>
                                     </div>
-                                </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header">
-                        Media Scanning
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                <tr>
-                                    <th>Directory</th>
-                                    <th>Status</th>
-                                    <th>File(s)</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for row_data in data_scan_info %}
-                                <tr>
-                                    <td>{{ row_data[0] }}</td>
-                                    <td>{{ row_data[1] }}</td>
-                                    <td>{{ row_data[2] }}</td>
                                 </tr>
                                 {% endfor %}
                                 </tbody>
