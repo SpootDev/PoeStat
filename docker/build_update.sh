@@ -21,5 +21,6 @@ docker-compose build
 # nuke old images (commented due to base ffmpeg)
 #../../purge_images_none.sh
 
+cd ../..
 # retag all the images - need to back out of docker/alpine as well as docker directory for container
 ./tag_rename_images.sh
