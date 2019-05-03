@@ -2,7 +2,7 @@ git pull
 ./source_sync.sh
 
 # must move base dir so the docker-compose commands work
-cd ./alpine
+cd ./poestat
 
 docker-compose down
 
