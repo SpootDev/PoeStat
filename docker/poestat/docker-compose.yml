@@ -22,10 +22,10 @@ services:
     container_name: poeserver
     depends_on:
       - pgbounce
-    entrypoint: ./wait-for-it-ash.sh -h pgbounce -p 6432 -t 30 -- python3 main_server_stash.py
+    entrypoint: ./wait-for-it-ash.sh -h pgbounce -p 6432 -t 30 -- python3 main_server.py
     volumes:
       # server will generate ssl key for use by web/nginx
-      - ./data/certs:/poedata/key
+      - ./poedata/certs:/poedata/key
       # if swarmip init
       - /var/run/docker.sock:/var/run/docker.sock:ro
       # server will generate salt/key
@@ -129,11 +129,11 @@ services:
     volumes:
       # must not be read only as it stores cache here
       - poe-static:/poe/web_app/poe/static
-      - ./data/webkey:/poe/key
+      - ./poedata/webkey:/poe/key
       # needed to show docker/swarm info
       - /var/run/docker.sock:/var/run/docker.sock:ro
       # hold log files
-      - ./data/log:/poe/log
+      - ./poedata/log:/poe/log
       # server will generate salt/key
       - /var/opt/poe/secure:/poe/secure:ro
     networks:
