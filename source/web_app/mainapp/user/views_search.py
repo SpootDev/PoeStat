@@ -9,7 +9,7 @@ from flask_login import login_required
 blueprint = Blueprint("user_search", __name__,
                       url_prefix='/users', static_folder="../static")
 import json
-from MediaKraken.user.forms import SearchEditForm
+from mainapp.user.forms import SearchEditForm
 import sys
 
 sys.path.append('..')

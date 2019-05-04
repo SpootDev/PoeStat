@@ -16,7 +16,7 @@ from functools import wraps
 from mainapp.extensions import (
     fpika,
 )
-from MediaKraken.admins.forms import CronEditForm
+from mainapp.admins.forms import CronEditForm
 
 from common import common_config_ini
 from common import common_global

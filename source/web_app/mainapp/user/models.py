@@ -2,7 +2,7 @@
 
 import datetime as dt
 
-from MediaKraken.database import (
+from mainapp.database import (
     Column,
     db,
     Model,
@@ -10,7 +10,7 @@ from MediaKraken.database import (
     relationship,
     SurrogatePK,
 )
-from MediaKraken.extensions import bcrypt
+from mainapp.extensions import bcrypt
 from flask_login import UserMixin
 from sqlalchemy.dialects.postgresql import JSON
 
