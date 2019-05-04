@@ -23,3 +23,4 @@ Babel
 docker
 beautifulsoup4
 pycountry
+psutil
