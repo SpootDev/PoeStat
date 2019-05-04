@@ -17,12 +17,7 @@
 '''
 
 import base64
-import hashlib
 import os
-import struct
-import zipfile
-import zlib
-from functools import reduce
 
 from cryptography.fernet import Fernet
 from cryptography.hazmat.backends import default_backend
@@ -30,8 +25,6 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 from . import common_file
-from . import common_global
-from . import common_hash_c_code
 
 
 class CommonHashCrypto(object):
