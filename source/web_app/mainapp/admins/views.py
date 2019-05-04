@@ -147,9 +147,7 @@ def admin_server_settings():
         g.db_connection.db_opt_update(settings_json)
     return render_template("admin/admin_server_settings.html",
                            form=AdminSettingsForm(request.form),
-                           settings_json=settings_json,
-                           mediabrainz_api_key=mediabrainz_api_key,
-                           opensubtitles_api_key=opensubtitles_api_key
+                           settings_json=settings_json
                            )
 
 
