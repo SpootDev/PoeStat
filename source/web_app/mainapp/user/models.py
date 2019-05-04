@@ -18,7 +18,7 @@ from sqlalchemy.dialects.postgresql import JSON
 class Role(SurrogatePK, Model):
     __tablename__ = 'roles'
     name = Column(db.String(80), unique=True, nullable=False)
-    user_id = ReferenceCol('mm_user', nullable=True)
+    user_id = ReferenceCol('username', nullable=True)
     user = relationship('User', backref='roles')
 
     def __init__(self, name, **kwargs):
@@ -29,7 +29,7 @@ class Role(SurrogatePK, Model):
 
 
 class User(UserMixin, SurrogatePK, Model):
-    __tablename__ = 'mm_user'
+    __tablename__ = 'db_user'
     username = Column(db.String(80), unique=True, nullable=False)
     email = Column(db.String(80), unique=True, nullable=False)
     #: The hashed password
