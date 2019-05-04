@@ -29,7 +29,7 @@ class CommonElasticsearch(object):
     Class for interfacing with Elasticsearch or docker logging directly
     """
 
-    def __init__(self, index_type='mediakraken', es_host='mkelk', es_port=9200,
+    def __init__(self, index_type='poestat', es_host='pselk', es_port=9200,
                  debug_override=None):
         if 'DEBUG' in os.environ and debug_override is None:
             self.debug = os.environ['DEBUG'].lower()
@@ -47,7 +47,7 @@ class CommonElasticsearch(object):
         if self.debug == 'es':
             # leave the try....as I don't want the container to fail if mkelk not accepting
             try:
-                self.es_inst.index(index=self.es_index, doc_type='MediaKraken',
+                self.es_inst.index(index=self.es_index, doc_type='PoeStat',
                                    body={"text": {"type": log_type,
                                                   "data": json.dumps(body_data),
                                                   "timestamp": time.strftime("%Y%m%d%H%M%S")}})
@@ -74,4 +74,4 @@ class CommonElasticsearch(object):
                            "timestamp": time.strftime("%Y%m%d%H%M%S")}))
 
     def com_elastic_get(self, id):
-        self.es_inst.get(index=self.es_index, doc_type='MediaKraken', id=id)
+        self.es_inst.get(index=self.es_index, doc_type='PoeStat', id=id)
