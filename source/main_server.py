@@ -60,7 +60,7 @@ if not os.path.isfile('./secure/data.zip'):
         sys.exit()
 
 # open the database
-option_config_json, db_connection = common_config_ini.com_config_read()
+db_connection = common_config_ini.com_config_read()
 
 # check db version
 common_global.es_inst.com_elastic_index('info', {'db1': db_connection.db_version_check()})
