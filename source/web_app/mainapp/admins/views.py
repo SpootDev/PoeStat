@@ -27,7 +27,7 @@ from common import common_version
 import database as database_base
 
 outside_ip = None
-option_config_json, db_connection = common_config_ini.com_config_read()
+db_connection = common_config_ini.com_config_read()
 
 
 def flash_errors(form):
