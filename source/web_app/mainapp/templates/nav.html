@@ -23,9 +23,6 @@
             <li><a class="nav-link" href="{{ url_for('admins.admins') }}" id="menu_server">Admin</a></li>
         {% endif %}
         <li><a class="nav-link" href="{{ url_for('public.about') }}" id="menu_about">About</a></li>
-        <li>
-            <p><span id="timestamp"></span></p>
-        </li>
         {% if current_user and current_user.is_authenticated %}
             <li><p class="navbar-text"><a class="navbar-link" href="{{ url_for('user.members') }}">Logged in as {{ current_user.username }}</a></p></li>
             <li><a class="nav-link" href="{{ url_for('public.logout') }}"><img src="{{ url_for('static', filename='images/16/emergency-exit.png') }}"></a></li>
@@ -42,13 +39,4 @@
         {% endif %}
     </ul>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
-    <!-- the script for refresh current time -->
-    <script>
-    var update = function () {
-    $("#timestamp").html(moment().format('MMMM Do YYYY, h:mm:ss a'));
-    };
-    $(document).ready(function(){
-    setInterval(update, 100);
-    });
-    </script>
 </nav>
