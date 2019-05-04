@@ -1,4 +1,4 @@
-# Download base image
+# Download base image - using 38 for openssl
 FROM poestat/psbase38py3
 
 LABEL AUTHOR="Quinn D Granfor, spootdev@gmail.com"
