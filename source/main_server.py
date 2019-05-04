@@ -88,19 +88,6 @@ if ('Managers' in docker_info['Swarm'] and docker_info['Swarm']['Managers'] == 0
 current_host_working_directory = docker_inst.com_docker_container_bind(container_name='/psserver',
                                                                        bind_match='/data/devices')
 
-# start up other docker containers if needed
-if option_config_json['Docker Instances']['mumble']:
-    docker_inst.com_docker_run_mumble(current_host_working_directory)
-
-if option_config_json['Docker Instances']['portainer']:
-    docker_inst.com_docker_run_portainer(current_host_working_directory)
-
-if option_config_json['Docker Instances']['teamspeak']:
-    docker_inst.com_docker_run_teamspeak(current_host_working_directory)
-
-if option_config_json['Docker Instances']['wireshark']:
-    docker_inst.com_docker_run_wireshark()
-
 # sleep for minute so docker doesn't exit
 while 1:
     time.sleep(60)
