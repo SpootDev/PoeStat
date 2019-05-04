@@ -63,7 +63,7 @@ services:
     volumes:
       - ./poedata/nginx:/var/log/poestat/nginx
       - ./poedata/certs:/etc/nginx/certs:ro
-      - poe-static:/poe/web_app/poestat/static:ro
+      - poe-static:/poestat/web_app/mainapp/static:ro
     ports:
       - "8950:8900"
     networks:
@@ -128,14 +128,14 @@ services:
     entrypoint: ./wait-for-it-ash.sh -h pgbounce -p 6432 -t 30 -- uwsgi --socket 0.0.0.0:8080 --protocol http --chdir=./web_app --ini ./web_app/uwsgi_alpine.ini
     volumes:
       # must not be read only as it stores cache here
-      - poe-static:/poestat/web_app/poestat/static
+      - poe-static:/poestat/web_app/mainapp/static
       - ./poedata/webkey:/poestat/key
       # needed to show docker/swarm info
       - /var/run/docker.sock:/var/run/docker.sock:ro
       # hold log files
       - ./poedata/log:/poestat/log
       # server will generate salt/key
-      - /var/opt/poe/secure:/poestat/secure:ro
+      - /var/opt/poedata/secure:/poestat/secure:ro
     networks:
       - poe_network
     restart: unless-stopped
