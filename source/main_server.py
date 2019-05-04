@@ -85,7 +85,7 @@ if ('Managers' in docker_info['Swarm'] and docker_info['Swarm']['Managers'] == 0
 
 # get current working directory from host maps
 # this is used so ./data can be used for all the containers launched from docker-py
-current_host_working_directory = docker_inst.com_docker_container_bind(container_name='/mkserver',
+current_host_working_directory = docker_inst.com_docker_container_bind(container_name='/psserver',
                                                                        bind_match='/data/devices')
 
 # start up other docker containers if needed

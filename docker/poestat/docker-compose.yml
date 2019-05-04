@@ -25,11 +25,11 @@ services:
     entrypoint: ./wait-for-it-ash.sh -h pgbounce -p 6432 -t 30 -- python3 main_server.py
     volumes:
       # server will generate ssl key for use by web/nginx
-      - ./poedata/certs:/poedata/key
+      - ./poedata/certs:/poestat/key
       # if swarmip init
       - /var/run/docker.sock:/var/run/docker.sock:ro
       # server will generate salt/key
-      - /var/opt/poedata/secure:/poedata/secure
+      - /var/opt/poedata/secure:/poestat/secure
     networks:
       - poe_network
      
@@ -61,9 +61,9 @@ services:
     container_name: poenginx
     entrypoint: /usr/bin/wait-for-it-ash.sh -h webserver -p 8080 -t 30 -- nginx
     volumes:
-      - ./poedata/nginx:/var/log/poe/nginx
+      - ./poedata/nginx:/var/log/poestat/nginx
       - ./poedata/certs:/etc/nginx/certs:ro
-      - poe-static:/poe/web_app/poe/static:ro
+      - poe-static:/poe/web_app/poestat/static:ro
     ports:
       - "8950:8900"
     networks:
@@ -128,14 +128,14 @@ services:
     entrypoint: ./wait-for-it-ash.sh -h pgbounce -p 6432 -t 30 -- uwsgi --socket 0.0.0.0:8080 --protocol http --chdir=./web_app --ini ./web_app/uwsgi_alpine.ini
     volumes:
       # must not be read only as it stores cache here
-      - poe-static:/poe/web_app/poe/static
-      - ./poedata/webkey:/poe/key
+      - poe-static:/poestat/web_app/poestat/static
+      - ./poedata/webkey:/poestat/key
       # needed to show docker/swarm info
       - /var/run/docker.sock:/var/run/docker.sock:ro
       # hold log files
-      - ./poedata/log:/poe/log
+      - ./poedata/log:/poestat/log
       # server will generate salt/key
-      - /var/opt/poe/secure:/poe/secure:ro
+      - /var/opt/poe/secure:/poestat/secure:ro
     networks:
       - poe_network
     restart: unless-stopped
