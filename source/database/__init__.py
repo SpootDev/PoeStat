@@ -55,6 +55,8 @@ class ServerDatabase(object):
     from database.db_base_wealth import db_wealth_currency_read, \
         db_wealth_poe_ninja_currency_read, \
         db_wealth_poe_ninja_currency_write
+    from database.db_base_version import db_version_check, \
+        db_version_update
 
 
     # class variables
