@@ -67,7 +67,7 @@ def register():
         # if first user set it as administrator
         db_connection = database_base.ServerDatabase()
         db_connection.db_open()
-        if db_connection.db_table_count('username') == 0:
+        if db_connection.db_table_count('db_user') == 0:
             admin_user = True
         db_connection.db_close()
         # add the user
