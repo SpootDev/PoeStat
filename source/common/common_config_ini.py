@@ -25,5 +25,5 @@ def com_config_read(db_prod=True):
     """
     # open the database
     db_connection = database_base.ServerDatabase()
-    db_connection.db_open(db_prod)
+    db_connection.db_open()
     return db_connection
