@@ -3,7 +3,6 @@
 
 
 import os
-import subprocess
 
 from mainapp.app import create_app
 from mainapp.database import db
@@ -13,7 +12,11 @@ from flask_script import Manager, Shell, Server
 from flask_script.commands import Clean, ShowUrls
 
 app = create_app(ProdConfig)
-
+# if first user set it as administrator and create if not exists
+if os.path.isfile('/poestat/secure/db.sqlite'):
+    pass
+else:
+    db.create_all()
 HERE = os.path.abspath(os.path.dirname(__file__))
 TEST_PATH = os.path.join(HERE, 'tests')
 
@@ -41,8 +44,4 @@ manager.add_command("urls", ShowUrls())
 manager.add_command("clean", Clean())
 
 if __name__ == '__main__':
-    wait_pid = subprocess.Popen(['/poe/wait-for-it-ash.sh', '-h',
-                                 'poerabbitmq', '-p', ' 5672', '-t', '30'],
-                                shell=False)
-    wait_pid.wait()
     manager.run()

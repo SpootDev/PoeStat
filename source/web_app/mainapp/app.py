@@ -30,15 +30,7 @@ def register_extensions(app):
     assets.init_app(app)
     bcrypt.init_app(app)
     db.init_app(app)
-    print('hi')
-    # if first user set it as administrator and create if not exists
-    if os.path.isfile('/poestat/secure/db.sqlite'):
-        pass
-    else:
-        db.create_all()
-    print('hi2')
     login_manager.init_app(app)
-    print('hi3')
     return None
 
 
