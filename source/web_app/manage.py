@@ -12,11 +12,15 @@ from flask_script import Manager, Shell, Server
 from flask_script.commands import Clean, ShowUrls
 
 app = create_app(ProdConfig)
+print('hi')
 # if first user set it as administrator and create if not exists
 if os.path.isfile('/poestat/secure/db.sqlite'):
+    print('hi2')
     pass
 else:
+    print('hi3')
     db.create_all()
+    print('hi4')
 HERE = os.path.abspath(os.path.dirname(__file__))
 TEST_PATH = os.path.join(HERE, 'tests')
 
