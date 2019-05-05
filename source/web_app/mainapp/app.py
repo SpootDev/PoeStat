@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
 
-import redis
-
 from mainapp import public, user, admins
 from mainapp.assets import assets
 from mainapp.extensions import (
@@ -12,14 +10,11 @@ from mainapp.extensions import (
 )
 from mainapp.settings import ProdConfig
 from flask import Flask, render_template
-from flask_kvsession import KVSessionExtension
 from flask_uwsgi_websocket import GeventWebSocket
-from simplekv.memory.redisstore import RedisStore
 
 
 def create_app(config_object=ProdConfig):
     app = Flask(__name__)
-    KVSessionExtension(RedisStore(redis.StrictRedis(host='poeredis')), app)
     app.config.from_object(config_object)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     register_extensions(app)
@@ -43,7 +38,6 @@ def register_blueprints(app):
     # load up user bps
     app.register_blueprint(user.views.blueprint)
     app.register_blueprint(user.views_search.blueprint)
-
     # load up admin bps
     app.register_blueprint(admins.views.blueprint)
     app.register_blueprint(admins.views_backup.blueprint)

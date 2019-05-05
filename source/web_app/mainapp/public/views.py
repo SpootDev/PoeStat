@@ -27,10 +27,6 @@ def home():
     """
     Display home page
     """
-    if 'search_text' in session:
-        pass
-    else:
-        session['search_text'] = None
     form = LoginForm(request.form)
     # Handle logging in
     if request.method == 'POST':
