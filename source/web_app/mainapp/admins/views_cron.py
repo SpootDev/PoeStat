@@ -13,17 +13,14 @@ blueprint = Blueprint("admins_cron", __name__,
 import flask
 from flask_login import current_user
 from functools import wraps
-from MediaKraken.extensions import (
-    fpika,
-)
-from MediaKraken.admins.forms import CronEditForm
+from mainapp.admins.forms import CronEditForm
 
 from common import common_config_ini
 from common import common_global
 from common import common_pagination
 import database as database_base
 
-option_config_json, db_connection = common_config_ini.com_config_read()
+db_connection = common_config_ini.com_config_read()
 
 
 def flash_errors(form):
@@ -113,20 +110,6 @@ def admin_cron_run(guid):
     #     route_key = 'mkque_metadata'
     #     exchange_key = 'mkque_metadata_ex'
 
-    if cron_job_data['mm_cron_file_path'] is None:
-        exchange_key = cron_job_data['mm_cron_json']['exchange_key']
-        route_key = cron_job_data['mm_cron_json']['route_key']
-        message_type = cron_job_data['mm_cron_json']['type']
-        message_subtype = cron_job_data['mm_cron_json']['task']
-
-    # submit the message
-    ch = fpika.channel()
-    ch.basic_publish(exchange=exchange_key, routing_key=route_key,
-                     body=json.dumps(
-                         {'Type': message_type,
-                          'Subtype': message_subtype,
-                          'User': current_user.get_id()}))
-    fpika.return_channel(ch)
     return render_template('admin/admin_cron.html')
 
 

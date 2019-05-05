@@ -11,13 +11,13 @@ from common import common_file
 
 
 class Config(object):
-    if os.path.exists('/poe/key/web_secret_key.txt'):
+    if os.path.exists('/poestat/key/web_secret_key.txt'):
         pass
     else:
-        common_file.com_file_save_data('/poe/key/web_secret_key.txt',
+        common_file.com_file_save_data('/poestat/key/web_secret_key.txt',
                                        binascii.hexlify(os.urandom(24)).decode(), False)
     SECRET_KEY = os_env.get('WEB_SECRET',
-                            common_file.com_file_load_data('/poe/key/web_secret_key.txt',
+                            common_file.com_file_load_data('/poestat/key/web_secret_key.txt',
                                                            False))
     APP_DIR = os.path.abspath(os.path.dirname(__file__))  # This directory
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
@@ -36,13 +36,3 @@ class ProdConfig(Config):
                               + os.environ['POSTGRES_PASSWORD'] + "@poepgbounce:6432/" \
                               + os.environ['POSTGRES_DB']
     DEBUG_TB_ENABLED = False  # Disable Debug toolbar
-    FLASK_PIKA_PARAMS = {
-        'host': 'poerabbitmq',  # amqp.server.com
-        'username': 'guest',  # convenience param for username
-        'password': 'guest',  # convenience param for password
-        'port': 5672  # amqp server port
-    }
-    FLASK_PIKA_POOL_PARAMS = {
-        'pool_size': 8,
-        'pool_recycle': 600
-    }

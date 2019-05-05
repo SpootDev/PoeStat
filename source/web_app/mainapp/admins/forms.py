@@ -71,7 +71,6 @@ class AdminSettingsForm(Form):
                                               ('10', '10')])
     docker_pgadmin = BooleanField('Start PgAdmin (database webgui)')
     docker_portainer = BooleanField('Start Portainer (Docker monitor)')
-    docker_smtp = BooleanField('Start SMTP (Mail Server)')
     docker_wireshark = BooleanField('Start Wireshark (network sniffer)')
 
     def __init__(self, *args, **kwargs):

@@ -5,11 +5,11 @@ import sys
 
 sys.path.append('..')
 import database as database_base
-from MediaKraken.extensions import login_manager
-from MediaKraken.public.forms import LoginForm
-from MediaKraken.user.forms import RegisterForm
-from MediaKraken.user.models import User
-from MediaKraken.utils import flash_errors
+from mainapp.extensions import login_manager
+from mainapp.public.forms import LoginForm
+from mainapp.user.forms import RegisterForm
+from mainapp.user.models import User
+from mainapp.utils import flash_errors
 from flask import Blueprint, request, render_template, flash, url_for, redirect, session
 from flask_login import current_user
 from flask_login import login_user, login_required, logout_user
@@ -65,9 +65,9 @@ def register():
     if form.validate_on_submit():
         admin_user = False
         # if first user set it as administrator
-        db_connection = database_base.MKServerDatabase()
+        db_connection = database_base.ServerDatabase()
         db_connection.db_open()
-        if db_connection.db_table_count('mm_user') == 0:
+        if db_connection.db_table_count('db_user') == 0:
             admin_user = True
         db_connection.db_close()
         # add the user

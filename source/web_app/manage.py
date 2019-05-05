@@ -5,10 +5,10 @@
 import os
 import subprocess
 
-from MediaKraken.app import create_app
-from MediaKraken.database import db
-from MediaKraken.settings import ProdConfig
-from MediaKraken.user.models import User
+from mainapp.app import create_app
+from mainapp.database import db
+from mainapp.settings import ProdConfig
+from mainapp.user.models import User
 from flask_script import Manager, Shell, Server
 from flask_script.commands import Clean, ShowUrls
 

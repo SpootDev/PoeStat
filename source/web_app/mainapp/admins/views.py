@@ -14,7 +14,7 @@ blueprint = Blueprint("admins", __name__,
 import flask
 from flask_login import current_user
 from functools import wraps
-from MediaKraken.admins.forms import AdminSettingsForm
+from mainapp.admins.forms import AdminSettingsForm
 
 from common import common_config_ini
 from common import common_internationalization
@@ -27,7 +27,7 @@ from common import common_version
 import database as database_base
 
 outside_ip = None
-option_config_json, db_connection = common_config_ini.com_config_read()
+db_connection = common_config_ini.com_config_read()
 
 
 def flash_errors(form):
@@ -100,8 +100,6 @@ def admins():
                            data_server_uptime=common_system.com_system_uptime(),
                            data_alerts_dismissable=data_alerts_dismissable,
                            data_alerts=data_alerts,
-                           data_library=common_internationalization.com_inter_number_format(
-                               g.db_connection.db_table_count('mm_media_dir')),
                            data_messages=data_messages,
                            )
 
@@ -117,9 +115,6 @@ def admin_sidenav():
 @login_required
 @admin_required
 def admin_messages():
-    """
-    List all NAS devices
-    """
     messages = []
     return render_template("admin/admin_messages.html", data_messages=messages)
 
@@ -137,20 +132,12 @@ def admin_server_settings():
     mediabrainz_api_key = None
     opensubtitles_api_key = None
     if request.method == 'GET':
-        if settings_json['API']['opensubtitles'] is not None:
-            opensubtitles_api_key = data.com_hash_gen_crypt_decode(
-                settings_json['API']['opensubtitles'])
+        pass
     elif request.method == 'POST':
-        # api info
-        settings_json['API']['musicbrainz'] = data.com_hash_gen_crypt_encode(
-            request.form['docker_musicbrainz_code'])
-        settings_json['API']['opensubtitles'] = data.com_hash_gen_crypt_encode(
-            request.form['metadata_sub_code'])
         # Docker instances info
         settings_json['Docker Instances']['mumble'] = request.form['docker_mumble']
         settings_json['Docker Instances']['pgadmin'] = request.form['docker_pgadmin']
         settings_json['Docker Instances']['portainer'] = request.form['docker_portainer']
-        settings_json['Docker Instances']['smtp'] = request.form['docker_smtp']
         settings_json['Docker Instances']['teamspeak'] = request.form['docker_teamspeak']
         settings_json['Docker Instances']['wireshark'] = request.form['docker_wireshark']
         # main server info
@@ -160,9 +147,7 @@ def admin_server_settings():
         g.db_connection.db_opt_update(settings_json)
     return render_template("admin/admin_server_settings.html",
                            form=AdminSettingsForm(request.form),
-                           settings_json=settings_json,
-                           mediabrainz_api_key=mediabrainz_api_key,
-                           opensubtitles_api_key=opensubtitles_api_key
+                           settings_json=settings_json
                            )
 
 
