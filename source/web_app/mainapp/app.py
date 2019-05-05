@@ -16,8 +16,9 @@ from flask_uwsgi_websocket import GeventWebSocket
 def create_app(config_object=ProdConfig):
     app = Flask(__name__)
     app.config.from_object(config_object)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://///poestat/secure/db.sqlite'
+    app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)

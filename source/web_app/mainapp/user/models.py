@@ -12,7 +12,6 @@ from mainapp.database import (
 )
 from mainapp.extensions import bcrypt
 from flask_login import UserMixin
-from sqlalchemy.dialects.postgresql import JSON
 
 
 class User(UserMixin, SurrogatePK, Model):
@@ -25,8 +24,6 @@ class User(UserMixin, SurrogatePK, Model):
                         default=dt.datetime.utcnow)
     active = Column(db.Boolean(), default=False)
     is_admin = Column(db.Boolean(), default=False)
-    user_json = Column(JSON, nullable=True, default=None)
-    lang = Column(db.String(30), nullable=False)
 
     def __init__(self, username, email, password=None, **kwargs):
         db.Model.__init__(self, username=username, email=email, **kwargs)

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
 
+import os
 import sys
 
 sys.path.append('..')
-import database as database_base
 from mainapp.extensions import login_manager
 from mainapp.public.forms import LoginForm
 from mainapp.user.forms import RegisterForm
@@ -13,6 +13,14 @@ from mainapp.utils import flash_errors
 from flask import Blueprint, request, render_template, flash, url_for, redirect, session
 from flask_login import current_user
 from flask_login import login_user, login_required, logout_user
+from mainapp.database import (
+    Column,
+    db,
+    Model,
+    ReferenceCol,
+    relationship,
+    SurrogatePK,
+)
 
 blueprint = Blueprint('public', __name__, static_folder="../static")
 
@@ -60,12 +68,12 @@ def register():
     form = RegisterForm(request.form, csrf_enabled=False)
     if form.validate_on_submit():
         admin_user = False
-        # if first user set it as administrator
-        db_connection = database_base.ServerDatabase()
-        db_connection.db_open()
-        if db_connection.db_table_count('db_user') == 0:
+        # if first user set it as administrator and create if not exists
+        if os.path.isfile('/poestat/secure/db.sqlite'):
+            pass
+        else:
+            db.create_all()
             admin_user = True
-        db_connection.db_close()
         # add the user
         new_user = User.create(username=form.username.data,
                                email=form.email.data,
