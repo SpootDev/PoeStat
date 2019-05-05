@@ -23,7 +23,7 @@ from mainapp.database import (
 )
 
 blueprint = Blueprint('public', __name__, static_folder="../static")
-
+admin_user = False
 
 @login_manager.user_loader
 def load_user(id):
@@ -35,10 +35,17 @@ def home():
     """
     Display home page
     """
+    global admin_user
     form = LoginForm(request.form)
     # Handle logging in
     if request.method == 'POST':
         if form.validate_on_submit():
+            # if first user set it as administrator and create if not exists
+            if os.path.isfile('/poestat/secure/db.sqlite'):
+                pass
+            else:
+                db.create_all()
+                admin_user = True
             login_user(form.user, False)
             flash("You are logged in.", 'success')
             redirect_url = request.args.get("next") or url_for("user.members")
@@ -67,13 +74,6 @@ def register():
     """
     form = RegisterForm(request.form, csrf_enabled=False)
     if form.validate_on_submit():
-        admin_user = False
-        # if first user set it as administrator and create if not exists
-        if os.path.isfile('/poestat/secure/db.sqlite'):
-            pass
-        else:
-            db.create_all()
-            admin_user = True
         # add the user
         new_user = User.create(username=form.username.data,
                                email=form.email.data,
