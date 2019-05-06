@@ -34,7 +34,7 @@ def members(accountname):
     """
     Display main members page
     """
-    account_uuid = g.db_connection.db_base_account_uuid_by_name('spooticusmaximus')
+    account_uuid = g.db_connection.db_base_account_uuid_by_name(accountname)
     return render_template("users/members.html",
                            character_list=g.db_connection.db_base_character_by_account(account_uuid))
 
