@@ -40,7 +40,7 @@ def home():
     # Handle logging in
     if request.method == 'POST':
         if form.validate_on_submit():
-            login_user(form.user, False)
+            # TODO login_user(form.user, False)
             flash("You are logged in.", 'success')
             redirect_url = request.args.get("next") or url_for("user.members")
             return redirect(redirect_url)
@@ -70,11 +70,12 @@ def register():
     form = RegisterForm(request.form, csrf_enabled=False)
     if form.validate_on_submit():
         # add the user
-        new_user = User.create(username=form.username.data,
-                               email=form.email.data,
-                               password=form.password.data,
-                               active=True,
-                               is_admin=admin_user)
+        # TODO
+        # new_user = User.create(username=form.username.data,
+        #                        email=form.email.data,
+        #                        password=form.password.data,
+        #                        active=True,
+        #                        is_admin=admin_user)
         admin_user = False
         flash("Thank you for registering. You can now log in.", 'success')
         return redirect(url_for('public.home'))
