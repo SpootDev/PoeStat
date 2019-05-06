@@ -40,7 +40,6 @@ def register_blueprints(app):
     app.register_blueprint(admins.views_backup.blueprint)
     app.register_blueprint(admins.views_cron.blueprint)
     app.register_blueprint(admins.views_docker.blueprint)
-    app.register_blueprint(admins.views_users.blueprint)
     return None
 
 
