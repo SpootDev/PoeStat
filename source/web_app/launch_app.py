@@ -20,5 +20,5 @@ if os.path.isfile('/poestat/secure/db.sqlite'):
     pass
 else:
     print('2hi3')
-    db.create_all()
+    db.create_all(application)
     print('2hi4')

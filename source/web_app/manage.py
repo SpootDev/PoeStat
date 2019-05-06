@@ -19,7 +19,7 @@ if os.path.isfile('/poestat/secure/db.sqlite'):
     pass
 else:
     print('hi3')
-    db.create_all()
+    db.create_all(app)
     print('hi4')
 HERE = os.path.abspath(os.path.dirname(__file__))
 TEST_PATH = os.path.join(HERE, 'tests')
