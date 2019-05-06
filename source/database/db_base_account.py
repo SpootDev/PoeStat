@@ -37,5 +37,5 @@ def db_base_account_upsert(self, account_name):
 
 def db_base_account_uuid_by_name(self, account_name):
     self.db_cursor.execute('select poe_account_uuid from db_poe_account'
-                           ' where poe_account_name = %s ' % account_name)
+                           ' where poe_account_name = %s', (account_name,))
     return self.db_cursor.fetchall()

@@ -47,7 +47,7 @@ def db_base_character_by_account(self, account_uuid):
         'select db_poe_character_uuid, db_poe_character_name, db_poe_character_json'
         ' from db_poe_character'
         ' where db_character_account_uuid = %s'
-        ' order by db_poe_character_name' % account_uuid)
+        ' order by db_poe_character_name', (account_uuid,))
     return self.db_cursor.fetchall()
 
 
@@ -58,5 +58,5 @@ def db_base_character_by_uuid(self, character_uuid):
     self.db_cursor.execute(
         'select db_poe_character_name, db_poe_character_json'
         ' from db_poe_character'
-        ' where db_poe_character_uuid = %s' % character_uuid)
+        ' where db_poe_character_uuid = %s', (character_uuid,))
     return self.db_cursor.fetchone()[0]
