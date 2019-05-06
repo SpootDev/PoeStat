@@ -6,7 +6,6 @@ from mainapp.assets import assets
 from mainapp.extensions import (
     bcrypt,
     db,
-    login_manager,
 )
 from mainapp.settings import ProdConfig
 from flask import Flask, render_template
@@ -16,9 +15,6 @@ from flask_uwsgi_websocket import GeventWebSocket
 def create_app(config_object=ProdConfig):
     app = Flask(__name__)
     app.config.from_object(config_object)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////poestat/secure/db.sqlite'
-    app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
@@ -30,7 +26,6 @@ def register_extensions(app):
     assets.init_app(app)
     bcrypt.init_app(app)
     db.init_app(app)
-    login_manager.init_app(app)
     return None
 
 

@@ -4,7 +4,6 @@ User view in webapp
 # -*- coding: utf-8 -*-
 
 from flask import Blueprint, render_template, g, flash
-from flask_login import login_required
 
 blueprint = Blueprint("user", __name__, url_prefix='/users',
                       static_folder="../static")
@@ -31,7 +30,6 @@ def flash_errors(form):
 
 
 @blueprint.route("/")
-@login_required
 def members():
     """
     Display main members page

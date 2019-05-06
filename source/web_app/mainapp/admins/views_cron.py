@@ -5,14 +5,10 @@ import sys
 
 sys.path.append('..')
 from flask import Blueprint, render_template, g, request, flash
-from flask_login import login_required
 
 blueprint = Blueprint("admins_cron", __name__,
                       url_prefix='/admin', static_folder="../static")
-# need the following three items for admin check
-import flask
-from flask_login import current_user
-from functools import wraps
+
 from mainapp.admins.forms import CronEditForm
 
 from common import common_config_ini
@@ -35,26 +31,7 @@ def flash_errors(form):
             ))
 
 
-def admin_required(fn):
-    """
-    Admin check
-    """
-
-    @wraps(fn)
-    @login_required
-    def decorated_view(*args, **kwargs):
-        common_global.es_inst.com_elastic_index('info', {"admin access attempt by":
-                                                             current_user.get_id()})
-        if not current_user.is_admin:
-            return flask.abort(403)  # access denied
-        return fn(*args, **kwargs)
-
-    return decorated_view
-
-
 @blueprint.route('/cron')
-@login_required
-@admin_required
 def admin_cron_display_all():
     """
     Display cron jobs
@@ -62,8 +39,7 @@ def admin_cron_display_all():
     page, per_page, offset = common_pagination.get_page_items()
     pagination = common_pagination.get_pagination(page=page,
                                                   per_page=per_page,
-                                                  total=g.db_connection.db_cron_list_count(
-                                                      False),
+                                                  total=g.db_connection.db_cron_list_count(False),
                                                   record_name='Cron Jobs',
                                                   format_total=True,
                                                   format_number=True,
@@ -78,8 +54,6 @@ def admin_cron_display_all():
 
 
 @blueprint.route('/cron_run/<guid>', methods=['GET', 'POST'])
-@login_required
-@admin_required
 def admin_cron_run(guid):
     """
     Run cron jobs
@@ -114,8 +88,6 @@ def admin_cron_run(guid):
 
 
 @blueprint.route('/cron_edit/<guid>', methods=['GET', 'POST'])
-@login_required
-@admin_required
 def admin_cron_edit(guid):
     """
     Edit cron job page
@@ -136,8 +108,6 @@ def admin_cron_edit(guid):
 
 
 @blueprint.route('/cron_delete', methods=["POST"])
-@login_required
-@admin_required
 def admin_cron_delete_page():
     """
     Delete action 'page'
