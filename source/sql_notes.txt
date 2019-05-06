@@ -111,3 +111,16 @@ ALTER TABLE public.db_user_id_seq OWNER TO postgres;
 
 ALTER SEQUENCE public.db_user_id_seq OWNED BY public.db_user.id;
 
+**************************
+
+# change class uuid to subtype uuid
+# index the account_uuid
+# index the suybtype_uuid
+CREATE TABLE db_poe_account_items (
+    db_poe_account_item_uuid text NOT NULL,
+    db_poe_account_uuid uuid,
+    db_poe_account_item_class_subtype_uuid uuid,
+    db_poe_account_item_json jsonb
+);
+
+

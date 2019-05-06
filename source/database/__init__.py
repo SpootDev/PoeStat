@@ -31,7 +31,8 @@ class ServerDatabase(object):
     from database.db_base_account import db_base_account_upsert, \
         db_base_account_uuid_by_name
     from database.db_base_character import db_base_character_upsert, \
-        db_base_character_by_account
+        db_base_character_by_account, \
+        db_base_character_by_uuid
     from database.db_base_import import db_base_import_item_class_list, \
         db_base_import_item_class_upsert, \
         db_base_import_item_subtype_upsert, \
@@ -44,7 +45,9 @@ class ServerDatabase(object):
     from database.db_base_item import db_item_market_class_table, \
         db_item_upsert, \
         db_item_account_upsert, \
-        db_item_account_list
+        db_item_account_list, \
+        db_item_account_grouped, \
+        db_item_account_base_subtype
     from database.db_base_passive_tree import db_passive_tree_read, \
         db_passive_tree_update
     from database.db_base_stash import db_stash_insert, \
