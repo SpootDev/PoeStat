@@ -10,7 +10,6 @@ blueprint = Blueprint("admins_messages", __name__, url_prefix='/admin',
                       static_folder="../static")
 
 from common import common_config_ini
-from common import common_global
 from common import common_pagination
 import database as database_base
 

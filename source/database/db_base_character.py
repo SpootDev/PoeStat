@@ -36,3 +36,12 @@ def db_base_character_upsert(self, account_uuid, character_json, character_passi
          json.dumps(character_passive_json), json.dumps(character_json), json.dumps(character_passive_json)))
     self.db_commit()
     return self.db_cursor.fetchone()[0]
+
+
+def db_base_character_by_account(self, account_uuid):
+    """
+    return character list by account id
+    """
+    self.db_cursor.execute('select db_poe_character_uuid, db_poe_character_name from db_poe_character'
+                           ' where db_character_account_uuid = %s order by db_poe_character_name' % account_uuid)
+    return self.db_cursor.fetchall()

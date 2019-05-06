@@ -29,12 +29,14 @@ def flash_errors(form):
             ))
 
 
-@blueprint.route("/")
-def members():
+@blueprint.route("/<accountname>")
+def members(accountname):
     """
     Display main members page
     """
-    return render_template("users/members.html")
+    account_uuid = g.db_connection.db_base_account_uuid_by_name('spooticusmaximus')
+    return render_template("users/members.html",
+                           character_list=g.db_connection.db_base_character_by_account(account_uuid))
 
 
 @blueprint.before_request
