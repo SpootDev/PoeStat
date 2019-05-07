@@ -66,11 +66,16 @@
         <button class="dropdown-btn">Stash Inventory
             <i class="fas fa-caret-down"></i>
         </button>
-        <div class="dropdown-container">
-            {% for row_data in data_items %}
-                <a href="{{ url_for('user_stash.stash_item_list', base_uuid=row_data[0], subtype_uuid=row_data[1]) }}" id="stash_row_{{row_data[0]}}"> {{row_data[1]}}</a>
-            {% endfor %}
-        </div>
+        {% for dict_item in data_items %}
+            <button class="dropdown-btn">{{data_items[dict_item][0]}}
+                <i class="fas fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+               {% for item_list in data_items[dict_item][1] %}
+                    <a href="{{ url_for('user_stash.stash_item_list', base_uuid=row_data[0], subtype_uuid=row_data[1]) }}" id="stash_row_{{item_list[0]}}"> {{item_list[1]}}</a>
+               {% endfor %}
+            </div>
+        {% endfor %}
     </div>
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>

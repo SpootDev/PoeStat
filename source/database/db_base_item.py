@@ -95,4 +95,16 @@ def db_item_base_item_tree(self):
                            ' where db_poe_item_class.db_poe_item_class_uuid'
                            ' = db_poe_item_subtypes.db_poe_item_class_uuid'
                            ' order by db_poe_item_class_name, db_poe_item_subtype_name')
-    return self.db_cursor.fetchall()
+    item_dict = {}
+    for row_data in self.db_cursor.fetchall():
+        if row_data['db_poe_item_class.db_poe_item_class_uuid'] in item_dict:
+            temp_list = item_dict[row_data['db_poe_item_class.db_poe_item_class_uuid']][1]
+            temp_list.append((row_data['db_poe_item_subtype_uuid'], row_data['db_poe_item_subtype_name']))
+            item_dict[row_data['db_poe_item_class.db_poe_item_class_uuid']] = (
+            row_data['db_poe_item_class_name'], temp_list)
+        else:
+            temp_list = []
+            temp_list.append((row_data['db_poe_item_subtype_uuid'], row_data['db_poe_item_subtype_name']))
+            item_dict[row_data['db_poe_item_class.db_poe_item_class_uuid']] = (
+            row_data['db_poe_item_class_name'], temp_list)
+    return item_dict
