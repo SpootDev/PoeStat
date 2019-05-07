@@ -55,29 +55,18 @@
         </button>
         <div class="dropdown-container">
             {% for row_data in character_list %}
-                <tr>
-                    <td>{{ row_data[0] }}</td>
-                    <td>{{ row_data[1] }}</td>
-                    <td>{{ row_data[2] }}</td>
-                </tr>
+                <a href="{{ url_for('user_character.character_detail, characteruuid={{row_data[0]}}') }}" id="char_detail_{{row_data[0]}}"> {{row_data[1]}}</a>
             {% endfor %}
-
-
-            <a href="{{ url_for('admins_chromecasts.admin_chromecast') }}" id="admin_navmenu_chromecast"> Chromecasts</a>
-            <a href="{{ url_for('admins_tvtuners.admin_tvtuners') }}" id="admin_navmenu_tvtuner"> TV Tuners</a>
         </div>
 
         <button class="dropdown-btn">Stash Inventory
             <i class="fas fa-caret-down"></i>
         </button>
         <div class="dropdown-container">
-            <a href="{{ url_for('admins.admin_chart_browser') }}" id="admin_navmenu_chart_browser">Browser</a>
-            <a href="{{ url_for('admins.admin_chart_client_usage') }}" id="admin_navmenu_client_usage">Client</a>
             <a href="{{ url_for('admins_report.report_display_all_unmatched_media') }}" id="admin_navmenu_all_unmatched">Unmatched Media</a>
             <a href="{{ url_for('admins_report.report_top10', mtype=1) }}" id="admin_navmenu_top10_all_time">Top 10 All Time</a>
             <a href="{{ url_for('admins_report.report_top10', mtype=2) }}" id="admin_navmenu_top10_movie">Top 10 Movie</a>
         </div>
-
 
     </div>
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
