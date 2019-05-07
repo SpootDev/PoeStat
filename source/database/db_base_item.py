@@ -86,3 +86,13 @@ def db_item_account_base_subtype(self):
                            ' where item_class_uuid = db_poe_item_subtype_class_uuid'
                            ' order by db_poe_item_class_name, db_poe_item_subtype_name')
     return self.db_cursor.fetchall()
+
+
+def db_item_base_item_tree(self):
+    self.db_cursor.execute('select db_poe_item_class.db_poe_item_class_uuid, db_poe_item_class_name,'
+                           ' db_poe_item_subtype_uuid, db_poe_item_subtype_name'
+                           ' from db_poe_item_class, db_poe_item_subtypes'
+                           ' where db_poe_item_class.db_poe_item_class_uuid'
+                           ' = db_poe_item_subtypes.db_poe_item_class_uuid'
+                           ' order by db_poe_item_class_name, db_poe_item_subtype_name')
+    return self.db_cursor.fetchall()

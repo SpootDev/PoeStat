@@ -39,3 +39,11 @@ def db_base_account_uuid_by_name(self, account_name):
     self.db_cursor.execute('select poe_account_uuid from db_poe_account'
                            ' where poe_account_name = %s', (account_name,))
     return self.db_cursor.fetchone()[0]
+
+
+def db_base_account_char_return(self):
+    self.db_cursor.execute('select poe_account_uuid, poe_account_name, db_poe_character_uuid, db_poe_character_name'
+                           ' from db_poe_account, db_poe_character '
+                           'where poe_account_uuid = db_poe_character_account_uuid'
+                           ' order by poe_account_name, db_poe_character_name')
+    return self.db_cursor.fetchall()

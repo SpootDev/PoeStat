@@ -54,7 +54,7 @@
             <i class="fas fa-caret-down"></i>
         </button>
         <div class="dropdown-container">
-            {% for row_data in character_list %}
+            {% for row_data in account_player %}
                 <a href="{{ url_for('user_character.character_detail, characteruuid={{row_data[0]}}') }}" id="char_detail_{{row_data[0]}}"> {{row_data[1]}}</a>
             {% endfor %}
         </div>
