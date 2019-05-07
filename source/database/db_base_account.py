@@ -57,9 +57,9 @@ def db_base_account_char_return(self):
             account_char_dict[row_data['poe_account_uuid']] = (row_data['poe_account_name'], temp_list)
             print(account_char_dict)
         else:
-            account_char_dict[row_data['poe_account_uuid']] = (row_data['poe_account_name'],
-                                                               ((row_data['db_poe_character_uuid'],
-                                                                 row_data['db_poe_character_name']),))
+            temp_list = []
+            temp_list.append((row_data['db_poe_character_uuid'], row_data['db_poe_character_name']))
+            account_char_dict[row_data['poe_account_uuid']] = (row_data['poe_account_name'], temp_list)
             print(account_char_dict)
     print(account_char_dict)
     return account_char_dict
