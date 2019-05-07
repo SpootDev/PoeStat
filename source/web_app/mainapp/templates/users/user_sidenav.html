@@ -58,16 +58,14 @@
                 <a href="{{ url_for('user_character.character_detail', characteruuid=row_data[0]) }}" id="char_detail_{{row_data[0]}}">{{row_data[1]}}</a>
             {% endfor %}
         </div>
-
         <button class="dropdown-btn">Stash Inventory
             <i class="fas fa-caret-down"></i>
         </button>
         <div class="dropdown-container">
-            <a href="{{ url_for('admins_report.report_display_all_unmatched_media') }}" id="admin_navmenu_all_unmatched">Unmatched Media</a>
-            <a href="{{ url_for('admins_report.report_top10', mtype=1) }}" id="admin_navmenu_top10_all_time">Top 10 All Time</a>
-            <a href="{{ url_for('admins_report.report_top10', mtype=2) }}" id="admin_navmenu_top10_movie">Top 10 Movie</a>
+            {% for row_data in data_items %}
+                <a href="{{ url_for('user_stash.stash_item_list', base_uuid=row_data[0], subtype_uuid=row_data[1]) }}" id="stash_row_{{row_data[0]}}">{{row_data[1]}}</a>
+            {% endfor %}
         </div>
-
     </div>
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
