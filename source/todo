@@ -1,3 +1,10 @@
+{% for dict_item in parent_dict %}
+   {% for key, value in dict_item.items() %}
+      <h1>Key: {{key}}</h1>
+      <h2>Value: {{value}}</h2>
+   {% endfor %}
+{% endfor %}
+
 when receiveing a null league tab with account name......if no items can probalby delete the stash as was readonly delete
 
 pi pos with touchscreen? com with local client via twisted
