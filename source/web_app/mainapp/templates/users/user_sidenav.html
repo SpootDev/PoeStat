@@ -58,11 +58,9 @@
                 <i class="fas fa-caret-down"></i>
             </button>
             <div class="dropdown-container">
-               {% for key, value in dict_item.items() %}
-                   <h1>Key: {{key}}</h1>
-                   <h2>Value: {{value}}</h2>
-                   {% for list_item in value %}
-                        <a href="{{ url_for('user_character.character_detail', characteruuid=list_item[0]) }}" id="char_detail_{{row_data[0]}}">{{list_item[1]}}</a>
+               {% for character_list in account_player[dict_item] %}
+                   {% for list_item in character_list %}
+                        <a href="{{ url_for('user_character.character_detail', characteruuid=list_item[0]) }}" id="char_detail_{{list_item[0]}}">{{list_item[1]}}</a>
                    {% endfor %}
                {% endfor %}
             </div>
