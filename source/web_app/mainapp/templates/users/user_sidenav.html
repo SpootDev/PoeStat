@@ -53,11 +53,20 @@
         <button class="dropdown-btn">Account
             <i class="fas fa-caret-down"></i>
         </button>
-        <div class="dropdown-container">
-            {% for row_data in account_player %}
-                <a href="{{ url_for('user_character.character_detail', characteruuid=row_data[0]) }}" id="char_detail_{{row_data[0]}}">{{row_data[1]}}</a>
-            {% endfor %}
-        </div>
+        {% for dict_item in account_player %}
+            <button class="dropdown-btn">{{dict_item}}
+                <i class="fas fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+               {% for key, value in dict_item.items() %}
+                   <h1>Key: {{key}}</h1>
+                   <h2>Value: {{value}}</h2>
+                   {% for list_item in value %}
+                        <a href="{{ url_for('user_character.character_detail', characteruuid=list_item[0]) }}" id="char_detail_{{row_data[0]}}">{{list_item[1]}}</a>
+                   {% endfor %}
+               {% endfor %}
+            </div>
+        {% endfor %}
         <button class="dropdown-btn">Stash Inventory
             <i class="fas fa-caret-down"></i>
         </button>

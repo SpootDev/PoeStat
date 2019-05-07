@@ -46,4 +46,15 @@ def db_base_account_char_return(self):
                            ' from db_poe_account, db_poe_character '
                            'where poe_account_uuid = db_poe_character_account_uuid'
                            ' order by poe_account_name, db_poe_character_name')
-    return self.db_cursor.fetchall()
+    account_char_dict = {}
+    for row_data in self.db_cursor.fetchall():
+        if row_data['poe_account_uuid'] in account_char_dict:
+            temp_list = account_char_dict['poe_account_uuid'][1]
+            temp_list.append(row_data['db_poe_character_uuid'], row_data['db_poe_character_name'])
+            account_char_dict['poe_account_uuid'] = (row_data['poe_account_name'], temp_list)
+
+        else:
+            account_char_dict['poe_account_uuid'] = (row_data['poe_account_name'],
+                                                     ((row_data['db_poe_character_uuid'],
+                                                      row_data['db_poe_character_name'])))
+    return account_char_dict
