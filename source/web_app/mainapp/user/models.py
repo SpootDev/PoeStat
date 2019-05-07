@@ -12,20 +12,6 @@ from mainapp.database import (
 )
 from mainapp.extensions import bcrypt
 from flask_login import UserMixin
-from sqlalchemy.dialects.postgresql import JSON
-
-
-class Role(SurrogatePK, Model):
-    __tablename__ = 'roles'
-    name = Column(db.String(80), unique=True, nullable=False)
-    user_id = ReferenceCol('id', nullable=True)
-    user = relationship('User', backref='roles')
-
-    def __init__(self, name, **kwargs):
-        db.Model.__init__(self, name=name, **kwargs)
-
-    def __repr__(self):
-        return '<Role({name})>'.format(name=self.name)
 
 
 class User(UserMixin, SurrogatePK, Model):
@@ -38,8 +24,6 @@ class User(UserMixin, SurrogatePK, Model):
                         default=dt.datetime.utcnow)
     active = Column(db.Boolean(), default=False)
     is_admin = Column(db.Boolean(), default=False)
-    user_json = Column(JSON, nullable=True, default=None)
-    lang = Column(db.String(30), nullable=False)
 
     def __init__(self, username, email, password=None, **kwargs):
         db.Model.__init__(self, username=username, email=email, **kwargs)

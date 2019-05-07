@@ -33,3 +33,27 @@ def db_base_account_upsert(self, account_name):
         (str(uuid.uuid4()), account_name, account_name))
     self.db_commit()
     return self.db_cursor.fetchone()[0]
+
+
+def db_base_account_uuid_by_name(self, account_name):
+    self.db_cursor.execute('select poe_account_uuid from db_poe_account'
+                           ' where poe_account_name = %s', (account_name,))
+    return self.db_cursor.fetchone()[0]
+
+
+def db_base_account_char_return(self):
+    self.db_cursor.execute('select poe_account_uuid, poe_account_name, db_poe_character_uuid, db_poe_character_name'
+                           ' from db_poe_account, db_poe_character '
+                           'where poe_account_uuid = db_poe_character_account_uuid'
+                           ' order by poe_account_name, db_poe_character_name')
+    account_char_dict = {}
+    for row_data in self.db_cursor.fetchall():
+        if row_data['poe_account_uuid'] in account_char_dict:
+            temp_list = account_char_dict[row_data['poe_account_uuid']][1]
+            temp_list.append((row_data['db_poe_character_uuid'], row_data['db_poe_character_name']))
+            account_char_dict[row_data['poe_account_uuid']] = (row_data['poe_account_name'], temp_list)
+        else:
+            temp_list = []
+            temp_list.append((row_data['db_poe_character_uuid'], row_data['db_poe_character_name']))
+            account_char_dict[row_data['poe_account_uuid']] = (row_data['poe_account_name'], temp_list)
+    return account_char_dict

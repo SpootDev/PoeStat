@@ -3,7 +3,6 @@
 
 
 import os
-import subprocess
 
 from mainapp.app import create_app
 from mainapp.database import db
@@ -41,8 +40,4 @@ manager.add_command("urls", ShowUrls())
 manager.add_command("clean", Clean())
 
 if __name__ == '__main__':
-    wait_pid = subprocess.Popen(['/poe/wait-for-it-ash.sh', '-h',
-                                 'poerabbitmq', '-p', ' 5672', '-t', '30'],
-                                shell=False)
-    wait_pid.wait()
     manager.run()

@@ -16,8 +16,8 @@
   MA 02110-1301, USA.
 '''
 
-import uuid
 import json
+import uuid
 
 
 def db_base_character_upsert(self, account_uuid, character_json, character_passive_json):
@@ -33,6 +33,30 @@ def db_base_character_upsert(self, account_uuid, character_json, character_passi
         ' do update set db_poe_character_json = %s, db_poe_character_passive_json = %s'
         ' returning db_poe_character_uuid',
         (str(uuid.uuid4()), account_uuid, character_json['name'], json.dumps(character_json),
-         json.dumps(character_passive_json), json.dumps(character_json), json.dumps(character_passive_json)))
+         json.dumps(character_passive_json), json.dumps(character_json),
+         json.dumps(character_passive_json)))
     self.db_commit()
+    return self.db_cursor.fetchone()[0]
+
+
+def db_base_character_by_account(self, account_uuid):
+    """
+    return character list by account id
+    """
+    self.db_cursor.execute(
+        'select db_poe_character_uuid, db_poe_character_name, db_poe_character_json'
+        ' from db_poe_character'
+        ' where db_poe_character_account_uuid = %s'
+        ' order by db_poe_character_name', (account_uuid,))
+    return self.db_cursor.fetchall()
+
+
+def db_base_character_by_uuid(self, character_uuid):
+    """
+    return character data by uuid
+    """
+    self.db_cursor.execute(
+        'select db_poe_character_name, db_poe_character_json'
+        ' from db_poe_character'
+        ' where db_poe_character_uuid = %s', (character_uuid,))
     return self.db_cursor.fetchone()[0]

@@ -5,7 +5,7 @@ User view in webapp
 
 from flask import Blueprint, render_template, g, flash
 
-blueprint = Blueprint("user", __name__, url_prefix='/users',
+blueprint = Blueprint("user_character", __name__, url_prefix='/users',
                       static_folder="../static")
 import sys
 
@@ -29,14 +29,25 @@ def flash_errors(form):
             ))
 
 
-@blueprint.route("/")
-def members():
+@blueprint.route("/<accountname>")
+def character_list(accountname):
     """
     Display main members page
     """
+    account_uuid = g.db_connection.db_base_account_uuid_by_name(accountname)
     return render_template("users/members.html",
-                           account_player=g.db_connection.db_base_account_char_return(),
-                           data_items=g.db_connection.db_item_base_item_tree())
+                           character_list=g.db_connection.db_base_character_by_account(
+                               account_uuid))
+
+
+@blueprint.route("/<characteruuid>")
+def character_detail(characteruuid):
+    """
+    Display character detail
+    """
+    return render_template("users/user_character_detail.html",
+                           character_detail=g.db_connection.db_base_character_by_uuid(
+                               characteruuid))
 
 
 @blueprint.before_request

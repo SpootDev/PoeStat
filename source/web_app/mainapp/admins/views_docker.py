@@ -4,14 +4,9 @@ import sys
 
 sys.path.append('..')
 from flask import Blueprint, render_template, g, flash
-from flask_login import login_required
 
 blueprint = Blueprint("admins_docker", __name__,
                       url_prefix='/admin', static_folder="../static")
-# need the following three items for admin check
-import flask
-from flask_login import current_user
-from functools import wraps
 
 from common import common_config_ini
 from common import common_docker
@@ -33,26 +28,7 @@ def flash_errors(form):
             ))
 
 
-def admin_required(fn):
-    """
-    Admin check
-    """
-
-    @wraps(fn)
-    @login_required
-    def decorated_view(*args, **kwargs):
-        common_global.es_inst.com_elastic_index('info', {"admin access attempt by":
-                                                             current_user.get_id()})
-        if not current_user.is_admin:
-            return flask.abort(403)  # access denied
-        return fn(*args, **kwargs)
-
-    return decorated_view
-
-
 @blueprint.route("/docker_stat")
-@login_required
-@admin_required
 def docker_stat():
     """
     Docker statistics including swarm

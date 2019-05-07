@@ -16,17 +16,16 @@
         <link href="{{ url_for('static', filename='css/base_webapp_layout.css') }}" media="all" rel="stylesheet" type="text/css">
     </head>
     <body id="data_background">
-        <a href="{{ url_for('user_movie_genre.user_movie_page', genre='All') }}" id="user_movie_page">
-        <img class="b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{ url_for('static', filename='images/movie_ticket.png') }}" alt="Movie Ticket" height="200" width="200">
-        </a>
-        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/blazy.min.js') }}"></script>
-        <script>
-            ;(function() {
-                // Initialize
-                var bLazy = new Blazy();
-            })();
-        </script>
+    <div class="row">
+        <div class="col-sm-2">
+            {% with data_items=data_items,
+            account_player=account_player %}
+            {% include "users/user_sidenav.html" %}
+            {% endwith %}
+        </div>
+        <div class="col-sm">
+        </div>
+    </div>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
     </body>
 </html>

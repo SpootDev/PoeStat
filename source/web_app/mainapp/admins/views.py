@@ -6,14 +6,10 @@ import os
 
 sys.path.append('..')
 from flask import Blueprint, render_template, g, request, flash
-from flask_login import login_required
 
 blueprint = Blueprint("admins", __name__,
                       url_prefix='/admin', static_folder="../static")
-# need the following three items for admin check
-import flask
-from flask_login import current_user
-from functools import wraps
+
 from mainapp.admins.forms import AdminSettingsForm
 
 from common import common_config_ini
@@ -42,26 +38,7 @@ def flash_errors(form):
             ))
 
 
-def admin_required(fn):
-    """
-    Admin check
-    """
-
-    @wraps(fn)
-    @login_required
-    def decorated_view(*args, **kwargs):
-        common_global.es_inst.com_elastic_index('info', {"admin access attempt by":
-                                                             current_user.get_id()})
-        if not current_user.is_admin:
-            return flask.abort(403)  # access denied
-        return fn(*args, **kwargs)
-
-    return decorated_view
-
-
 @blueprint.route("/")
-@login_required
-@admin_required
 def admins():
     """
     Display main server page
@@ -105,23 +82,17 @@ def admins():
 
 
 @blueprint.route("/admin_sidenav")
-@login_required
-@admin_required
 def admin_sidenav():
     return render_template("admin/admin_sidenav.html")
 
 
 @blueprint.route("/messages", methods=["GET", "POST"])
-@login_required
-@admin_required
 def admin_messages():
     messages = []
     return render_template("admin/admin_messages.html", data_messages=messages)
 
 
 @blueprint.route("/settings", methods=['GET', 'POST'])
-@login_required
-@admin_required
 def admin_server_settings():
     """
     Display server settings page
@@ -152,8 +123,6 @@ def admin_server_settings():
 
 
 @blueprint.route("/database")
-@login_required
-@admin_required
 def admin_database_statistics():
     """
     Display database statistics page

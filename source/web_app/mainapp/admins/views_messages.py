@@ -5,17 +5,11 @@ import sys
 
 sys.path.append('..')
 from flask import Blueprint, render_template, g, request, flash
-from flask_login import login_required
 
 blueprint = Blueprint("admins_messages", __name__, url_prefix='/admin',
                       static_folder="../static")
-# need the following three items for admin check
-import flask
-from flask_login import current_user
-from functools import wraps
 
 from common import common_config_ini
-from common import common_global
 from common import common_pagination
 import database as database_base
 
@@ -34,26 +28,7 @@ def flash_errors(form):
             ))
 
 
-def admin_required(fn):
-    """
-    Admin check
-    """
-
-    @wraps(fn)
-    @login_required
-    def decorated_view(*args, **kwargs):
-        common_global.es_inst.com_elastic_index('info', {"admin access attempt by":
-                                                             current_user.get_id()})
-        if not current_user.is_admin:
-            return flask.abort(403)  # access denied
-        return fn(*args, **kwargs)
-
-    return decorated_view
-
-
 @blueprint.route("/messages", methods=["GET", "POST"])
-@login_required
-@admin_required
 def admin_messages():
     """
     List all messages
@@ -77,8 +52,6 @@ def admin_messages():
 
 
 @blueprint.route('/message_delete', methods=["POST"])
-@login_required
-@admin_required
 def admin_messages_delete_page():
     """
     Delete messages action 'page'

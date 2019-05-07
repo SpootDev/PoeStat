@@ -65,7 +65,7 @@ services:
       - ./poedata/certs:/etc/nginx/certs:ro
       - poe-static:/poestat/web_app/mainapp/static:ro
     ports:
-      - "8950:8900"
+      - "8950:8950"
     networks:
       - poe_network
     restart: unless-stopped

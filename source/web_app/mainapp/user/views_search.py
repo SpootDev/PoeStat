@@ -4,7 +4,6 @@ User view in webapp
 # -*- coding: utf-8 -*-
 
 from flask import Blueprint, render_template, g, request, redirect, url_for, session
-from flask_login import login_required
 
 blueprint = Blueprint("user_search", __name__,
                       url_prefix='/users', static_folder="../static")
@@ -22,7 +21,6 @@ db_connection = common_config_ini.com_config_read()
 
 
 @blueprint.route("/search", methods=["GET", "POST"])
-@login_required
 def search_media():
     """
     Display search page
@@ -98,7 +96,6 @@ def search_media():
 
 
 @blueprint.route("/search_nav", methods=["GET", "POST"])
-@login_required
 def search_nav_media():
     """
     determine what search results screen to show
