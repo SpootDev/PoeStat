@@ -59,7 +59,7 @@
             </button>
             <div class="dropdown-container">
                {% for character_list in account_player[dict_item][1] %}
-                    <a href="{{ url_for('user_character.character_detail', characteruuid=character_list[0]) }}" id="char_detail_{{character_list[0]}}">{{character_list[1]}}</a>
+                    <a href="{{ url_for('user_character.character_detail', characteruuid=character_list[0]) }}" id="char_detail_{{character_list[0]}}"> {{character_list[1]}}</a>
                {% endfor %}
             </div>
         {% endfor %}
@@ -68,7 +68,7 @@
         </button>
         <div class="dropdown-container">
             {% for row_data in data_items %}
-                <a href="{{ url_for('user_stash.stash_item_list', base_uuid=row_data[0], subtype_uuid=row_data[1]) }}" id="stash_row_{{row_data[0]}}">{{row_data[1]}}</a>
+                <a href="{{ url_for('user_stash.stash_item_list', base_uuid=row_data[0], subtype_uuid=row_data[1]) }}" id="stash_row_{{row_data[0]}}"> {{row_data[1]}}</a>
             {% endfor %}
         </div>
     </div>
