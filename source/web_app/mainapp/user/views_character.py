@@ -29,7 +29,7 @@ def flash_errors(form):
             ))
 
 
-@blueprint.route("/<accountname>")
+@blueprint.route("/charlist/<accountname>")
 def character_list(accountname):
     """
     Display main members page
@@ -40,7 +40,7 @@ def character_list(accountname):
                                account_uuid))
 
 
-@blueprint.route("/<characteruuid>")
+@blueprint.route("/chardetail/<characteruuid>")
 def character_detail(characteruuid):
     """
     Display character detail

@@ -30,7 +30,7 @@ def flash_errors(form):
             ))
 
 
-@blueprint.route("/<base_uuid>/<subtype_uuid>")
+@blueprint.route("/stashitemlist/<base_uuid>/<subtype_uuid>")
 def stash_item_list(base_uuid, subtype_uuid):
     """
     Display main stash
