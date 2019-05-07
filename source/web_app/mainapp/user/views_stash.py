@@ -12,6 +12,7 @@ import sys
 sys.path.append('..')
 sys.path.append('../..')
 from common import common_config_ini
+from common import common_pagination
 import database as database_base
 
 db_connection = common_config_ini.com_config_read()
@@ -34,10 +35,21 @@ def stash_item_list(base_uuid, subtype_uuid):
     """
     Display main stash
     """
-    account_uuid = g.db_connection.db_base_account_uuid_by_name(accountname)
-    return render_template("users/user_stash.html",
-                           character_list=g.db_connection.db_base_character_by_account(
-                               account_uuid))
+    account_uuid = g.db_connection.db_base_account_uuid_by_name('spooticusmaximus')
+    page, per_page, offset = common_pagination.get_page_items()
+    pagination = common_pagination.get_pagination(page=page,
+                                                  per_page=per_page,
+                                                  total=g.db_connection.db_stash_items_by_account_count(False),
+                                                  record_name='Cron Jobs',
+                                                  format_total=True,
+                                                  format_number=True,
+                                                  )
+    return render_template('users/user_stash.html',
+                           stash_items=g.db_connection.db_stash_items_by_account(account_uuid, None, offset, per_page),
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination,
+                           )
 
 
 @blueprint.before_request

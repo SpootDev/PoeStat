@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+<body id="data_background">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/base_webapp_layout.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    </head>
+    {% if stash_items %}
+    {{ pagination.info }}
+    {{ pagination.links }}
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row_data in stash_items %}
+                <tr>
+                    <td>{{ loop.index + (page - 1) * per_page }}</td>
+                    <td>{{ row_data[1] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {{ pagination.links }}
+    {% else %}
+    <p id="general_text">No items found. Have admin check the database!</p>
+    {% endif %}
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+</body>
+{% endblock %}
