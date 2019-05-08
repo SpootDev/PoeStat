@@ -35,7 +35,7 @@ def character_list(account_uuid):
     Display main members page
     """
     g.account_uuid = account_uuid
-    return render_template("users/members.html",
+    return render_template("users/user_character_list.html",
                            character_list=g.db_connection.db_base_character_by_account(account_uuid),
                            account_player=g.db_connection.db_base_account_char_return(),
                            data_items=g.db_connection.db_item_base_item_tree()
