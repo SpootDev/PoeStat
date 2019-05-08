@@ -48,7 +48,10 @@ def stash_item_list(base_uuid, subtype_uuid):
                                                   format_number=True,
                                                   )
     return render_template('users/user_stash.html',
-                           stash_items=g.db_connection.db_stash_items_by_account(g.account_uuid, None, offset, per_page),
+                           stash_items=g.db_connection.db_stash_items_by_account(g.account_uuid, None, offset,
+                                                                                 per_page),
+                           account_player=g.db_connection.db_base_account_char_return(),
+                           data_items=g.db_connection.db_item_base_item_tree(),
                            page=page,
                            per_page=per_page,
                            pagination=pagination,
