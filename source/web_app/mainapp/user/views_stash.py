@@ -30,22 +30,21 @@ def flash_errors(form):
             ))
 
 
-@blueprint.route("/stashitemlist/<base_uuid>/<subtype_uuid>")
+@blueprint.route("/stashitemlist/<account_uuid>/<base_uuid>/<subtype_uuid>")
 def stash_item_list(base_uuid, subtype_uuid):
     """
     Display main stash
     """
-    account_uuid = g.db_connection.db_base_account_uuid_by_name('spooticusmaximus')
     page, per_page, offset = common_pagination.get_page_items()
     pagination = common_pagination.get_pagination(page=page,
                                                   per_page=per_page,
-                                                  total=g.db_connection.db_stash_items_by_account_count(account_uuid),
+                                                  total=g.db_connection.db_stash_items_by_account_count(g.account_uuid),
                                                   record_name='Stash Items',
                                                   format_total=True,
                                                   format_number=True,
                                                   )
     return render_template('users/user_stash.html',
-                           stash_items=g.db_connection.db_stash_items_by_account(account_uuid, None, offset, per_page),
+                           stash_items=g.db_connection.db_stash_items_by_account(g.account_uuid, None, offset, per_page),
                            page=page,
                            per_page=per_page,
                            pagination=pagination,

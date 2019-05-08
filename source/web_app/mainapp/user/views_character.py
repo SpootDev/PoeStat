@@ -34,6 +34,7 @@ def character_list(account_uuid):
     """
     Display main members page
     """
+    g.account_uuid = account_uuid
     return render_template("users/members.html",
                            character_list=g.db_connection.db_base_character_by_account(account_uuid))
 

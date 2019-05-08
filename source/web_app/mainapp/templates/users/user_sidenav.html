@@ -72,7 +72,7 @@
             </button>
             <div class="dropdown-container">
                {% for item_list in data_items[dict_item][1] %}
-                    <a href="{{ url_for('user_stash.stash_item_list', base_uuid=item_list[0], subtype_uuid=item_list[1]) }}" id="stash_row_{{item_list[0]}}"> {{item_list[1]}}</a>
+                    <a href="{{ url_for('user_stash.stash_item_list', base_uuid=item_list[0], subtype_uuid=item_list[0]) }}" id="stash_row_{{item_list[0]}}"> {{item_list[1]}}</a>
                {% endfor %}
             </div>
         {% endfor %}
