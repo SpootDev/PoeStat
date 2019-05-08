@@ -3,7 +3,7 @@ User view in webapp
 """
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, render_template, g, flash
+from flask import Blueprint, render_template, g, flash, redirect, url_for
 
 blueprint = Blueprint("user_stash", __name__, url_prefix='/users',
                       static_folder="../static")
@@ -35,6 +35,10 @@ def stash_item_list(base_uuid, subtype_uuid):
     """
     Display main stash
     """
+    try:
+        test = g.account_uuid
+    except AttributeError:
+        return redirect(url_for('members'))
     page, per_page, offset = common_pagination.get_page_items()
     pagination = common_pagination.get_pagination(page=page,
                                                   per_page=per_page,
