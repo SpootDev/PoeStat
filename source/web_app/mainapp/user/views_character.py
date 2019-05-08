@@ -36,7 +36,10 @@ def character_list(account_uuid):
     """
     g.account_uuid = account_uuid
     return render_template("users/members.html",
-                           character_list=g.db_connection.db_base_character_by_account(account_uuid))
+                           character_list=g.db_connection.db_base_character_by_account(account_uuid),
+                           account_player=g.db_connection.db_base_account_char_return(),
+                           data_items=g.db_connection.db_item_base_item_tree()
+                           )
 
 
 @blueprint.route("/chardetail/<characteruuid>")
@@ -45,7 +48,10 @@ def character_detail(characteruuid):
     Display character detail
     """
     return render_template("users/user_character_detail.html",
-                           character_detail=g.db_connection.db_base_character_by_uuid(characteruuid))
+                           character_detail=g.db_connection.db_base_character_by_uuid(characteruuid),
+                           account_player=g.db_connection.db_base_account_char_return(),
+                           data_items=g.db_connection.db_item_base_item_tree()
+                           )
 
 
 @blueprint.before_request
