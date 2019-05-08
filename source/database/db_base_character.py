@@ -60,4 +60,4 @@ def db_base_character_by_uuid(self, character_uuid):
         ' db_poe_character_passive_json, db_poe_character_items_json'
         ' from db_poe_character'
         ' where db_poe_character_uuid = %s', (character_uuid,))
-    return self.db_cursor.fetchone()[0]
+    return self.db_cursor.fetchone()
