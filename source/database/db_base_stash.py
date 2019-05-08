@@ -66,14 +66,14 @@ def db_stash_delete_null_league(self):
     self.db_commit()
 
 
-def db_stash_items_by_account_count(self, account_uuid, league_uuid):
+def db_stash_items_by_account_count(self, account_uuid, league_uuid=None):
     self.db_cursor.execute('select count(*) from db_poe_account_items'
                            ' where db_poe_account_item_account_uuid = %s',
                            (account_uuid,))
     return self.db_cursor.fetchall()
 
 
-def db_stash_items_by_account(self, account_uuid, league_uuid, offset=0, record_limit=0):
+def db_stash_items_by_account(self, account_uuid, league_uuid=None, offset=0, record_limit=0):
     self.db_cursor.execute('select db_poe_account_item_uuid, db_poe_account_item_json'
                            ' from db_poe_account_items where db_poe_account_item_account_uuid = %s'
                            ' offset = % limit %s',
