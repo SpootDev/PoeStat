@@ -39,7 +39,7 @@ def stash_item_list(base_uuid, subtype_uuid):
     page, per_page, offset = common_pagination.get_page_items()
     pagination = common_pagination.get_pagination(page=page,
                                                   per_page=per_page,
-                                                  total=g.db_connection.db_stash_items_by_account_count(False),
+                                                  total=g.db_connection.db_stash_items_by_account_count(account_uuid),
                                                   record_name='Cron Jobs',
                                                   format_total=True,
                                                   format_number=True,
