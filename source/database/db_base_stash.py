@@ -70,7 +70,7 @@ def db_stash_items_by_account_count(self, account_uuid, league_uuid=None):
     self.db_cursor.execute('select count(*) from db_poe_account_items'
                            ' where db_poe_account_item_account_uuid = %s',
                            (account_uuid,))
-    return self.db_cursor.fetchall()
+    return self.db_cursor.fetchone()[0]
 
 
 def db_stash_items_by_account(self, account_uuid, league_uuid=None, offset=0, record_limit=0):
