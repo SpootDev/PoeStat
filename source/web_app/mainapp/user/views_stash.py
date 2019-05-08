@@ -38,7 +38,7 @@ def stash_item_list(base_uuid, subtype_uuid):
     try:
         test = g.account_uuid
     except AttributeError:
-        return redirect(url_for('members'))
+        return redirect(url_for('user.members'))
     page, per_page, offset = common_pagination.get_page_items()
     pagination = common_pagination.get_pagination(page=page,
                                                   per_page=per_page,
