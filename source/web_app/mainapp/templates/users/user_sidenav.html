@@ -54,7 +54,7 @@
             <i class="fas fa-caret-down"></i>
         </button>
         {% for dict_item in account_player %}
-            <button class="dropdown-btn">{{account_player[dict_item][0]}}
+            <button class="dropdown-btn"><a href="{{ url_for('user_character.character_list', account_uuid=dict_item) }}" id="admin_char_list_{{dict_item}}">{{account_player[dict_item][0]}}</a>
                 <i class="fas fa-caret-down"></i>
             </button>
             <div class="dropdown-container">
