@@ -18,11 +18,22 @@
 
             </div>
             <div class="row">
-
+                <p>Name: {{character_detail[0]}}</p>
+                <p>Char Json: {{character_detail[1]}}</p>
+                <p>Passive Json: {{character_detail[2]}}</p>
+                <p>Items Json: {{character_detail[3]}}</p>
             </div>
         </div>
     </div>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/base_webapp.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/blazy.min.js') }}"></script>
+    <script>
+        ;(function() {
+            // Initialize
+            var bLazy = new Blazy();
+        })();
+    </script>
 </body>
 {% endblock %}
