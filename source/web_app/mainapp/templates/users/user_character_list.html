@@ -30,7 +30,6 @@
                     <tbody>
                         {% for row_data in character_list %}
                         <tr>
-                            <td>{{ loop.index + (page - 1) * per_page }}</td>
                             <td>{{ row_data[1] }}</td>
                             <td>{{ row_data[2]['class'] }}</td>
                             <td>{{ row_data[2]['ascendancyClass'] }}</td>
