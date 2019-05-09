@@ -56,7 +56,9 @@ class ServerDatabase(object):
         db_stash_read_all, \
         db_stash_read_all_id, \
         db_stash_all_league, \
-        db_stash_delete_null_league
+        db_stash_delete_null_league, \
+        db_stash_items_by_account_count, \
+        db_stash_items_by_account
     from database.db_base_status import db_status_read, \
         db_status_update
     from database.db_base_wealth import db_wealth_currency_read, \

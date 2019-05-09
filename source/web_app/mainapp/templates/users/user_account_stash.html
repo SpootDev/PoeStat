@@ -14,33 +14,30 @@
             {% endwith %}
         </div>
         <div class="col-sm">
-            {% if character_list %}
+            {% if stash_items %}
+            {{ pagination.info }}
+            {{ pagination.links }}
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Name</th>
-                            <th>Class</th>
-                            <th>Experience</th>
-                            <th>Level</th>
-                            <th>League</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for row_data in character_list %}
+                        {% for row_data in stash_items %}
                         <tr>
+                            <td>{{ loop.index + (page - 1) * per_page }}</td>
                             <td>{{ row_data[1] }}</td>
-                            <td>{{ row_data[2]['class'] }}</td>
-                            <td>{{ row_data[2]['experience'] }}</td>
-                            <td>{{ row_data[2]['level'] }}</td>
-                            <td>{{ row_data[2]['league'] }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
+            {{ pagination.links }}
             {% else %}
-            <p id="general_text">No characters found. Have admin check the database!</p>
+            <p id="general_text">No items found. Have admin check the database!</p>
             {% endif %}
         </div>
     </div>

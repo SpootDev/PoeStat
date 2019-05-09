@@ -6,8 +6,35 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/base_webapp_layout.css') }}" media="all" rel="stylesheet" type="text/css"/>
     </head>
+    <div class="row">
+        <div class="col-sm-2">
+            {% with data_items=data_items,
+            account_player=account_player %}
+            {% include "users/user_sidenav.html" %}
+            {% endwith %}
+        </div>
+        <div class="col-sm">
+            <div class="row">
 
+            </div>
+            <div class="row">
+                <p>Name: {{character_detail[0]}}</p>
+                <BR>
+                <p>Char Json: {{character_detail[1]}}</p>
+                <p>Passive Json: {{character_detail[2]}}</p>
+                <p>Items Json: {{character_detail[3]}}</p>
+            </div>
+        </div>
+    </div>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/base_webapp.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/blazy.min.js') }}"></script>
+    <script>
+        ;(function() {
+            // Initialize
+            var bLazy = new Blazy();
+        })();
+    </script>
 </body>
 {% endblock %}
