@@ -79,6 +79,7 @@ def db_stash_items_by_account(self, account_uuid, base_uuid, subtype_uuid, leagu
                            ' from db_poe_account_items where db_poe_account_item_account_uuid = %s'
                            ' offset = % limit %s',
                            (account_uuid, offset, record_limit))
+    print(self.db_cursor.fetchall())
     return self.db_cursor.fetchall()
 
 
