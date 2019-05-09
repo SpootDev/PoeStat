@@ -36,20 +36,26 @@ def stash_item_list(base_uuid, subtype_uuid):
     Display main stash
     """
     try:
+        print('hereiam')
         test = g.account_uuid
+        print(test)
     except AttributeError:
+        print('hereiam2')
         return redirect(url_for('user.members'))
     page, per_page, offset = common_pagination.get_page_items()
     pagination = common_pagination.get_pagination(page=page,
                                                   per_page=per_page,
-                                                  total=g.db_connection.db_stash_items_by_account_count(g.account_uuid),
+                                                  total=g.db_connection.db_stash_items_by_account_count(g.account_uuid,
+                                                                                                        base_uuid,
+                                                                                                        subtype_uuid,
+                                                                                                        None),
                                                   record_name='Stash Items',
                                                   format_total=True,
                                                   format_number=True,
                                                   )
     return render_template('users/user_stash.html',
-                           stash_items=g.db_connection.db_stash_items_by_account(g.account_uuid, None, offset,
-                                                                                 per_page),
+                           stash_items=g.db_connection.db_stash_items_by_account(g.account_uuid, base_uuid,
+                                                                                 subtype_uuid, None, offset, per_page),
                            account_player=g.db_connection.db_base_account_char_return(),
                            data_items=g.db_connection.db_item_base_item_tree(),
                            page=page,
