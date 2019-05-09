@@ -35,13 +35,15 @@ def stash_item_list(base_uuid, subtype_uuid):
     """
     Display main stash
     """
-    try:
-        print('hereiam')
-        test = g.account_uuid
-        print(test)
-    except AttributeError:
-        print('hereiam2')
-        return redirect(url_for('user.members'))
+    # try:
+    #     print('hereiam')
+    #     test = g.account_uuid
+    #     print(test)
+    # except AttributeError:
+    #     print('hereiam2')
+    #     return redirect(url_for('user.members'))
+    # TODO use selected account
+    g.account_uuid = g.db_connection.db_base_account_uuid_by_name('spooticusmaximus')
     page, per_page, offset = common_pagination.get_page_items()
     pagination = common_pagination.get_pagination(page=page,
                                                   per_page=per_page,
