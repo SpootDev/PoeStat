@@ -75,12 +75,10 @@ def db_stash_items_by_account_count(self, account_uuid, base_uuid, subtype_uuid,
 
 def db_stash_items_by_account(self, account_uuid, base_uuid, subtype_uuid, league_uuid=None, offset=0, record_limit=0):
     print(account_uuid)
-    print(type(account_uuid))
     self.db_cursor.execute('select db_poe_account_item_uuid, db_poe_account_item_json'
                            ' from db_poe_account_items where db_poe_account_item_account_uuid = %s'
                            ' offset %s limit %s',
                            (account_uuid, offset, record_limit))
-    print(self.db_cursor.fetchall())
     return self.db_cursor.fetchall()
 
 
