@@ -22,14 +22,44 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>ilvl</th>
                             <th>Name</th>
+                            <th>Requirements</th>
+                            <th>Implicit</th>
+                            <th>Explicit</th>
+                            <th>Flavor</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for row_data in stash_items %}
                         <tr>
                             <td>{{ loop.index + (page - 1) * per_page }}</td>
-                            <td>{{ row_data[1] }}</td>
+                            <td>{{ row_data[1]['typeLine'] }}</td>
+                            <td>{{ row_data[1]['stackSize'] }}</td>
+                            <td>{{ row_data[1]['ilvl'] }}</td>
+                            <td>{{ row_data[1]['name'] }}</td>
+                            <td>
+                                {% for row_data in row_data[1]['requirements'] %}
+                                    {{ row_data['name'] + ': ' row_data['values'][0] + ' ' }}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for row_data in row_data[1]['implicitMods'] %}
+                                    {{ row_data + ' ' }}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for row_data in row_data[1]['explicitMods'] %}
+                                    {{ row_data + ' ' }}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for row_data in row_data[1]['flavourText'] %}
+                                    {{ row_data + ' ' }}
+                                {% endfor %}
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
