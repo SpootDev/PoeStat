@@ -79,7 +79,7 @@ def db_stash_items_by_account(self, account_uuid, base_uuid, subtype_uuid, leagu
     self.db_cursor.execute('select db_poe_account_item_uuid, db_poe_account_item_json'
                            ' from db_poe_account_items where db_poe_account_item_account_uuid = %s'
                            ' offset = % limit %s',
-                           (str(account_uuid), offset, record_limit))
+                           (account_uuid, offset, record_limit))
     print(self.db_cursor.fetchall())
     return self.db_cursor.fetchall()
 
