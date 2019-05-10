@@ -108,3 +108,12 @@ def db_item_base_item_tree(self):
                 (row_data['db_poe_item_subtype_uuid'], row_data['db_poe_item_subtype_name']))
             item_dict[row_data['base_uuid']] = (row_data['db_poe_item_class_name'], temp_list)
     return item_dict
+
+
+def db_item_subtype_uuid_from_name(self, subtype_name):
+    self.db_cursor.execute('select db_poe_item_subtype_uuid from db_poe_item_subtypes'
+                           ' where db_poe_item_subtype_name = %s', (subtype_name,))
+    try:
+        return self.db_cursor.fetchone()[0]
+    except TypeError:
+        return None
