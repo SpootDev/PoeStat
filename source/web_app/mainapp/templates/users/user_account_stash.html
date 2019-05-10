@@ -42,7 +42,7 @@
                             <td>{{ row_data[1]['name'] }}</td>
                             <td>
                                 {% for row_data in row_data[1]['requirements'] %}
-                                    {{ row_data['name'] + ': ' row_data['values'][0] + ' ' }}
+                                    {{ row_data['name'] + ': ' + row_data['values'][0] + ' ' }}
                                 {% endfor %}
                             </td>
                             <td>
