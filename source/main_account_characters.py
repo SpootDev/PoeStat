@@ -17,7 +17,9 @@
 '''
 
 import time
+
 from common import common_character
+
 import database as database_base
 
 POE_SESSION_ID = ''
@@ -32,8 +34,10 @@ account_uuid = str(db_connection.db_base_account_upsert(ACCOUNT_NAME))
 for char_info in common_character.com_char_get_list(ACCOUNT_NAME):
     time.sleep(5)
     db_connection.db_base_character_upsert(account_uuid, char_info,
-                                           common_character.com_char_get_passive(POE_SESSION_ID, ACCOUNT_NAME,
-                                                                                 char_info['name'], realm_code='pc'))
+                                           common_character.com_char_get_passive(POE_SESSION_ID,
+                                                                                 ACCOUNT_NAME,
+                                                                                 char_info['name'],
+                                                                                 realm_code='pc'))
 
 # close the database
 db_connection.db_close()

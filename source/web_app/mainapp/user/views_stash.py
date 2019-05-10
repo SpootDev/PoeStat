@@ -3,7 +3,7 @@ User view in webapp
 """
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, render_template, g, flash, redirect, url_for
+from flask import Blueprint, render_template, g, flash
 
 blueprint = Blueprint("user_stash", __name__, url_prefix='/users',
                       static_folder="../static")
@@ -47,17 +47,20 @@ def stash_item_list(base_uuid, subtype_uuid):
     page, per_page, offset = common_pagination.get_page_items()
     pagination = common_pagination.get_pagination(page=page,
                                                   per_page=per_page,
-                                                  total=g.db_connection.db_stash_items_by_account_count(g.account_uuid,
-                                                                                                        base_uuid,
-                                                                                                        subtype_uuid,
-                                                                                                        None),
+                                                  total=g.db_connection.db_stash_items_by_account_count(
+                                                      g.account_uuid,
+                                                      base_uuid,
+                                                      subtype_uuid,
+                                                      None),
                                                   record_name='Stash Items',
                                                   format_total=True,
                                                   format_number=True,
                                                   )
     return render_template('users/user_account_stash.html',
-                           stash_items=g.db_connection.db_stash_items_by_account(g.account_uuid, base_uuid,
-                                                                                 subtype_uuid, None, offset, per_page),
+                           stash_items=g.db_connection.db_stash_items_by_account(g.account_uuid,
+                                                                                 base_uuid,
+                                                                                 subtype_uuid, None,
+                                                                                 offset, per_page),
                            account_player=g.db_connection.db_base_account_char_return(),
                            data_items=g.db_connection.db_item_base_item_tree(),
                            page=page,
