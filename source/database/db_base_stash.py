@@ -102,30 +102,36 @@ def db_stash_items_by_account(self, account_uuid, base_uuid, subtype_uuid, leagu
         if base_uuid == "-1":
             # all items selected
             self.db_cursor.execute('select db_poe_account_item_uuid, db_poe_account_item_json'
-                                   ' from db_poe_account_items'
-                                   ' where db_poe_account_item_account_uuid = %s'
+                                   ' from db_poe_account_items, db_poe_item_class, db_poe_item_subtypes'
+                                   ' where db_poe_account_item_account_uuid = %s'                                  
+                                   ' and db_poe_account_item_class_subtype_uuid = db_poe_item_subtype_uuid'
+                                   ' and db_poe_item_subtype_class_uuid = db_poe_item_subtype_class_uuid'
                                    ' order by db_poe_item_class_name, db_poe_item_subtype_name'
                                    ' offset %s limit %s',
                                    (account_uuid, offset, record_limit))
         else:
             # base uuid is set (helmet, gloves, etc)
             self.db_cursor.execute('select db_poe_account_item_uuid, db_poe_account_item_json'
-                                   ' from db_poe_account_items'
+                                   ' from db_poe_account_items, db_poe_item_class, db_poe_item_subtypes'
                                    ' where db_poe_account_item_account_uuid = %s'
                                    ' and db_poe_account_item_class_subtype_uuid'
                                    ' in (select db_poe_item_subtype_uuid'
                                    ' from db_poe_item_class, db_poe_item_subtypes'
                                    ' where db_poe_item_subtype_class_uuid = db_poe_item_class_uuid'
                                    ' and db_poe_item_class_uuid = %s)'
+                                   ' and db_poe_account_item_class_subtype_uuid = db_poe_item_subtype_uuid'
+                                   ' and db_poe_item_subtype_class_uuid = db_poe_item_subtype_class_uuid'
                                    ' order by db_poe_item_class_name, db_poe_item_subtype_name'
                                    ' offset %s limit %s',
                                    (account_uuid, base_uuid, offset, record_limit))
     else:
         # subtype is set (tornado wand, imperial claw, etc)
         self.db_cursor.execute('select db_poe_account_item_uuid, db_poe_account_item_json'
-                               ' from db_poe_account_items'
+                               ' from db_poe_account_items, db_poe_item_class, db_poe_item_subtypes'
                                ' where db_poe_account_item_account_uuid = %s'
                                ' and db_poe_account_item_class_subtype_uuid = %s'
+                               ' and db_poe_account_item_class_subtype_uuid = db_poe_item_subtype_uuid'
+                               ' and db_poe_item_subtype_class_uuid = db_poe_item_subtype_class_uuid'
                                ' order by db_poe_item_class_name, db_poe_item_subtype_name'
                                ' offset %s limit %s',
                                (account_uuid, subtype_uuid, offset, record_limit))
