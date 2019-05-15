@@ -18,7 +18,6 @@
 
 import math
 
-# Level Total XP    XP to Gain
 character_level_tiers = {
     1: {'Total': 0, 'Gain': 525},
     2: {'Total': 525, 'Gain': 1235},
