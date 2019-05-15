@@ -148,7 +148,6 @@ def calc_exp_by_level(character_level, area_level):
     safezone = math.floor(3 + (character_level / 16))
     # calc the effective difference
     effective_difference = max(abs(character_level - area_level) - safezone, 0)
-    print(safezone, effective_difference)
     # check for 95 or higher
     if character_level >= 95:
         final_exp = max((((character_level + 5) / (
@@ -158,3 +157,5 @@ def calc_exp_by_level(character_level, area_level):
         final_exp = max((((character_level + 5) / (
                 character_level + 5 + (effective_difference ** 2.5))) ** 1.5), 0.01)
     return final_exp * 100
+
+# TODO exp rate in party

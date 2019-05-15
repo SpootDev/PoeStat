@@ -62,7 +62,6 @@ class CommonHotKeys(object):
             print('alphanumeric key {0} pressed'.format(key.char))
         except AttributeError:
             print('special key {0} pressed'.format(key))
-        # TODO....check of F5 goes to HO
         # F2 for HO return
         if keyboard.Key.f2:
             # enter /hideout to return to hideout
@@ -74,8 +73,8 @@ class CommonHotKeys(object):
         elif keyboard.Key.f7:
             # enter /exit to go to character selection screen
             self.play_character_presses('/exit', chat_window=True)
-        elif key.from_char("s"):
-            pass
+        # elif key.from_char("s"):
+        #     pass
 
     def on_release(self, key):
         print('{0} released'.format(key))
