@@ -17,7 +17,9 @@
 '''
 
 import time
+
 from common import common_character
+
 import database as database_base
 
 POE_SESSION_ID = ''
@@ -34,6 +36,7 @@ account_uuid = str(db_connection.db_base_account_upsert(ACCOUNT_NAME))
 
 
 def com_stash_add_personal_item(stash_json):
+    # don't merge as it's called from multiple places
     for item_data in stash_json['items']:
         db_connection.db_item_account_upsert(account_uuid, None, item_data)
 
@@ -43,6 +46,7 @@ initial_stash_data = common_character.com_char_get_stash(poe_session_id=POE_SESS
                                                          account_league='Standard', tab_ndx=0)
 com_stash_add_personal_item(initial_stash_data)
 for stash_tab_ndx in range(1, initial_stash_data['numTabs']):
+    # put sleep ahead since call above
     time.sleep(5)
     com_stash_add_personal_item(
         common_character.com_char_get_stash(poe_session_id=POE_SESSION_ID,
