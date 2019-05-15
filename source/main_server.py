@@ -16,18 +16,22 @@
   MA 02110-1301, USA.
 '''
 
-import os
-import subprocess
 import sys
 import time
 
+import os
+import requests
+import subprocess
 from common import common_config_ini
-from common import common_docker
 from common import common_global
 from common import common_hash
 from common import common_logging_elasticsearch
 from common import common_signal
 from common import common_version
+
+# TODO rate limit for api
+# https://www.pathofexile.com/forum/view-thread/2079853/page/1
+STASH_TAB_API_URL = 'http://www.pathofexile.com/api/public-stash-tabs'
 
 # start logging
 common_global.es_inst = common_logging_elasticsearch.CommonElasticsearch('main_server')
@@ -72,25 +76,25 @@ if db_connection.db_version_check() != common_version.DB_VERSION:
     db_create_pid.wait()
     common_global.es_inst.com_elastic_index('info', {'stuff': 'Database upgrade complete.'})
 
-# setup the docker environment
-docker_inst = common_docker.CommonDocker()
-# check for swarm id (should already be master then)
-docker_info = docker_inst.com_docker_info()
-if ('Managers' in docker_info['Swarm'] and docker_info['Swarm']['Managers'] == 0) \
-        or 'Managers' not in docker_info['Swarm']:
-    common_global.es_inst.com_elastic_index('info',
-                                            {'stuff': 'attempting to init swarm as manager'})
-    # init host to swarm mode
-    docker_inst.com_docker_swarm_init()
-
-# get current working directory from host maps
-# this is used so ./data can be used for all the containers launched from docker-py
-current_host_working_directory = docker_inst.com_docker_container_bind(container_name='/psserver',
-                                                                       bind_match='/data/devices')
-
-# sleep for minute so docker doesn't exit
-while 1:
-    time.sleep(60)
+# pull last id and start populating stash
+last_stash_id = db_connection.db_status_read()
+# load all the base class items into dict (key off base class name)
+db_connection.db_base_import_item_class_list()
+while True:
+    # requests will auto decompress the gzip
+    stash_tab_data = requests.get(STASH_TAB_API_URL + '/?id=' + last_stash_id,
+                                  headers={'accept-encoding': 'gzip'}).json()
+    # verify the ids are not the same (no new stash changes)
+    if 'next_change_id' in stash_tab_data:
+        if last_stash_id != stash_tab_data['next_change_id']:
+            last_stash_id = stash_tab_data['next_change_id']
+            for stash_data in stash_tab_data['stashes']:
+                # do not throw out null leagues as this could be a tab delete (readonly tabs)
+                if stash_data['accountName'] is not None:
+                    db_connection.db_stash_insert(stash_data)
+            # storing the next id after the stash inserts in case it fails
+            db_connection.db_status_update(last_stash_id)
+    time.sleep(5)
 
 # commit
 db_connection.db_commit()
