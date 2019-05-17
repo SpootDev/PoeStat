@@ -26,6 +26,7 @@ Experimental layouts created using Pencil wireframe tool and placed in layouts d
 * Find items that can be done for vendor recipie (gems to 40, etc)
 * Track map or act time via client.txt
 * Store client.txt messages into database for chat history, etc
+* Edit/Create loot filters
 
 # Long term possibilities
 * Overlay for running lab from data provided by PoeLab.com

@@ -5,6 +5,10 @@
    {% endfor %}
 {% endfor %}
 
+currency_api_endpoint = 'http://api.poe.ninja/api/Data/GetCurrencyOverview'
+map_api_endpoint = 'http://api.poe.ninja/api/Data/GetMapOverview'
+unique_map_api_endpoint = 'http://cdn.poe.ninja/api/Data/GetUniqueMapOverview'
+
 when receiveing a null league tab with account name......if no items can probalby delete the stash as was readonly delete
 
 pi pos with touchscreen? com with local client via twisted
