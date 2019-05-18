@@ -9,7 +9,7 @@ Experimental layouts created using Pencil wireframe tool and placed in layouts d
 # Completed
 * Docker compose setup for Database, Nginx, Flask and server components
 * Shell code copied from MediaKraken for web components
-* Fetch and store all stash's from the API for all leagues
+* Fetch and store all stashes from the API for all leagues for market data
 * Fetch and store all account characters (name, class, passive, exp, etc)
 * Fetch stashes for specific account and league
 * Loaded database tables with items, essence, modifiers, etc (data from RePoE)
@@ -22,11 +22,21 @@ Experimental layouts created using Pencil wireframe tool and placed in layouts d
 * Find essence that are not in essence tab (if available)
 * Find maps that are not in map tab (if available)
 * Calculate wealth based on current market value by league
-* Search/Filter stashs for gear/items (including stats, ench, etc)
-* Find items that can be done for vendor recipie (gems to 40, etc)
+* Find items that can be done for vendor recipe (gems to 40, etc)
 * Track map or act time via client.txt
 * Store client.txt messages into database for chat history, etc
+* Search/Filter stashes for gear/items (including stats, etc)
 * Edit/Create loot filters
+  * Is shaper item
+  * Is elder item
+  * Is corrupt item
+  * Usable by selected character
+  * Number of Sockets
+  * Number of links
+  * iLvl
+  * Amount of affixes on an item
+  * Particular enchant (from the lab)
+  
 
 # Long term possibilities
 * Overlay for running lab from data provided by PoeLab.com
