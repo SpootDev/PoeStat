@@ -49,7 +49,8 @@ class ServerDatabase(object):
         db_item_account_list, \
         db_item_account_grouped, \
         db_item_account_base_subtype, \
-        db_item_base_item_tree
+        db_item_base_item_tree, \
+        db_item_subtype_uuid_from_name
     from database.db_base_passive_tree import db_passive_tree_read, \
         db_passive_tree_update
     from database.db_base_stash import db_stash_insert, \

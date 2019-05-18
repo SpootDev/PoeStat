@@ -30,6 +30,8 @@ def db_open(self):
     # setup for unicode
     psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
     psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
+    # add better uuid mapping
+    psycopg2.extras.register_uuid()
     self.sql_conn = psycopg2.connect("dbname='poedb' host='poedb' port=5432 user='postgres'")
     self.sql_conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     self.db_cursor = self.sql_conn.cursor(cursor_factory=psycopg2.extras.DictCursor)

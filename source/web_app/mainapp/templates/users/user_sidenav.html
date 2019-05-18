@@ -65,7 +65,7 @@
         {% endfor %}
     </div>
     <div class="sidenav">
-        <button class="dropdown-btn">Stash Inventory
+        <button class="dropdown-btn"><a href="{{ url_for('user_stash.stash_item_list', base_uuid=-1, subtype_uuid=0) }}" id="stash_base_inventory">Stash Inventory</a>
             <i class="fas fa-caret-down"></i>
         </button>
         {% for dict_item in data_items %}

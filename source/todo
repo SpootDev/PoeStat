@@ -5,6 +5,20 @@
    {% endfor %}
 {% endfor %}
 
+currency_api_endpoint = 'http://api.poe.ninja/api/Data/GetCurrencyOverview'
+map_api_endpoint = 'http://api.poe.ninja/api/Data/GetMapOverview'
+unique_map_api_endpoint = 'http://cdn.poe.ninja/api/Data/GetUniqueMapOverview'
+
+    list_url.append("https://poe.ninja/api/data/itemoverview?league=" + league_name + "&type=UniqueArmour&date=" + time.strftime("%Y-%m-%d"))
+    list_url.append("https://poe.ninja/api/data/itemoverview?league=" + league_name + "&type=UniqueAccessory&date=" + time.strftime("%Y-%m-%d"))
+    list_url.append("https://poe.ninja/api/data/itemoverview?league=" + league_name + "&type=UniqueWeapon&date=" + time.strftime("%Y-%m-%d"))
+    list_url.append("https://poe.ninja/api/data/itemoverview?league=" + league_name + "&type=Prophecy&date=" + time.strftime("%Y-%m-%d"))
+    list_url.append("https://poe.ninja/api/data/itemoverview?league=" + league_name + "&type=DivinationCard&date=" + time.strftime("%Y-%m-%d"))
+    list_url.append("https://poe.ninja/api/data/itemoverview?league=" + league_name + "&type=Map&date=" + time.strftime("%Y-%m-%d"))
+    list_url.append("https://poe.ninja/api/data/itemoverview?league=" + league_name + "&type=Essence&date=" + time.strftime("%Y-%m-%d"))
+    list_url.append("https://poe.ninja/api/data/itemoverview?league=" + league_name + "&type=UniqueFlask&date=" + time.strftime("%Y-%m-%d"))
+    list_url.append("https://poe.ninja/api/data/itemoverview?league=" + league_name + "&type=Fossil&date=" + time.strftime("%Y-%m-%d"))
+
 when receiveing a null league tab with account name......if no items can probalby delete the stash as was readonly delete
 
 pi pos with touchscreen? com with local client via twisted
