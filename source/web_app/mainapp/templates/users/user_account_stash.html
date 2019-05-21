@@ -56,38 +56,38 @@
                             <td>{{ row_data[1]['name'] }}</td>
                             <td>
                                 {% if row_data[1]['requirements'] %}
-                                    <tr>
+                                    <table><tr>
                                     {% for row_data in row_data[1]['requirements'] %}
                                         <td>{{ row_data['name'] + ': ' + row_data['values'][0][0] + ' ' }}</td>
                                     {% endfor %}
-                                    </tr>
+                                    </tr></table>
                                 {% endif %}
                             </td>
                             <td>
                                 {% if row_data[1]['implicitMods'] %}
-                                    <tr>
+                                    <table><tr>
                                     {% for row_data in row_data[1]['implicitMods'] %}
                                         <td>{{ row_data + ' ' }}</td>
                                     {% endfor %}
-                                    </tr>
+                                    </tr></table>
                                 {% endif %}
                             </td>
                             <td>
                                 {% if row_data[1]['explicitMods'] %}
-                                    <tr>
+                                    <table><tr>
                                     {% for row_data in row_data[1]['explicitMods'] %}
                                         <td>{{ row_data + ' ' }}</td>
                                     {% endfor %}
-                                    </tr>
+                                    </tr></table>
                                 {% endif %}
                             </td>
                             <td>
                                 {% if row_data[1]['flavourText'] %}
-                                    <tr>
+                                    <table><tr>
                                     {% for row_data in row_data[1]['flavourText'] %}
                                         <td>{{ row_data + ' ' }}</td>
                                     {% endfor %}
-                                    </tr>
+                                    </tr></table>
                                 {% endif %}
                             </td>
                         </tr>
