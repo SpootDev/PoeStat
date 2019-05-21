@@ -46,7 +46,7 @@ class StashSearchForm(Form):
     search_form_total_sockets = SelectField('Socket Counter',
                                             choices=[('0', '0'), ('1', '1'), ('2', '2'),
                                                      ('3', '3'), ('4', '4'), ('5', '5'),
-                                                     ('6', '6')])
+                                                     ('6', '6')], coerce=str)
     search_form_minimum_armor = TextField('Min Armor', validators=[Length(min=0, max=6)])
 
     def __init__(self, *args, **kwargs):
