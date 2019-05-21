@@ -28,7 +28,7 @@ def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
     returned_items = []
     print('search')
     for search_item in db_dataset:
-        print('item: ', search_item)
+        print('item: ', search_item[1])
         keep_item = True
         if shaper_item:
             if 'shaper' in search_item[1] and search_item[1]['shaper']:
@@ -61,4 +61,5 @@ def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
 
         if keep_item:
             returned_items.append(search_item)
+    print(returned_items)
     return returned_items
