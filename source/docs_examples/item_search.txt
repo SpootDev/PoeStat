@@ -1,6 +1,4 @@
-League
-item type (claw, wand, etc)
-item base (terror claw, imperical claw, etc)
+
 
 by name
 
@@ -8,9 +6,7 @@ mods - type of stats to look at
 	explicit
 	crafted
 	enchant
-	fractured
 	implicit
-
 
 offense
 	physical damage
@@ -20,38 +16,15 @@ offense
 	light dmg
 	crit chance
 
-defense
-	armor
-	block
-	cold res
-	fire res
-	light res
-	chaos res
-	ES
-	life
-	evasion
-
 sockets
-	number of sockets
-	links
 	socket colors
 	link colors
 
 atrrib
 	rarity
-	crafted
-	enchanted
-	shaper
-	synthesized
-	elder
-	fractured
-	veiled
-	corrupted
-	beastcraft
 
 misc:
 	gem level
-	quantity
 	item level
 	quality
 	map level

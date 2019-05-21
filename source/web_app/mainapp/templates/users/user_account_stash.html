@@ -41,24 +41,40 @@
                             <td>{{ row_data[1]['ilvl'] }}</td>
                             <td>{{ row_data[1]['name'] }}</td>
                             <td>
-                                {% for row_data in row_data[1]['requirements'] %}
-                                    {{ row_data['name'] + ': ' + row_data['values'][0][0] + ' ' }}
-                                {% endfor %}
+                                {% if row_data[1]['requirements'] %}
+                                    <tr>
+                                    {% for row_data in row_data[1]['requirements'] %}
+                                        <td>{{ row_data['name'] + ': ' + row_data['values'][0][0] + ' ' }}</td>
+                                    {% endfor %}
+                                    </tr>
+                                {% endif %}
                             </td>
                             <td>
-                                {% for row_data in row_data[1]['implicitMods'] %}
-                                    {{ row_data + ' ' }}
-                                {% endfor %}
+                                {% if row_data[1]['implicitMods'] %}
+                                    <tr>
+                                    {% for row_data in row_data[1]['implicitMods'] %}
+                                        <td>{{ row_data + ' ' }}</td>
+                                    {% endfor %}
+                                    </tr>
+                                {% endif %}
                             </td>
                             <td>
-                                {% for row_data in row_data[1]['explicitMods'] %}
-                                    {{ row_data + ' ' }}
-                                {% endfor %}
+                                {% if row_data[1]['explicitMods'] %}
+                                    <tr>
+                                    {% for row_data in row_data[1]['explicitMods'] %}
+                                        <td>{{ row_data + ' ' }}</td>
+                                    {% endfor %}
+                                    </tr>
+                                {% endif %}
                             </td>
                             <td>
-                                {% for row_data in row_data[1]['flavourText'] %}
-                                    {{ row_data + ' ' }}
-                                {% endfor %}
+                                {% if row_data[1]['flavourText'] %}
+                                    <tr>
+                                    {% for row_data in row_data[1]['flavourText'] %}
+                                        <td>{{ row_data + ' ' }}</td>
+                                    {% endfor %}
+                                    </tr>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
