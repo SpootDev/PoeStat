@@ -13,7 +13,7 @@ sys.path.append('..')
 sys.path.append('../..')
 from common import common_config_ini
 from common import common_pagination
-from common import common_stash_search
+from common import common_search_stash
 import database as database_base
 from mainapp.user.forms import StashSearchForm
 
@@ -49,7 +49,7 @@ def stash_item_list(base_uuid, subtype_uuid):
     if request.method == 'POST':
         page, per_page, offset = common_pagination.get_page_items()
         # populate the item list
-        stash_filter_items = common_stash_search.com_search_stash(
+        stash_filter_items = common_search_stash.com_search_stash(
             g.db_connection.db_stash_items_by_account(g.account_uuid, base_uuid, subtype_uuid, None, offset, per_page),
             shaper_item=request.form['search_form_shaper_item'],
             eldar_item=request.form['search_form_elder_item'],
