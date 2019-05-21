@@ -103,7 +103,7 @@ def stash_item_list(base_uuid, subtype_uuid):
                                                   format_number=True,
                                                   )
     return render_template('users/user_account_stash.html',
-                           form=StashSearchForm(request.form),
+                           form=form,
                            stash_items=g.db_connection.db_stash_items_by_account(g.account_uuid,
                                                                                  base_uuid,
                                                                                  subtype_uuid, None,
