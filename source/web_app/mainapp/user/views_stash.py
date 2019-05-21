@@ -14,7 +14,7 @@ sys.path.append('../..')
 from common import common_config_ini
 from common import common_pagination
 import database as database_base
-from mainapp.admins.forms import StashSearchForm
+from mainapp.user.forms import StashSearchForm
 
 db_connection = common_config_ini.com_config_read()
 
