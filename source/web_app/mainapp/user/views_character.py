@@ -29,16 +29,14 @@ def flash_errors(form):
             ))
 
 
-@blueprint.route("/charlist/<account_uuid>")
-def character_list(account_uuid):
+@blueprint.route("/charlist/", methods=['GET', 'POST'])
+def character_list():
     """
     Display main members page
     """
-    g.account_uuid = account_uuid
+    account_uuid = g.db_connection.db_base_account_uuid_by_name('spooticusmaximus')
     return render_template("users/user_character_list.html",
-                           character_list=g.db_connection.db_base_character_by_account(account_uuid),
-                           account_player=g.db_connection.db_base_account_char_return(),
-                           data_items=g.db_connection.db_item_base_item_tree()
+                           character_list=g.db_connection.db_base_character_by_account(account_uuid)
                            )
 
 
@@ -48,9 +46,7 @@ def character_detail(characteruuid):
     Display character detail
     """
     return render_template("users/user_character_detail.html",
-                           character_detail=g.db_connection.db_base_character_by_uuid(characteruuid),
-                           account_player=g.db_connection.db_base_account_char_return(),
-                           data_items=g.db_connection.db_item_base_item_tree()
+                           character_detail=g.db_connection.db_base_character_by_uuid(characteruuid)
                            )
 
 
