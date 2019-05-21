@@ -19,7 +19,11 @@
                     {{ form.hidden_tag() }}
                     <div class="form-group">
                         {{form.search_form_shaper_item.label}}
-                        {{form.search_form_shaper_item(placeholder="Server Name", class_="form-control")}}
+                        {{form.search_form_shaper_item(placeholder="Is Shaper", class_="form-control")}}
+                    </div>
+                    <div class="form-group">
+                        {{form.search_form_elder_item.label}}
+                        {{form.search_form_elder_item(placeholder="Is Elder", class_="form-control")}}
                     </div>
                 </form>
             </row>
