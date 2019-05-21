@@ -34,7 +34,7 @@
                         {{form.search_form_minimum_armor(placeholder="Min Armor", class_="form-control")}}
                     </div>
                 </form>
-                <p><a href="{{ url_for('user_stash.stash_item_list') }}" class="btn btn-primary btn-large">Filter Item(s)</a>
+                <p><a href="{{ url_for('user_stash.stash_item_list'), base_uuid=base_uuid, subtype_uuid=subtype_uuid }}" class="btn btn-primary btn-large">Filter Item(s)</a>
                     <form method="post">
                         <input class="btn btn-large" type="submit" name="filter" value="Item Filter">
                     </form>
