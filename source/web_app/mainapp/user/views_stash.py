@@ -109,6 +109,8 @@ def stash_item_list(base_uuid, subtype_uuid):
                                page=page,
                                per_page=per_page,
                                pagination=pagination,
+                               base_uuid=base_uuid,
+                               subtype_uuid=subtype_uuid
                                )
 
 
