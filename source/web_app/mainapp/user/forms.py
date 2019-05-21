@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask_wtf import Form
-from wtforms import TextField, PasswordField, \
-    SelectField
+from wtforms import TextField, PasswordField, SelectField, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 from .models import User
@@ -38,22 +37,23 @@ class RegisterForm(Form):
         return True
 
 
-# for searching
-class SearchEditForm(Form):
-    # fields
-    search_string = TextField("Search string", validators=[DataRequired()])
-    search_media_type = SelectField("Media Type", choices=[('any', 'Any'),
-                                                           ('video', 'Video'),
-                                                           ('audio', 'Audio'),
-                                                           ('image', 'Image'),
-                                                           ('publication', 'Publication'),
-                                                           ('game', 'Game')])
+class StashSearchForm(Form):
+    """
+    for editing search
+    """
+    search_form_shaper_item = BooleanField('Shaper')
+    search_form_elder_item = BooleanField('Elder')
+    search_form_total_sockets = SelectField('Socket Counter',
+                                            choices=[('0', '0'), ('1', '1'), ('2', '2'),
+                                                     ('3', '3'), ('4', '4'), ('5', '5'),
+                                                     ('6', '6')])
+    search_form_minimum_armor = TextField('Min Armor', validators=[Length(min=0, max=6)])
 
     def __init__(self, *args, **kwargs):
-        super(SearchEditForm, self).__init__(*args, **kwargs)
+        super(StashSearchForm, self).__init__(*args, **kwargs)
 
     def validate(self):
-        initial_validation = super(SearchEditForm, self).validate()
+        initial_validation = super(StashSearchForm, self).validate()
         if not initial_validation:
             return False
         return True

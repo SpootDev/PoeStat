@@ -14,6 +14,16 @@
             {% endwith %}
         </div>
         <div class="col-sm">
+            <row>
+                <form id="searchForm" class="form form-search" method="POST" action="" role="form">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{form.search_form_shaper_item.label}}
+                        {{form.search_form_shaper_item(placeholder="Server Name", class_="form-control")}}
+                    </div>
+                </form>
+            </row>
+            <row>
             {% if stash_items %}
             {{ pagination.info }}
             {{ pagination.links }}
@@ -85,6 +95,7 @@
             {% else %}
             <p id="general_text">No items found. Have admin check the database!</p>
             {% endif %}
+            </row>
         </div>
     </div>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>

@@ -3,7 +3,7 @@ User view in webapp
 """
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, render_template, g, flash
+from flask import Blueprint, render_template, g, flash, request
 
 blueprint = Blueprint("user_stash", __name__, url_prefix='/users',
                       static_folder="../static")
@@ -14,6 +14,7 @@ sys.path.append('../..')
 from common import common_config_ini
 from common import common_pagination
 import database as database_base
+from mainapp.admins.forms import StashSearchForm
 
 db_connection = common_config_ini.com_config_read()
 
@@ -30,7 +31,7 @@ def flash_errors(form):
             ))
 
 
-@blueprint.route("/stashitemlist/<base_uuid>/<subtype_uuid>")
+@blueprint.route("/stashitemlist/<base_uuid>/<subtype_uuid>", methods=['GET', 'POST'])
 def stash_item_list(base_uuid, subtype_uuid):
     """
     Display main stash
@@ -42,6 +43,11 @@ def stash_item_list(base_uuid, subtype_uuid):
     # except AttributeError:
     #     print('hereiam2')
     #     return redirect(url_for('user.members'))
+    if request.method == 'POST':
+        shaper_item = request.form['search_form_shaper_item']
+        elder_item = request.form['search_form_elder_item']
+        socket_number = request.form('search_form_total_sockets')
+        armor_points = request.form('search_form_minimum_armor')
     # TODO use selected account
     g.account_uuid = g.db_connection.db_base_account_uuid_by_name('spooticusmaximus')
     page, per_page, offset = common_pagination.get_page_items()
@@ -57,6 +63,7 @@ def stash_item_list(base_uuid, subtype_uuid):
                                                   format_number=True,
                                                   )
     return render_template('users/user_account_stash.html',
+                           form=StashSearchForm(request.form),
                            stash_items=g.db_connection.db_stash_items_by_account(g.account_uuid,
                                                                                  base_uuid,
                                                                                  subtype_uuid, None,
