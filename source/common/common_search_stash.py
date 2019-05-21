@@ -26,7 +26,9 @@ def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
                      life_points=0, mana_points=0, minimum_ilvl=0,
                      fire_rez=0, cold_rez=0, light_rez=0, chaos_rez=0):
     returned_items = []
+    print('search')
     for search_item in db_dataset:
+        print('item: ', search_item)
         keep_item = True
         if shaper_item:
             if 'shaper' in search_item and search_item['shaper']:
