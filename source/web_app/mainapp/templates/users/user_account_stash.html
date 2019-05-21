@@ -33,12 +33,8 @@
                         {{form.search_form_minimum_armor.label}}
                         {{form.search_form_minimum_armor(placeholder="Min Armor", class_="form-control")}}
                     </div>
+                    <input class="btn btn-large" type="submit" name="filter" value="Filter Item(s)">
                 </form>
-                <p>
-                    <form method="post">
-                        <input class="btn btn-large" type="submit" name="filter" value="Filter Item(s)">
-                    </form>
-                </p>
             </row>
             <row>
             {% if stash_items %}
