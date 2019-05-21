@@ -31,29 +31,29 @@ def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
         print('item: ', search_item)
         keep_item = True
         if shaper_item:
-            if 'shaper' in search_item and search_item['shaper']:
+            if 'shaper' in search_item[1] and search_item[1]['shaper']:
                 pass
             else:
                 keep_item = False
                 continue
 
         if eldar_item:
-            if 'elder' in search_item and search_item['elder']:
+            if 'elder' in search_item[1] and search_item[1]['elder']:
                 pass
             else:
                 keep_item = False
                 continue
 
         if number_of_sockets > 0:
-            if 'sockets' in search_item and len(search_item['sockets']) >= number_of_sockets:
+            if 'sockets' in search_item[1] and len(search_item[1]['sockets']) >= number_of_sockets:
                 pass
             else:
                 keep_item = False
                 continue
 
         if armor_points > 0:
-            if 'properties' in search_item and 'armor' in search_item['properties'] \
-                    and int(search_item['properties']['armor']) >= armor_points:
+            if 'properties' in search_item[1] and 'armor' in search_item[1]['properties'] \
+                    and int(search_item[1]['properties']['armor']) >= armor_points:
                 pass
             else:
                 keep_item = False
