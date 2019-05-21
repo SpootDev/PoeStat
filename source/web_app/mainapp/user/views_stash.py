@@ -67,24 +67,24 @@ def stash_item_list(base_uuid, subtype_uuid):
             minimum_ilvl=0,
             fire_rez=0, cold_rez=0,
             light_rez=0, chaos_rez=0)
-        pagination = common_pagination.get_pagination(page=page,
-                                                      per_page=per_page,
-                                                      total=len(stash_filter_items),
-                                                      record_name='Stash Items',
-                                                      format_total=True,
-                                                      format_number=True,
-                                                      )
-        return render_template('users/user_account_stash.html',
-                               form=StashSearchForm(request.form),
-                               stash_items=stash_filter_items,
-                               account_player=g.db_connection.db_base_account_char_return(),
-                               data_items=g.db_connection.db_item_base_item_tree(),
-                               page=page,
-                               per_page=per_page,
-                               pagination=pagination,
-                               base_uuid=base_uuid,
-                               subtype_uuid=subtype_uuid
-                               )
+        # pagination = common_pagination.get_pagination(page=page,
+        #                                               per_page=per_page,
+        #                                               total=len(stash_filter_items),
+        #                                               record_name='Stash Items',
+        #                                               format_total=True,
+        #                                               format_number=True,
+        #                                               )
+        # return render_template('users/user_account_stash.html',
+        #                        form=StashSearchForm(request.form),
+        #                        stash_items=stash_filter_items,
+        #                        account_player=g.db_connection.db_base_account_char_return(),
+        #                        data_items=g.db_connection.db_item_base_item_tree(),
+        #                        page=page,
+        #                        per_page=per_page,
+        #                        pagination=pagination,
+        #                        base_uuid=base_uuid,
+        #                        subtype_uuid=subtype_uuid
+        #                        )
     form = StashSearchForm(request.form, csrf_enabled=False)
     if form.validate_on_submit():
         pass
