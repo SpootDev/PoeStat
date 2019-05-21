@@ -35,7 +35,6 @@ def register_blueprints(app):
     # load up user bps
     app.register_blueprint(user.views.blueprint)
     app.register_blueprint(user.views_character.blueprint)
-    app.register_blueprint(user.views_search.blueprint)
     app.register_blueprint(user.views_stash.blueprint)
     # load up admin bps
     app.register_blueprint(admins.views.blueprint)
