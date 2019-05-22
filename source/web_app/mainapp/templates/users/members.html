@@ -18,10 +18,10 @@
     <body id="data_background">
     <div id="portfolio" class="portfolio">
         <a href="{{ url_for('user_character.character_list') }}" id="user_character_page">
-        <img class="b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{ url_for('static', filename='images/users.png') }}" alt="Character(s)" height="300" width="300">
+        <img class="b-lazy" data-src="{{ url_for('static', filename='images/users.png') }}" alt="Character(s)" height="300" width="300">
         </a>
         <a href="{{ url_for('user_stash.stash_item_list') }}" id="user_stash_page">
-        <img class="b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{ url_for('static', filename='images/safebox.png') }}" alt="Item(s)" height="300" width="300">
+        <img class="b-lazy" data-src="{{ url_for('static', filename='images/safebox.png') }}" alt="Item(s)" height="300" width="300">
         </a>
     </div>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
