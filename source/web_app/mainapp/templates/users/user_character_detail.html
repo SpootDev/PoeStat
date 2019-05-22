@@ -7,12 +7,6 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/base_webapp_layout.css') }}" media="all" rel="stylesheet" type="text/css"/>
     </head>
     <div class="row">
-        <div class="col-sm-2">
-            {% with data_items=data_items,
-            account_player=account_player %}
-            {% include "users/user_sidenav.html" %}
-            {% endwith %}
-        </div>
         <div class="col-sm">
             <div class="row">
 
