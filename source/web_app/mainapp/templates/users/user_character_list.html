@@ -23,7 +23,7 @@
                     <tbody>
                         {% for row_data in character_list %}
                         <tr>
-                            <td>{{ row_data[1] }}</td>
+                            <td><a href="{{ url_for('user_character.character_detail', characteruuid=row_data[0]) }}">{{ row_data[1] }}</a></td>
                             <td>{{ row_data[2]['class'] }}</td>
                             <td>{{ row_data[2]['experience'] }}</td>
                             <td>{{ row_data[2]['level'] }}</td>
