@@ -32,8 +32,8 @@ def flash_errors(form):
             ))
 
 
-@blueprint.route("/stashitemlist/", methods=['GET', 'POST'])
-def stash_item_list():
+@blueprint.route("/stashitemlist/<base_uuid>/<subtype_uuid>", methods=['GET', 'POST'])
+def stash_item_list(base_uuid, subtype_uuid):
     """
     Display main stash
     """
@@ -43,7 +43,8 @@ def stash_item_list():
         page, per_page, offset = common_pagination.get_page_items()
         # populate the item list
         stash_filter_items = common_search_stash.com_search_stash(
-            g.db_connection.db_stash_items_by_account(g.account_uuid, '-1', '0', None, offset, per_page),
+            g.db_connection.db_stash_items_by_account(g.account_uuid, base_uuid, subtype_uuid,
+                                                      None, offset, per_page),
             shaper_item=request.form['search_form_shaper_item'],
             eldar_item=request.form['search_form_elder_item'],
             veiled_item=False,
@@ -88,8 +89,8 @@ def stash_item_list():
                                                   per_page=per_page,
                                                   total=g.db_connection.db_stash_items_by_account_count(
                                                       g.account_uuid,
-                                                      '-1',
-                                                      '0',
+                                                      base_uuid,
+                                                      subtype_uuid,
                                                       None),
                                                   record_name='Stash Items',
                                                   format_total=True,
@@ -98,8 +99,9 @@ def stash_item_list():
     return render_template('users/user_account_stash.html',
                            form=form,
                            stash_items=g.db_connection.db_stash_items_by_account(g.account_uuid,
-                                                                                 '-1',
-                                                                                 '0', None,
+                                                                                 base_uuid,
+                                                                                 subtype_uuid,
+                                                                                 None,
                                                                                  offset, per_page),
                            account_player=g.db_connection.db_base_account_char_return(),
                            data_items=g.db_connection.db_item_base_item_tree(),
