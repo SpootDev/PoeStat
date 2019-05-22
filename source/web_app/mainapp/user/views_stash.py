@@ -37,13 +37,6 @@ def stash_item_list():
     """
     Display main stash
     """
-    # try:
-    #     print('hereiam')
-    #     test = g.account_uuid
-    #     print(test)
-    # except AttributeError:
-    #     print('hereiam2')
-    #     return redirect(url_for('user.members'))
     # TODO use selected account
     g.account_uuid = g.db_connection.db_base_account_uuid_by_name('spooticusmaximus')
     if request.method == 'POST':
@@ -112,9 +105,7 @@ def stash_item_list():
                            data_items=g.db_connection.db_item_base_item_tree(),
                            page=page,
                            per_page=per_page,
-                           pagination=pagination,
-                           base_uuid=base_uuid,
-                           subtype_uuid=subtype_uuid
+                           pagination=pagination
                            )
 
 
