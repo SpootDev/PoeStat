@@ -28,7 +28,8 @@ class ServerDatabase(object):
         db_table_count, \
         db_query, \
         db_parallel_workers
-    from database.db_base_account import db_base_account_upsert, \
+    from database.db_base_account import , \
+        db_base_account_upsert, \
         db_base_account_uuid_by_name, \
         db_base_account_char_return
     from database.db_base_character import db_base_character_upsert, \

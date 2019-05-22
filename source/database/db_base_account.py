@@ -19,6 +19,12 @@
 import uuid
 
 
+def db_base_account_with_characters(self):
+    self.db_cursor.execute('select poe_account_uuid, poe_account_name from db_poe_account'
+                           ' where poe_account_characters is not NULL order by poe_account_name')
+    return self.db_cursor.fetchall()
+
+
 def db_base_account_upsert(self, account_name):
     """
     # upsert into database for the player account names
