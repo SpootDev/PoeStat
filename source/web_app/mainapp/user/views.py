@@ -34,9 +34,7 @@ def members():
     """
     Display main members page
     """
-    return render_template("users/members.html",
-                           account_player=g.db_connection.db_base_account_char_return(),
-                           data_items=g.db_connection.db_item_base_item_tree())
+    return render_template("users/members.html")
 
 
 @blueprint.before_request
