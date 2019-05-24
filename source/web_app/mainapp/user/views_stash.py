@@ -64,26 +64,17 @@ def stash_item_list(base_uuid, subtype_uuid):
                 cold_rez=form.search_form_cold_resistance.data,
                 light_rez=form.search_form_lightning_resistance.data,
                 chaos_rez=form.search_form_chaos_resistance.data)
+            return render_template('users/user_account_stash.html',
+                                   notfilter=False,
+                                   form=form,
+                                   stash_items=stash_filter_items,
+                                   account_player=g.db_connection.db_base_account_char_return(),
+                                   data_items=g.db_connection.db_item_base_item_tree(),
+                                   base_uuid=base_uuid,
+                                   subtype_uuid=subtype_uuid
+                                   )
         else:
             flash_errors(form)
-        # pagination = common_pagination.get_pagination(page=page,
-        #                                               per_page=per_page,
-        #                                               total=len(stash_filter_items),
-        #                                               record_name='Stash Items',
-        #                                               format_total=True,
-        #                                               format_number=True,
-        #                                               )
-        # return render_template('users/user_account_stash.html',
-        #                        form=StashSearchForm(request.form),
-        #                        stash_items=stash_filter_items,
-        #                        account_player=g.db_connection.db_base_account_char_return(),
-        #                        data_items=g.db_connection.db_item_base_item_tree(),
-        #                        page=page,
-        #                        per_page=per_page,
-        #                        pagination=pagination,
-        #                        base_uuid=base_uuid,
-        #                        subtype_uuid=subtype_uuid
-        #                        )
     page, per_page, offset = common_pagination.get_page_items()
     pagination = common_pagination.get_pagination(page=page,
                                                   per_page=per_page,
@@ -95,6 +86,7 @@ def stash_item_list(base_uuid, subtype_uuid):
                                                   record_name='Stash Items',
                                                   format_total=True,
                                                   format_number=True,
+                                                  notfilter=True
                                                   )
     return render_template('users/user_account_stash.html',
                            form=form,

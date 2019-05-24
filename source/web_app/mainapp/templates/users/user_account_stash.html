@@ -149,8 +149,10 @@
             </row>
             <row>
             {% if stash_items %}
-            {{ pagination.info }}
-            {{ pagination.links }}
+            {% if notfilter %}
+                {{ pagination.info }}
+                {{ pagination.links }}
+            {% endif %}
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -215,7 +217,9 @@
                     </tbody>
                 </table>
             </div>
-            {{ pagination.links }}
+            {% if notfilter %}
+                {{ pagination.links }}
+            {% endif %}
             {% else %}
             <p id="general_text">No items found with these filter(s).</p>
             {% endif %}
