@@ -19,11 +19,11 @@
 
 # account_uuid and league_uuid not needed as the db query did that
 def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
-                     veiled_item=False, corrupt_item=False,
+                     veiled_item=False, corrupt_item=False, is_usable=False,
                      fractured_item=False, synthesized_item=False,
                      number_of_sockets=None, number_of_links=None,
                      armor_points=0, es_points=0, evasion_points=0,
-                     chance_to_block=0, minimum_ilvl=0,
+                     minimum_ilvl=0,
                      fire_rez=0, cold_rez=0, light_rez=0, chaos_rez=0):
     returned_items = []
     print('search')
