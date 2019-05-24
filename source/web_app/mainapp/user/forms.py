@@ -51,7 +51,7 @@ class StashSearchForm(Form):
                                                      (4, '4'),
                                                      (5, '5'),
                                                      (6, '6')])
-    search_form_minimum_armor = IntegerField('Min Armor', validators=[NumberRange(min=0, max=10000)])
+    search_form_minimum_armor = IntegerField('Min Armor', default=0, validators=[NumberRange(min=0, max=10000)])
 
     def __init__(self, *args, **kwargs):
         super(StashSearchForm, self).__init__(*args, **kwargs)
