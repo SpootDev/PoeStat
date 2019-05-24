@@ -43,6 +43,11 @@ class StashSearchForm(Form):
     """
     search_form_shaper_item = BooleanField('Is Shaper')
     search_form_elder_item = BooleanField('Is Elder')
+    search_form_corrupt_item = BooleanField('Is Corrupt')
+    search_form_useable_item = BooleanField('Is Usable by current character')
+    search_form_veiled_item = BooleanField('Is Veiled')
+    search_form_fractured_item = BooleanField('Is Fractured')
+    search_form_synthesized_item = BooleanField('Is Synthesized')
     search_form_total_sockets = SelectField('Min Sockets', coerce=int,
                                             choices=[(0, '0'),
                                                      (1, '1'),
@@ -51,7 +56,25 @@ class StashSearchForm(Form):
                                                      (4, '4'),
                                                      (5, '5'),
                                                      (6, '6')])
+    search_form_total_links = SelectField('Min Links', coerce=int,
+                                          choices=[(0, '0'),
+                                                   (1, '1'),
+                                                   (2, '2'),
+                                                   (3, '3'),
+                                                   (4, '4'),
+                                                   (5, '5'),
+                                                   (6, '6')])
     search_form_minimum_armor = IntegerField('Min Armor', default=0, validators=[NumberRange(min=0, max=10000)])
+    search_form_minimum_es = IntegerField('Min ES', default=0, validators=[NumberRange(min=0, max=10000)])
+    search_form_minimum_evasion = IntegerField('Min Evasion', default=0, validators=[NumberRange(min=0, max=10000)])
+
+    search_form_minimum_ilvl = IntegerField('Min iLvl', default=0, validators=[NumberRange(min=0, max=100)])
+
+    search_form_fire_resistance = IntegerField('Resistance Fire', default=0, validators=[NumberRange(min=0, max=100)])
+    search_form_cold_resistance = IntegerField('Resistance Cold', default=0, validators=[NumberRange(min=0, max=100)])
+    search_form_lightning_resistance = IntegerField('Resistance Lightning', default=0,
+                                                    validators=[NumberRange(min=0, max=100)])
+    search_form_chaos_resistance = IntegerField('Resistance Chaos', default=0, validators=[NumberRange(min=0, max=100)])
 
     def __init__(self, *args, **kwargs):
         super(StashSearchForm, self).__init__(*args, **kwargs)
