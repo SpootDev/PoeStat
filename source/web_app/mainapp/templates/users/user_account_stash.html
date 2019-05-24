@@ -171,7 +171,11 @@
                     <tbody>
                         {% for row_data in stash_items %}
                         <tr>
-                            <td>{{ loop.index + (page - 1) * per_page }}</td>
+                            {% if notfilter %}
+                                <td>{{ loop.index + (page - 1) * per_page }}</td>
+                            {% else %}
+                                <td>{{ loop.index }}</td>
+                            {% endif %}
                             <td>{{ row_data[1]['typeLine'] }}</td>
                             <td>{{ row_data[1]['stackSize'] }}</td>
                             <td>{{ row_data[1]['ilvl'] }}</td>
