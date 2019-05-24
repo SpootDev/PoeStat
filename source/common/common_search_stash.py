@@ -19,7 +19,7 @@
 
 # account_uuid and league_uuid not needed as the db query did that
 def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
-                     veiled_item=False, corrupted_item=False,
+                     veiled_item=False, corrupt_item=False,
                      fractured_item=False, synthesized_item=False,
                      number_of_sockets=None, number_of_links=None,
                      armor_points=0, es_points=0, evasion_points=0,
@@ -44,7 +44,7 @@ def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
                 keep_item = False
                 continue
 
-        if corrupted_item:
+        if corrupt_item:
             if 'corrupted' in search_item[1]:
                 pass
             else:
