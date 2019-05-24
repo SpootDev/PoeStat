@@ -44,7 +44,8 @@ def stash_item_list(base_uuid, subtype_uuid):
         if form.validate_on_submit():
             # populate the item list
             stash_filter_items = common_search_stash.com_search_stash(
-                g.db_connection.db_stash_items_by_account(g.account_uuid, base_uuid, subtype_uuid, None, 0, 0),
+                g.db_connection.db_stash_items_by_account(g.account_uuid, base_uuid, subtype_uuid,
+                                                          league_uuid=None, offset=0, record_limit=0),
                 shaper_item=form.search_form_shaper_item.data,
                 eldar_item=form.search_form_elder_item.data,
                 corrupt_item=form.search_form_corrupt_item.data,
@@ -66,7 +67,6 @@ def stash_item_list(base_uuid, subtype_uuid):
                                    notfilter=False,
                                    form=form,
                                    stash_items=stash_filter_items,
-                                   account_player=g.db_connection.db_base_account_char_return(),
                                    data_items=g.db_connection.db_item_base_item_tree(),
                                    base_uuid=base_uuid,
                                    subtype_uuid=subtype_uuid
@@ -91,9 +91,9 @@ def stash_item_list(base_uuid, subtype_uuid):
                            stash_items=g.db_connection.db_stash_items_by_account(g.account_uuid,
                                                                                  base_uuid,
                                                                                  subtype_uuid,
-                                                                                 None,
-                                                                                 offset, per_page),
-                           account_player=g.db_connection.db_base_account_char_return(),
+                                                                                 league_uuid=None,
+                                                                                 offset=offset,
+                                                                                 record_limit=per_page),
                            data_items=g.db_connection.db_item_base_item_tree(),
                            page=page,
                            per_page=per_page,
