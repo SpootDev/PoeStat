@@ -31,21 +31,21 @@ def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
         print('item: ', search_item[1])
         keep_item = True
         if shaper_item:
-            if 'shaper' in search_item[1] and search_item[1]['shaper']:
+            if 'shaper' in search_item[1]:
                 pass
             else:
                 keep_item = False
                 continue
 
         if eldar_item:
-            if 'elder' in search_item[1] and search_item[1]['elder']:
+            if 'elder' in search_item[1]:
                 pass
             else:
                 keep_item = False
                 continue
 
         if corrupted_item:
-            if 'corrupted' in search_item[1] and search_item[1]['corrupted']:
+            if 'corrupted' in search_item[1]:
                 pass
             else:
                 keep_item = False
