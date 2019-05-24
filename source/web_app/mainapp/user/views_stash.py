@@ -42,11 +42,9 @@ def stash_item_list(base_uuid, subtype_uuid):
     g.account_uuid = g.db_connection.db_base_account_uuid_by_name('spooticusmaximus')
     if request.method == 'POST':
         if form.validate_on_submit():
-            page, per_page, offset = common_pagination.get_page_items()
             # populate the item list
             stash_filter_items = common_search_stash.com_search_stash(
-                g.db_connection.db_stash_items_by_account(g.account_uuid, base_uuid, subtype_uuid,
-                                                          None, offset, per_page),
+                g.db_connection.db_stash_items_by_account(g.account_uuid, base_uuid, subtype_uuid, None, 0, 0),
                 shaper_item=form.search_form_shaper_item.data,
                 eldar_item=form.search_form_elder_item.data,
                 corrupt_item=form.search_form_corrupt_item.data,
