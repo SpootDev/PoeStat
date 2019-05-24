@@ -41,8 +41,8 @@ class StashSearchForm(Form):
     """
     for editing search
     """
-    search_form_shaper_item = BooleanField('Shaper')
-    search_form_elder_item = BooleanField('Elder')
+    search_form_shaper_item = BooleanField('Is Shaper')
+    search_form_elder_item = BooleanField('Is Elder')
     search_form_total_sockets = SelectField('Min Sockets', coerce=int,
                                             choices=[(0, '0'),
                                                      (1, '1'),

@@ -47,7 +47,7 @@ def stash_item_list(base_uuid, subtype_uuid):
             stash_filter_items = common_search_stash.com_search_stash(
                 g.db_connection.db_stash_items_by_account(g.account_uuid, base_uuid, subtype_uuid,
                                                           None, offset, per_page),
-                shaper_item=request.form['search_form_shaper_item'],
+                shaper_item=request.search_form_shaper_item.data,
                 eldar_item=request.form['search_form_elder_item'],
                 veiled_item=False,
                 corrupted_item=False,
