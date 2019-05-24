@@ -26,7 +26,7 @@ def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
                      minimum_ilvl=0,
                      fire_rez=0, cold_rez=0, light_rez=0, chaos_rez=0):
     returned_items = []
-    print('search')
+    print('search:', db_dataset)
     for search_item in db_dataset:
         print('item: ', search_item[1])
         keep_item = True
