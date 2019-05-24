@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask_wtf import Form
-from wtforms import TextField, PasswordField, SelectField, BooleanField
+from wtforms import TextField, PasswordField, SelectField, BooleanField, IntegerField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, NumberRange
 
 from .models import User
@@ -51,7 +51,7 @@ class StashSearchForm(Form):
                                                      (4, '4'),
                                                      (5, '5'),
                                                      (6, '6')])
-    search_form_minimum_armor = TextField('Min Armor', validators=[NumberRange(min=0, max=10000)])
+    search_form_minimum_armor = IntegerField('Min Armor', validators=[NumberRange(min=0, max=10000)])
 
     def __init__(self, *args, **kwargs):
         super(StashSearchForm, self).__init__(*args, **kwargs)
