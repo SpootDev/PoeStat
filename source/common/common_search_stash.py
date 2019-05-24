@@ -19,11 +19,11 @@
 
 # account_uuid and league_uuid not needed as the db query did that
 def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
-                     veiled_item=False, corrupted_item=False, beastcraft_item=False,
+                     veiled_item=False, corrupted_item=False,
                      fractured_item=False, synthesized_item=False,
                      number_of_sockets=None, number_of_links=None,
-                     armor_points=0, es_points=0, evasion_points=0, chance_to_block=0,
-                     life_points=0, mana_points=0, minimum_ilvl=0,
+                     armor_points=0, es_points=0, evasion_points=0,
+                     chance_to_block=0, minimum_ilvl=0,
                      fire_rez=0, cold_rez=0, light_rez=0, chaos_rez=0):
     returned_items = []
     print('search')
@@ -44,6 +44,13 @@ def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
                 keep_item = False
                 continue
 
+        if corrupted_item:
+            if 'corrupted' in search_item[1] and search_item[1]['corrupted']:
+                pass
+            else:
+                keep_item = False
+                continue
+
         if number_of_sockets > 0:
             if 'sockets' in search_item[1] and len(search_item[1]['sockets']) >= number_of_sockets:
                 pass
@@ -54,6 +61,30 @@ def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
         if armor_points > 0:
             if 'properties' in search_item[1] and 'armor' in search_item[1]['properties'] \
                     and int(search_item[1]['properties']['armor']) >= armor_points:
+                pass
+            else:
+                keep_item = False
+                continue
+
+        if es_points > 0:
+            if 'properties' in search_item[1] and 'energyshield' in search_item[1]['properties'] \
+                    and int(search_item[1]['properties']['energyshield']) >= es_points:
+                pass
+            else:
+                keep_item = False
+                continue
+
+        if evasion_points > 0:
+            if 'properties' in search_item[1] and 'evasion' in search_item[1]['properties'] \
+                    and int(search_item[1]['properties']['evasion']) >= evasion_points:
+                pass
+            else:
+                keep_item = False
+                continue
+
+        if minimum_ilvl > 0:
+            if 'properties' in search_item[1] and 'ilvl' in search_item[1]['properties'] \
+                    and int(search_item[1]['properties']['ilvl']) >= minimum_ilvl:
                 pass
             else:
                 keep_item = False
