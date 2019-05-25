@@ -26,11 +26,9 @@ def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
                      minimum_ilvl=0,
                      fire_rez=0, cold_rez=0, light_rez=0, chaos_rez=0):
     returned_items = []
-    print(shaper_item, eldar_item, veiled_item, corrupt_item, is_usable,
-          fractured_item, synthesized_item,
-          number_of_sockets, number_of_links,
-          armor_points, es_points, evasion_points,
-          minimum_ilvl, fire_rez, cold_rez, light_rez, chaos_rez)
+    print(shaper_item, eldar_item, veiled_item, corrupt_item, is_usable, fractured_item, synthesized_item,
+          number_of_sockets, number_of_links, armor_points, es_points, evasion_points, minimum_ilvl,
+          fire_rez, cold_rez, light_rez, chaos_rez)
     for search_item in db_dataset:
         print('item: ', search_item[1])
         keep_item = True
@@ -96,5 +94,4 @@ def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
 
         if keep_item:
             returned_items.append(search_item)
-    print(returned_items)
     return returned_items
