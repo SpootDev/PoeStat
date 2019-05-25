@@ -30,8 +30,8 @@ def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
           number_of_sockets, number_of_links, armor_points, es_points, evasion_points, minimum_ilvl,
           fire_rez, cold_rez, light_rez, chaos_rez)
     for search_item in db_dataset:
-        print('item: ', search_item[1])
-        print('type: ', type(search_item[1]))
+        # print('item: ', search_item[1])
+        # print('type: ', type(search_item[1]))
         keep_item = True
         if shaper_item:
             if 'shaper' in search_item[1]:
@@ -93,7 +93,7 @@ def com_search_stash(db_dataset, shaper_item=False, eldar_item=False,
         #         keep_item = False
         #         continue
 
-        print('keep', keep_item)
+        # print('keep', keep_item)
         if keep_item:
             returned_items.append(search_item)
     return returned_items
