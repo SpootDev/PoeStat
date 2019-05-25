@@ -45,7 +45,7 @@ def stash_item_list(base_uuid, subtype_uuid):
             # populate the item list
             stash_filter_items = common_search_stash.com_search_stash(
                 g.db_connection.db_stash_items_by_account(g.account_uuid, base_uuid, subtype_uuid,
-                                                          league_uuid=None, offset=0, record_limit=0),
+                                                          league_uuid=None, offset=0, record_limit=999999999999999999),
                 shaper_item=form.search_form_shaper_item.data,
                 eldar_item=form.search_form_elder_item.data,
                 corrupt_item=form.search_form_corrupt_item.data,
@@ -77,10 +77,7 @@ def stash_item_list(base_uuid, subtype_uuid):
     pagination = common_pagination.get_pagination(page=page,
                                                   per_page=per_page,
                                                   total=g.db_connection.db_stash_items_by_account_count(
-                                                      g.account_uuid,
-                                                      base_uuid,
-                                                      subtype_uuid,
-                                                      None),
+                                                      g.account_uuid, base_uuid, subtype_uuid, None),
                                                   record_name='Stash Items',
                                                   format_total=True,
                                                   format_number=True,
@@ -88,12 +85,9 @@ def stash_item_list(base_uuid, subtype_uuid):
                                                   )
     return render_template('users/user_account_stash.html',
                            form=form,
-                           stash_items=g.db_connection.db_stash_items_by_account(g.account_uuid,
-                                                                                 base_uuid,
-                                                                                 subtype_uuid,
-                                                                                 league_uuid=None,
-                                                                                 offset=offset,
-                                                                                 record_limit=per_page),
+                           stash_items=g.db_connection.db_stash_items_by_account(g.account_uuid, base_uuid,
+                                                                                 subtype_uuid, league_uuid=None,
+                                                                                 offset=offset, record_limit=per_page),
                            data_items=g.db_connection.db_item_base_item_tree(),
                            page=page,
                            per_page=per_page,
