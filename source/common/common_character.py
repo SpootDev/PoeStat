@@ -17,6 +17,7 @@
 '''
 
 import json
+
 import requests
 
 
@@ -24,7 +25,8 @@ import requests
 def com_char_get_stash(poe_session_id, account_name, account_league, tab_ndx):
     with requests.Session() as char_session:
         response = char_session.post(
-            'https://pathofexile.com/character-window/get-stash-items?accountName=%s&league=%s&tabIndex=%s&tabs=1' % (
+            'https://pathofexile.com/character-window/'
+            'get-stash-items?accountName=%s&league=%s&tabIndex=%s&tabs=1' % (
                 account_name, account_league, tab_ndx),
             headers={'Cookie': 'POESESSID=' + poe_session_id})
         return json.loads(response.content)
@@ -39,7 +41,8 @@ def com_char_get_list(account_name, league_name=None):
     `   "class":"Shadow","level":75,"experience":566277952}]
     """
     poe_char_request = requests.get(
-        'https://www.pathofexile.com/character-window/get-characters?accountName=%s' % account_name,
+        'https://www.pathofexile.com/character-window/'
+        'get-characters?accountName=%s' % account_name,
         headers={'accept-encoding': 'gzip'})
     if poe_char_request.status_code == 200:
         result_data = poe_char_request.json()
@@ -60,7 +63,8 @@ def com_char_get_list(account_name, league_name=None):
 def com_char_get_passive(poe_session_id, account_name, character_name, realm_code='pc'):
     with requests.Session() as char_session:
         response = char_session.post(
-            'https://www.pathofexile.com/character-window/get-passive-skills?accountName=%s&character=%s&realm=%s' % (
+            'https://www.pathofexile.com/character-window/'
+            'get-passive-skills?accountName=%s&character=%s&realm=%s' % (
                 account_name, character_name, realm_code),
             headers={'Cookie': 'POESESSID=' + poe_session_id})
         return json.loads(response.content)
@@ -69,7 +73,8 @@ def com_char_get_passive(poe_session_id, account_name, character_name, realm_cod
 def com_char_get_items(poe_session_id, account_name, character_name, realm_code='pc'):
     with requests.Session() as char_session:
         response = char_session.post(
-            'https://www.pathofexile.com/character-window/get-items?accountName=%s&character=%s&realm=%s' % (
+            'https://www.pathofexile.com/character-window/'
+            'get-items?accountName=%s&character=%s&realm=%s' % (
                 account_name, character_name, realm_code),
             headers={'Cookie': 'POESESSID=' + poe_session_id})
         return json.loads(response.content)

@@ -228,7 +228,8 @@ character_class_base = {'Marauder': {'STR': 32, 'DEX': 14, 'INT': 14,
                         }
 
 
-def calculate_character_base_stats(character_class, character_level, character_passive_json, character_items_json):
+def calculate_character_base_stats(character_class, character_level, character_passive_json,
+                                   character_items_json):
     """
     Str, Dex, etc.
     """

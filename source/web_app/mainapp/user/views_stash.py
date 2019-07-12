@@ -45,7 +45,8 @@ def stash_item_list(base_uuid, subtype_uuid):
             # populate the item list
             stash_filter_items = common_search_stash.com_search_stash(
                 g.db_connection.db_stash_items_by_account(g.account_uuid, base_uuid, subtype_uuid,
-                                                          league_uuid=None, offset=None, record_limit=None),
+                                                          league_uuid=None, offset=None,
+                                                          record_limit=None),
                 shaper_item=form.search_form_shaper_item.data,
                 eldar_item=form.search_form_elder_item.data,
                 corrupt_item=form.search_form_corrupt_item.data,

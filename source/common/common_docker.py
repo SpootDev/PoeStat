@@ -29,7 +29,8 @@ from . import common_global
 # the following function is used in ALPINE until socket.gethostbyname('host.docker.internal') is valid
 def com_docker_host_ip():
     # this doesn't work from a container!  it'll just give the route ip to the host  ie 172.x.x.x
-    return subprocess.check_output(['ip', '-4', 'route', 'show', 'default']).decode("utf-8").split(' ')[2]
+    return \
+    subprocess.check_output(['ip', '-4', 'route', 'show', 'default']).decode("utf-8").split(' ')[2]
 
 
 class CommonDocker(object):
@@ -205,10 +206,11 @@ class CommonDocker(object):
                                        ports={"5044": 5044, "5601": 5601, "9200": 9200},
                                        name='mkelk',
                                        network='mk_mediakraken_network',
-                                       volumes={os.path.join(current_host_working_directory, 'data/elk'):
-                                                    {'bind': '/var/lib/elasticsearch',
-                                                     'mode': 'rw'}
-                                                },
+                                       volumes={
+                                           os.path.join(current_host_working_directory, 'data/elk'):
+                                               {'bind': '/var/lib/elasticsearch',
+                                                'mode': 'rw'}
+                                           },
                                        environment={'ELASTICSEARCH_START': 1,
                                                     'LOGSTASH_START': 0,
                                                     'KIBANA_START': 1}
@@ -220,7 +222,8 @@ class CommonDocker(object):
                                        detach=True,
                                        ports={"64738": 64738},
                                        name='mkmumble',
-                                       volumes={os.path.join(current_host_working_directory, 'data/mumble'):
+                                       volumes={os.path.join(current_host_working_directory,
+                                                             'data/mumble'):
                                                     {'bind': '/etc/mumble',
                                                      'mode': 'rw'}
                                                 }
@@ -246,7 +249,8 @@ class CommonDocker(object):
                                        volumes={'/var/run/docker.sock':
                                                     {'bind': '/var/run/docker.sock',
                                                      'mode': 'ro'},
-                                                os.path.join(current_host_working_directory, 'data/portainer'):
+                                                os.path.join(current_host_working_directory,
+                                                             'data/portainer'):
                                                     {'bind': '/ data', 'mode': 'rw'}})
 
     def com_docker_run_teamspeak(self, current_host_working_directory):
@@ -254,21 +258,9 @@ class CommonDocker(object):
         return self.cli.containers.run(image='mediakraken/mkteamspeak',
                                        ports={"9987/upd": 9987, "10011": 10011,
                                               "30033": 30033},
-                                       volumes={os.path.join(current_host_working_directory, 'data/teamspeak/data'):
+                                       volumes={os.path.join(current_host_working_directory,
+                                                             'data/teamspeak/data'):
                                                     {'bind': '/opt/teamspeak',
                                                      'mode': 'rw'},
                                                 },
                                        name='mkteamspeak')
-
-    def com_docker_run_wireshark(self):
-        """
-        run wireshark
-        """
-        self.com_docker_delete_container('mkwireshark')
-        self.com_docker_network_create('mk_mediakraken_network')
-        return self.cli.containers.run(image='mediakraken/mkwireshark',
-                                       detach=True,
-                                       name='mkwireshark',
-                                       ports={"14500": 14500},
-                                       cap_add=('NET_ADMIN'),
-                                       environment={'XPRA_PW': 'wireshark'})

@@ -16,7 +16,7 @@
   MA 02110-1301, USA.
 '''
 
-
+import os
 import pickle
 import time
 
@@ -58,3 +58,16 @@ def com_file_load_data(file_name, as_pickle=False):
         data_block = file_handle.read()
     file_handle.close()
     return data_block
+
+
+def com_mkdir_p(filename):
+    """
+    create directory path if not exists
+    """
+    try:
+        folder = os.path.dirname(filename)
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        return True
+    except:
+        return False
