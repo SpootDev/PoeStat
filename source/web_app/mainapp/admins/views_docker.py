@@ -40,8 +40,7 @@ def docker_stat():
     if 'Managers' not in docker_info['Swarm'] or docker_info['Swarm']['Managers'] == 0:
         docker_swarm = "Cluster not active"
     else:
-        docker_swarm = docker_inst.com_docker_swarm_inspect()[
-            'JoinTokens']['Worker']
+        docker_swarm = docker_inst.com_docker_swarm_inspect()['JoinTokens']['Worker']
     return render_template("admin/admin_docker.html",
                            data_host=docker_info,
                            data_swam=docker_swarm

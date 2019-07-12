@@ -1,5 +1,6 @@
 docker push poestat/psbase38py3:latest
 docker push poestat/psbase39py3:latest
+docker push poestat/psbase310py3:latest
 docker push poestat/psdatabase:latest
 docker push poestat/psnginx:latest
 docker push poestat/pspgbounce:latest

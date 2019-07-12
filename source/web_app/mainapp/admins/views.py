@@ -110,7 +110,6 @@ def admin_server_settings():
         settings_json['Docker Instances']['pgadmin'] = request.form['docker_pgadmin']
         settings_json['Docker Instances']['portainer'] = request.form['docker_portainer']
         settings_json['Docker Instances']['teamspeak'] = request.form['docker_teamspeak']
-        settings_json['Docker Instances']['wireshark'] = request.form['docker_wireshark']
         # main server info
         settings_json['MediaKrakenServer']['Server Name'] = request.form['servername']
         settings_json['MediaKrakenServer']['MOTD'] = request.form['servermotd']
