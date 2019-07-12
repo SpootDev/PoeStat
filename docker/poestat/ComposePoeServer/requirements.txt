@@ -1,2 +1,2 @@
-docker
-cryptography
+docker==4.0.2
+cryptography==2.7
