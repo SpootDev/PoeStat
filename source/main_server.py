@@ -16,21 +16,36 @@
   MA 02110-1301, USA.
 '''
 
+import datetime
+import os
+import subprocess
 import sys
 import time
 
-import os
 import requests
-import subprocess
 from common import common_config_ini
 from common import common_global
 from common import common_hash
 from common import common_logging_elasticsearch
 from common import common_signal
 from common import common_version
+from common.common_limiter import *
 
-# TODO rate limit for api
+
 # https://www.pathofexile.com/forum/view-thread/2079853/page/1
+@ratelimited(common_limiter.API_LIMIT['poe_api'][0]
+             / common_limiter.API_LIMIT['poe_api'][1])
+def poe_api(last_stash_id):
+    """
+    Rate limiter for PoE api
+    """
+    common_global.es_inst.com_elastic_index('info', {"here i am in poerate rate":
+                                                         datetime.datetime.now().strftime(
+                                                             "%H:%M:%S.%f")})
+    return requests.get(STASH_TAB_API_URL + '/?id=' + last_stash_id,
+                        headers={'accept-encoding': 'gzip'}).json()
+
+
 STASH_TAB_API_URL = 'http://www.pathofexile.com/api/public-stash-tabs'
 
 # start logging
@@ -82,8 +97,9 @@ last_stash_id = db_connection.db_status_read()
 db_connection.db_base_import_item_class_list()
 while True:
     # requests will auto decompress the gzip
-    stash_tab_data = requests.get(STASH_TAB_API_URL + '/?id=' + last_stash_id,
-                                  headers={'accept-encoding': 'gzip'}).json()
+    stash_tab_data = poe_api(last_stash_id)
+    # stash_tab_data = requests.get(STASH_TAB_API_URL + '/?id=' + last_stash_id,
+    #                               headers={'accept-encoding': 'gzip'}).json()
     # verify the ids are not the same (no new stash changes)
     if 'next_change_id' in stash_tab_data:
         if last_stash_id != stash_tab_data['next_change_id']:
