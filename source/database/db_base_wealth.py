@@ -40,6 +40,6 @@ def db_wealth_poe_ninja_currency_read(self):
 
 def db_wealth_poe_ninja_currency_write(self, ninja_json):
     self.db_cursor.execute(
-        'insert into db_poe_poe_ninja_currency (db_poe_currency_json) values (%s)'
-        % json.dumps(ninja_json))
+        'insert into db_poe_poe_ninja_currency (db_poe_currency_json) values (%s)',
+        (json.dumps(ninja_json),))
     self.db_cursor.commit()
